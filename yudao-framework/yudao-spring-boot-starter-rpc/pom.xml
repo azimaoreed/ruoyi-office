@@ -15,7 +15,7 @@
     <description>
         OpenFeign：提供 RESTful API 的调用
     </description>
-    <url>https://gitee.com/yqzy1688/ruoyi-office.git</url>
+    <url>https://gitcode.com/zhouzhongyan/ruoyi-office.git</url>
 
     <dependencies>
         <dependency>
