@@ -1,1 +1,1 @@
-<http://www.iocoder.cn/Spring-Boot/SkyWalking/?yudao>
+<http://www.ruoyioffice.com/Spring-Boot/SkyWalking/?yudao>

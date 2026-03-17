@@ -29,7 +29,7 @@ tenant-id: {{adminTenantId}}
 {
   "conversationId": "1781604279872581797",
   "content": "图片里有什么？",
-  "attachmentUrls": ["http://test.yudao.iocoder.cn/1755531278.jpeg"]
+  "attachmentUrls": ["http://test.yudao.ruoyioffice.com/1755531278.jpeg"]
 }
 
 ### 发送消息（流式）【追问带文件】

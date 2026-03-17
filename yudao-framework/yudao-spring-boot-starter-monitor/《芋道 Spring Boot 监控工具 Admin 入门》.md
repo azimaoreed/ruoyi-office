@@ -1,1 +1,1 @@
-<https://www.iocoder.cn/Spring-Boot/Admin/?yudao>
+<https://www.ruoyioffice.com/Spring-Boot/Admin/?yudao>

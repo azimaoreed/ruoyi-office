@@ -1,1 +1,1 @@
-<http://www.iocoder.cn/Spring-Cloud/Feign/?yudao>
+<http://www.ruoyioffice.com/Spring-Cloud/Feign/?yudao>

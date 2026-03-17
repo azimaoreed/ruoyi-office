@@ -41,7 +41,7 @@ public class AuthPermissionInfoRespVO {
         @Schema(description = "用户昵称", requiredMode = Schema.RequiredMode.REQUIRED, example = "宇擎源码")
         private String nickname;
 
-        @Schema(description = "用户头像", requiredMode = Schema.RequiredMode.REQUIRED, example = "https://www.iocoder.cn/xx.jpg")
+        @Schema(description = "用户头像", requiredMode = Schema.RequiredMode.REQUIRED, example = "https://www.ruoyioffice.com/xx.jpg")
         private String avatar;
 
         @Schema(description = "部门编号", requiredMode = Schema.RequiredMode.REQUIRED, example = "2048")
@@ -50,7 +50,7 @@ public class AuthPermissionInfoRespVO {
         @Schema(description = "用户账号", requiredMode = Schema.RequiredMode.REQUIRED, example = "yudao")
         private String username;
 
-        @Schema(description = "用户邮箱", example = "yudao@iocoder.cn")
+        @Schema(description = "用户邮箱", example = "yudao@ruoyioffice.com")
         private String email;
 
         @Schema(description = "公司编号", example = "1024")

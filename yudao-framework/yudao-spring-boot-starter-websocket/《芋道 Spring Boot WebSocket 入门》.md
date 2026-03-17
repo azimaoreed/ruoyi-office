@@ -1,1 +1,1 @@
-<http://www.iocoder.cn/Spring-Boot/WebSocket/?yudao>
+<http://www.ruoyioffice.com/Spring-Boot/WebSocket/?yudao>

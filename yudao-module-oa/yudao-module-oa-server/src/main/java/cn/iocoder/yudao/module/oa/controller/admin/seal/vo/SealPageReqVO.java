@@ -60,7 +60,7 @@ public class SealPageReqVO extends PageParam {
     @DateTimeFormat(pattern = FORMAT_YEAR_MONTH_DAY)
     private LocalDate[] disableDate;
 
-    @Schema(description = "上传照片", example = "https://www.iocoder.cn")
+    @Schema(description = "上传照片", example = "https://www.ruoyioffice.com")
     private String picUrl;
 
     @Schema(description = "显示顺序")

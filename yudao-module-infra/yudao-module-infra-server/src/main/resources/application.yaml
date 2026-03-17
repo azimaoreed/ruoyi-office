@@ -134,7 +134,7 @@ yudao:
     base-package: cn.iocoder.yudao.module.infra
   web:
     admin-ui:
-      url: http://dashboard.yudao.iocoder.cn # Admin 管理后台 UI 的地址
+      url: http://dashboard.yudao.ruoyioffice.com # Admin 管理后台 UI 的地址
   xss:
     enable: false
     exclude-urls: # 如下两个 url，仅仅是为了演示，去掉配置也没关系

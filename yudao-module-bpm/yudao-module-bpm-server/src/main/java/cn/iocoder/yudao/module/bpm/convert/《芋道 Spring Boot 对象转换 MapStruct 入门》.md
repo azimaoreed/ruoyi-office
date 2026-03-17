@@ -1,1 +1,1 @@
-<http://www.iocoder.cn/Spring-Boot/MapStruct/?yudao>
+<http://www.ruoyioffice.com/Spring-Boot/MapStruct/?yudao>

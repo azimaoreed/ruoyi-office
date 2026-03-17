@@ -28,7 +28,7 @@ public interface SocialClientApi {
     @Parameters({
             @Parameter(name = "socialType", description = "社交平台的类型", example = "1", required = true),
             @Parameter(name = "userType", description = "用户类型", example = "1", required = true),
-            @Parameter(name = "redirectUri", description = "重定向 URL", example = "https://www.iocoder.cn", required = true)
+            @Parameter(name = "redirectUri", description = "重定向 URL", example = "https://www.ruoyioffice.com", required = true)
     })
     CommonResult<String> getAuthorizeUrl(@RequestParam("socialType") Integer socialType,
                                          @RequestParam("userType") Integer userType,
@@ -38,7 +38,7 @@ public interface SocialClientApi {
     @Operation(summary = "创建微信公众号 JS SDK 初始化所需的签名")
     @Parameters({
             @Parameter(name = "userType", description = "用户类型", example = "1", required = true),
-            @Parameter(name = "url", description = "访问 URL", example = "https://www.iocoder.cn", required = true)
+            @Parameter(name = "url", description = "访问 URL", example = "https://www.ruoyioffice.com", required = true)
     })
     CommonResult<SocialWxJsapiSignatureRespDTO> createWxMpJsapiSignature(@RequestParam("userType") Integer userType,
                                                                          @RequestParam("url") String url);

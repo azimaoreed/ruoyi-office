@@ -16,7 +16,7 @@ public enum DecorateComponentEnum {
     /**
      * 格式：[{
      *  "name": "标题"
-     *  "picUrl": "https://www.iocoder.cn/xxx.png",
+     *  "picUrl": "https://www.ruoyioffice.com/xxx.png",
      *  "url": "/pages/users/index"
      * }]
      *
@@ -32,7 +32,7 @@ public enum DecorateComponentEnum {
     ROLLING_NEWS("scrolling-news", "滚动新闻"),
     /**
      * 格式：[{
-     *  "picUrl": "https://www.iocoder.cn/xxx.png",
+     *  "picUrl": "https://www.ruoyioffice.com/xxx.png",
      *  "url": "/pages/users/index"
      * }]
      */

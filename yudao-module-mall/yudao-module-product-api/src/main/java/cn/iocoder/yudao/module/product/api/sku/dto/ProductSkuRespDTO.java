@@ -26,7 +26,7 @@ public class ProductSkuRespDTO {
     private Integer costPrice;
     @Schema(description = "SKU 的条形码", requiredMode = Schema.RequiredMode.REQUIRED, example = "123456789")
     private String barCode;
-    @Schema(description = "图片地址", requiredMode = Schema.RequiredMode.REQUIRED, example = "https://www.iocoder.cn/xxx.jpg")
+    @Schema(description = "图片地址", requiredMode = Schema.RequiredMode.REQUIRED, example = "https://www.ruoyioffice.com/xxx.jpg")
     private String picUrl;
 
     @Schema(description = "库存", requiredMode = Schema.RequiredMode.REQUIRED, example = "100")

@@ -40,7 +40,7 @@ public class MeetingRoomSaveReqVO {
     @NotNull(message = "可用状态不能为空")
     private Integer availableStatus;
 
-    @Schema(description = "会议室图片URL", example = "https://www.iocoder.cn/image.jpg")
+    @Schema(description = "会议室图片URL", example = "https://www.ruoyioffice.com/image.jpg")
     private String picUrl;
 
     @Schema(description = "坐席数", example = "20")
@@ -49,7 +49,7 @@ public class MeetingRoomSaveReqVO {
     @Schema(description = "会议室设备（数组形式，如：[\"tv\",\"computer\",\"projector\"]）", example = "[\"tv\",\"computer\"]")
     private List<String> equipment;
 
-    @Schema(description = "附件URL", example = "https://www.iocoder.cn/file.pdf")
+    @Schema(description = "附件URL", example = "https://www.ruoyioffice.com/file.pdf")
     private String attachmentUrl;
 
     @Schema(description = "备注（200字以内）", example = "可容纳20人的会议室")

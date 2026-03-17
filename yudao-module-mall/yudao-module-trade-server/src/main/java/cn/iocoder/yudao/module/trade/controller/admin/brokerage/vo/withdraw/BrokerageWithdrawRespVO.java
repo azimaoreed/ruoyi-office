@@ -42,7 +42,7 @@ public class BrokerageWithdrawRespVO {
     @Schema(description = "开户地址", example = "海淀支行")
     private String bankAddress;
 
-    @Schema(description = "收款码", example = "https://www.iocoder.cn")
+    @Schema(description = "收款码", example = "https://www.ruoyioffice.com")
     private String qrCodeUrl;
 
     @Schema(description = "状态", requiredMode = Schema.RequiredMode.REQUIRED, example = "1")

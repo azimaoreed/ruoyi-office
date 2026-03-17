@@ -19,7 +19,7 @@ public class HomePageSimpleRespVO {
     @Schema(description = "首页描述", example = "用于销售人员查看业绩数据")
     private String description;
 
-    @Schema(description = "预览图", example = "https://www.iocoder.cn/preview.jpg")
+    @Schema(description = "预览图", example = "https://www.ruoyioffice.com/preview.jpg")
     private String previewImage;
 
     @Schema(description = "是否默认首页", requiredMode = Schema.RequiredMode.REQUIRED, example = "false")

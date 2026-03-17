@@ -157,7 +157,7 @@ public class TenantServiceImplTest extends BaseDbUnitTest {
             o.setContactMobile("15601691300");
             o.setPackageId(100L);
             o.setStatus(randomCommonStatus());
-            o.setWebsites(singletonList("https://www.iocoder.cn"));
+            o.setWebsites(singletonList("https://www.ruoyioffice.com"));
             o.setUsername("yunai");
             o.setPassword("yuanma");
         }).setId(null); // 设置为 null，方便后面校验
@@ -337,11 +337,11 @@ public class TenantServiceImplTest extends BaseDbUnitTest {
     @Disabled // H2 不支持 find_in_set 函数
     public void testGetTenantByWebsite() {
         // mock 数据
-        TenantDO dbTenant = randomPojo(TenantDO.class, o -> o.setWebsites(singletonList("https://www.iocoder.cn")));
+        TenantDO dbTenant = randomPojo(TenantDO.class, o -> o.setWebsites(singletonList("https://www.ruoyioffice.com")));
         tenantMapper.insert(dbTenant);// @Sql: 先插入出一条存在的数据
 
         // 调用
-        TenantDO result = tenantService.getTenantByWebsite("https://www.iocoder.cn");
+        TenantDO result = tenantService.getTenantByWebsite("https://www.ruoyioffice.com");
         // 校验存在
         assertPojoEquals(result, dbTenant);
     }

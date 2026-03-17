@@ -1,1 +1,1 @@
-<http://www.iocoder.cn/Spring-Boot/RabbitMQ/?yudao>
+<http://www.ruoyioffice.com/Spring-Boot/RabbitMQ/?yudao>

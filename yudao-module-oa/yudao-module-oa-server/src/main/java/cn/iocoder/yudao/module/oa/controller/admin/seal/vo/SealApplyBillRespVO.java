@@ -117,7 +117,7 @@ public class SealApplyBillRespVO {
     @ExcelProperty("申请人ID")
     private Long applyerId;
 
-    @Schema(description = "附件地址", example = "http://www.iocoder.cn/file.doc")
+    @Schema(description = "附件地址", example = "http://www.ruoyioffice.com/file.doc")
     @ExcelProperty("附件地址")
     private String attachmentUrls;
 

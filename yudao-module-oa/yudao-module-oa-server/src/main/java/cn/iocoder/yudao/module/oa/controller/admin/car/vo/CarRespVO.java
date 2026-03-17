@@ -82,7 +82,7 @@ public class CarRespVO {
     @JsonFormat(pattern = FORMAT_YEAR_MONTH_DAY)
     private LocalDate yearCheckDate;
 
-    @Schema(description = "上传照片", example = "https://www.iocoder.cn")
+    @Schema(description = "上传照片", example = "https://www.ruoyioffice.com")
     @ExcelProperty("上传照片")
     private String picUrl;
 

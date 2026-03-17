@@ -1,1 +1,1 @@
-<http://www.iocoder.cn/Spring-Boot/Swagger/?yudao>
+<http://www.ruoyioffice.com/Spring-Boot/Swagger/?yudao>

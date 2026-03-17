@@ -7,7 +7,7 @@ tenant-id: {{adminTenantId}}
 {
   "knowledgeId": 2,
   "name": "测试文档",
-  "url": "https://static.iocoder.cn/README.md",
+  "url": "https://static.ruoyioffice.com/README.md",
   "segmentMaxTokens": 800
 }
 
@@ -22,12 +22,12 @@ tenant-id: {{adminTenantId}}
   "list": [
     {
       "name": "测试文档1",
-      "url": "https://static.iocoder.cn/README.md",
+      "url": "https://static.ruoyioffice.com/README.md",
       "segmentMaxTokens": 800
     },
     {
       "name": "测试文档2",
-      "url": "https://static.iocoder.cn/README_yudao.md",
+      "url": "https://static.ruoyioffice.com/README_yudao.md",
       "segmentMaxTokens": 400
     }
   ]

@@ -1,4 +1,4 @@
-宇擎源码 http://www.iocoder.cn
+宇擎源码 http://www.ruoyioffice.com
 Application Version: ${yudao.info.version}
 Spring Boot Version: ${spring-boot.version}
 

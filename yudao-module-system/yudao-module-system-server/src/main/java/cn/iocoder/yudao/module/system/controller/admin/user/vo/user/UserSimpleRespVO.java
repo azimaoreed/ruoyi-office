@@ -26,7 +26,7 @@ public class UserSimpleRespVO {
     @Schema(description = "手机号码", example = "15601691300")
     private String mobile;
 
-    @Schema(description = "邮箱", example = "yudao@iocoder.cn")
+    @Schema(description = "邮箱", example = "yudao@ruoyioffice.com")
     private String email;
 
     @Schema(description = "用户名称", example = "芋艿")

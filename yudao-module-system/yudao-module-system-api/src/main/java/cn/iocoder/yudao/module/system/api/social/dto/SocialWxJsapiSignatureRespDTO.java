@@ -16,7 +16,7 @@ public class SocialWxJsapiSignatureRespDTO {
     @Schema(description = "时间戳", requiredMode = Schema.RequiredMode.REQUIRED, example = "123456789")
     private Long timestamp;
 
-    @Schema(description = "URL", requiredMode = Schema.RequiredMode.REQUIRED, example = "https://www.iocoder.cn")
+    @Schema(description = "URL", requiredMode = Schema.RequiredMode.REQUIRED, example = "https://www.ruoyioffice.com")
     private String url;
 
     @Schema(description = "签名", requiredMode = Schema.RequiredMode.REQUIRED, example = "zsw")

@@ -61,7 +61,7 @@ public class SealSaveReqVO {
     @Schema(description = "停用日期")
     private LocalDate disableDate;
 
-    @Schema(description = "上传照片", example = "https://www.iocoder.cn")
+    @Schema(description = "上传照片", example = "https://www.ruoyioffice.com")
     private String picUrl;
 
     @Schema(description = "显示顺序")

@@ -40,11 +40,11 @@ public class IotProductRespVO {
     @ExcelProperty("产品分类")
     private String categoryName;
 
-    @Schema(description = "产品图标", example = "https://iocoder.cn/1.svg")
+    @Schema(description = "产品图标", example = "https://ruoyioffice.com/1.svg")
     @ExcelProperty("产品图标")
     private String icon;
 
-    @Schema(description = "产品图片", example = "https://iocoder.cn/1.png")
+    @Schema(description = "产品图片", example = "https://ruoyioffice.com/1.png")
     @ExcelProperty("产品图片")
     private String picUrl;
 

@@ -1,1 +1,1 @@
-<http://www.iocoder.cn/Spring-Boot/Validation/?yudao>
+<http://www.ruoyioffice.com/Spring-Boot/Validation/?yudao>

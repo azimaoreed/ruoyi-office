@@ -49,7 +49,7 @@ public class MeetingRoomRespVO {
     @DictFormat("oa_meeting_room_status")
     private Integer availableStatus;
 
-    @Schema(description = "会议室图片URL", example = "https://www.iocoder.cn/image.jpg")
+    @Schema(description = "会议室图片URL", example = "https://www.ruoyioffice.com/image.jpg")
     @ExcelProperty("会议室图片")
     private String picUrl;
 
@@ -60,7 +60,7 @@ public class MeetingRoomRespVO {
     @Schema(description = "会议室设备（数组形式）", example = "[\"tv\",\"computer\"]")
     private List<String> equipment;
 
-    @Schema(description = "附件URL", example = "https://www.iocoder.cn/file.pdf")
+    @Schema(description = "附件URL", example = "https://www.ruoyioffice.com/file.pdf")
     @ExcelProperty("附件URL")
     private String attachmentUrl;
 

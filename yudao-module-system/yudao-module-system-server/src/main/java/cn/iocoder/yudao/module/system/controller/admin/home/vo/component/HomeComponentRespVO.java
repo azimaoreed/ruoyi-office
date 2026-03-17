@@ -27,7 +27,7 @@ public class HomeComponentRespVO {
     @Schema(description = "组件描述", example = "展示网站访问数据统计")
     private String description;
 
-    @Schema(description = "预览图", example = "https://www.iocoder.cn/preview.jpg")
+    @Schema(description = "预览图", example = "https://www.ruoyioffice.com/preview.jpg")
     private String previewImage;
 
     @Schema(description = "默认宽度", requiredMode = Schema.RequiredMode.REQUIRED, example = "12")

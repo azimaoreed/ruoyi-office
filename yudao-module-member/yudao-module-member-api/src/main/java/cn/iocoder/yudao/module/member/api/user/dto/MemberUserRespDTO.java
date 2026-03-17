@@ -18,7 +18,7 @@ public class MemberUserRespDTO {
     @Schema(description = "帐号状态", requiredMode = Schema.RequiredMode.REQUIRED, example = "1")
     private Integer status; // 参见 CommonStatusEnum 枚举
 
-    @Schema(description = "用户头像", example = "https://www.iocoder.cn/xxx.jpg")
+    @Schema(description = "用户头像", example = "https://www.ruoyioffice.com/xxx.jpg")
     private String avatar;
 
     @Schema(description = "手机号", example = "15601691300")

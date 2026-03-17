@@ -28,7 +28,7 @@ public class AdminUserRespDTO implements VO {
     @Schema(description = "手机号码", requiredMode = Schema.RequiredMode.REQUIRED, example = "15601691300")
     private String mobile;
 
-    @Schema(description = "用户头像", requiredMode = Schema.RequiredMode.REQUIRED, example = "https://www.iocoder.cn/1.png")
+    @Schema(description = "用户头像", requiredMode = Schema.RequiredMode.REQUIRED, example = "https://www.ruoyioffice.com/1.png")
     private String avatar;
 
 }

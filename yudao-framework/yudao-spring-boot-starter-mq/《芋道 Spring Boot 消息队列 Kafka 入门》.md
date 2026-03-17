@@ -1,1 +1,1 @@
-<http://www.iocoder.cn/Spring-Boot/Kafka/?yudao>
+<http://www.ruoyioffice.com/Spring-Boot/Kafka/?yudao>

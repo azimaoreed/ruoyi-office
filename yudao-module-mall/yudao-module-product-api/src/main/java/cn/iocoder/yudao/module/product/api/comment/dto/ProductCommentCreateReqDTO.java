@@ -27,7 +27,7 @@ public class ProductCommentCreateReqDTO {
     @Schema(description = "评论内容", requiredMode = Schema.RequiredMode.REQUIRED, example = "好评")
     @NotNull(message = "评论内容不能为空")
     private String content;
-    @Schema(description = "评论图片地址数组，以逗号分隔最多上传 9 张", example = "https://www.iocoder.cn/xxx.jpg,http://www.iocoder.cn/yyy.jpg")
+    @Schema(description = "评论图片地址数组，以逗号分隔最多上传 9 张", example = "https://www.ruoyioffice.com/xxx.jpg,http://www.ruoyioffice.com/yyy.jpg")
     private List<String> picUrls;
 
     @Schema(description = "是否匿名", requiredMode = Schema.RequiredMode.REQUIRED, example = "true")

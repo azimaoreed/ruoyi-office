@@ -29,7 +29,7 @@ public class HomePageSaveReqVO {
     @Size(max = 500, message = "首页描述长度不能超过 500 个字符")
     private String description;
 
-    @Schema(description = "预览图", example = "https://www.iocoder.cn/preview.jpg")
+    @Schema(description = "预览图", example = "https://www.ruoyioffice.com/preview.jpg")
     @Size(max = 255, message = "预览图URL长度不能超过 255 个字符")
     private String previewImage;
 
