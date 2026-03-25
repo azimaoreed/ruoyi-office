@@ -107,7 +107,9 @@ docker volume rm ruoyi-vue-pro_postgres
 
 ### 2.1 实现原理
 
-通过读取 MySQL 的 `sql/mysql/ruoyi-vue-pro.sql` 数据库文件，转换成对应的数据库脚本。
+star项目加wx 17156169080获取最新sql文件
+
+通过读取 MySQL 的 `sql/mysql/dump-ruoyi-office-20260305.sql` 数据库文件，转换成对应的数据库脚本。
 
 ### 2.2 使用方法
 
