@@ -6,8 +6,7 @@ import lombok.Data;
 /**
  * 短信模板 Response DTO
  *
- * @author 宇擎源码
- */
+  */
 @Data
 public class SmsTemplateRespDTO {
 

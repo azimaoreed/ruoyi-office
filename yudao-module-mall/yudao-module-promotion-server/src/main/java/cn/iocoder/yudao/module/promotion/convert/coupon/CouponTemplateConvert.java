@@ -18,8 +18,7 @@ import java.util.Map;
 /**
  * 优惠劵模板 Convert
  *
- * @author 宇擎源码
- */
+  */
 @Mapper
 public interface CouponTemplateConvert {
 

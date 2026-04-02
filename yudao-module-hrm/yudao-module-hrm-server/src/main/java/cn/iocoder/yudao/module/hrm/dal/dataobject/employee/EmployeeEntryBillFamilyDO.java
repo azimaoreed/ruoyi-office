@@ -9,8 +9,7 @@ import lombok.*;
 /**
  * 员工入职申请单家属信息 DO
  *
- * @author 宇擎源码
- */
+  */
 @TableName("hrm_employee_entry_bill_family")
 @KeySequence("hrm_employee_entry_bill_family_seq")
 @Data

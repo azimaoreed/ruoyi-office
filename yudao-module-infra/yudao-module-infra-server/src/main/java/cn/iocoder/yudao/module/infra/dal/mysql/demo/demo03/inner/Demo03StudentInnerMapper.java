@@ -10,8 +10,7 @@ import org.apache.ibatis.annotations.Mapper;
 /**
  * 学生 Mapper
  *
- * @author 宇擎源码
- */
+  */
 @Mapper
 public interface Demo03StudentInnerMapper extends BaseMapperX<Demo03StudentDO> {
 

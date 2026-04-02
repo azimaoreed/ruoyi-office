@@ -8,8 +8,7 @@ import static cn.hutool.core.util.ArrayUtil.firstMatch;
 /**
  * 代码生成的场景枚举
  *
- * @author 宇擎源码
- */
+  */
 @AllArgsConstructor
 @Getter
 public enum CodegenSceneEnum {

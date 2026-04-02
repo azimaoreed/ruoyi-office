@@ -19,8 +19,7 @@ import java.util.List;
 /**
  * {@link OpenAiChatModel} 集成测试
  *
- * @author 宇擎源码
- */
+  */
 public class OpenAIChatModelTests {
 
     private final OpenAiChatModel chatModel = OpenAiChatModel.builder()

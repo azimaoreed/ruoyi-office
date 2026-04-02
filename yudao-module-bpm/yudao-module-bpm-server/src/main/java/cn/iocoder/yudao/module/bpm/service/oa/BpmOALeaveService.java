@@ -11,8 +11,7 @@ import jakarta.validation.Valid;
  * 请假申请 Service 接口
  *
  * @author jason
- * @author 宇擎源码
- */
+  */
 public interface BpmOALeaveService {
 
     /**

@@ -5,8 +5,7 @@ import cn.iocoder.yudao.module.iot.dal.dataobject.device.IotDevicePropertyDO;
 /**
  * IoT Redis Key 枚举类
  *
- * @author 宇擎源码
- */
+  */
 public interface RedisKeyConstants {
 
     /**

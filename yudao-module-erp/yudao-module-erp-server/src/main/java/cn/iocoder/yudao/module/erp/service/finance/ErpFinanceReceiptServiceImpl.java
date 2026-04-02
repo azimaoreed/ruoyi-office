@@ -40,8 +40,7 @@ import static cn.iocoder.yudao.module.erp.enums.ErrorCodeConstants.*;
 /**
  * ERP 收款单 Service 实现类
  *
- * @author 宇擎源码
- */
+  */
 @Service
 @Validated
 public class ErpFinanceReceiptServiceImpl implements ErpFinanceReceiptService {

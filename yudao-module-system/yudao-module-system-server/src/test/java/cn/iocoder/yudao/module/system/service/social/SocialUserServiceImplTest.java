@@ -37,8 +37,7 @@ import static org.mockito.Mockito.when;
 /**
  * {@link SocialUserServiceImpl} 的单元测试类
  *
- * @author 宇擎源码
- */
+  */
 @Import(SocialUserServiceImpl.class)
 public class SocialUserServiceImplTest extends BaseDbUnitTest {
 

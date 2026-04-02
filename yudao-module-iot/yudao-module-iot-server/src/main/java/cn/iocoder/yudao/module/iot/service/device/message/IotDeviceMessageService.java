@@ -16,8 +16,7 @@ import java.util.List;
 /**
  * IoT 设备消息 Service 接口
  *
- * @author 宇擎源码
- */
+  */
 public interface IotDeviceMessageService {
 
     /**

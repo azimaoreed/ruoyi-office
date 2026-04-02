@@ -8,8 +8,7 @@ import java.time.Duration;
 /**
  * 宇擎 IoT 全局配置类
  *
- * @author 宇擎源码
- */
+  */
 @Component
 @Data
 public class YudaoIotProperties {

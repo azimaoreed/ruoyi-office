@@ -11,8 +11,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * 项目启动成功后，提供文档相关的地址
  *
- * @author 宇擎源码
- */
+  */
 @Component
 @Slf4j
 public class BannerApplicationRunner implements ApplicationRunner {
@@ -27,28 +26,28 @@ public class BannerApplicationRunner implements ApplicationRunner {
                             "开发文档: \t{} \n\t" +
                             "视频教程: \t{} \n" +
                             "----------------------------------------------------------",
-                    "https://ruoyioffice.com/api-doc/",
-                    "https://ruoyioffice.com",
-                    "https://ruoyioffice.com/02Yf6M7Qn");
+                    "https://example.com/api-doc/",
+                    "https://example.com",
+                    "https://example.com/02Yf6M7Qn");
 
             // 数据报表
-            System.out.println("[报表模块 yudao-module-report 教程][参考 https://ruoyioffice.com/report/ 开启]");
+            System.out.println("[报表模块 yudao-module-report 教程][参考 https://example.com/report/ 开启]");
             // 工作流
-            System.out.println("[工作流模块 yudao-module-bpm 教程][参考 https://ruoyioffice.com/bpm/ 开启]");
+            System.out.println("[工作流模块 yudao-module-bpm 教程][参考 https://example.com/bpm/ 开启]");
             // 商城系统
-            System.out.println("[商城系统 yudao-module-mall 教程][参考 https://ruoyioffice.com/mall/build/ 开启]");
+            System.out.println("[商城系统 yudao-module-mall 教程][参考 https://example.com/mall/build/ 开启]");
             // ERP 系统
-            System.out.println("[ERP 系统 yudao-module-erp - 教程][参考 https://ruoyioffice.com/erp/build/ 开启]");
+            System.out.println("[ERP 系统 yudao-module-erp - 教程][参考 https://example.com/erp/build/ 开启]");
             // CRM 系统
-            System.out.println("[CRM 系统 yudao-module-crm - 教程][参考 https://ruoyioffice.com/crm/build/ 开启]");
+            System.out.println("[CRM 系统 yudao-module-crm - 教程][参考 https://example.com/crm/build/ 开启]");
             // 微信公众号
-            System.out.println("[微信公众号 yudao-module-mp 教程][参考 https://ruoyioffice.com/mp/build/ 开启]");
+            System.out.println("[微信公众号 yudao-module-mp 教程][参考 https://example.com/mp/build/ 开启]");
             // 支付平台
-            System.out.println("[支付系统 yudao-module-pay - 教程][参考 http://ruoyioffice.com/pay/build/ 开启]");
+            System.out.println("[支付系统 yudao-module-pay - 教程][参考 https://example.com/pay/build/ 开启]");
             // AI 大模型
-            System.out.println("[AI 大模型 yudao-module-ai - 教程][参考 https://ruoyioffice.com/ai/build/ 开启]");
+            System.out.println("[AI 大模型 yudao-module-ai - 教程][参考 https://example.com/ai/build/ 开启]");
             // IOT 物联网
-            System.out.println("[IoT 物联网 yudao-module-iot - 教程][参考 http://ruoyioffice.com/iot/build/ 开启]");
+            System.out.println("[IoT 物联网 yudao-module-iot - 教程][参考 https://example.com/iot/build/ 开启]");
         });
     }
 

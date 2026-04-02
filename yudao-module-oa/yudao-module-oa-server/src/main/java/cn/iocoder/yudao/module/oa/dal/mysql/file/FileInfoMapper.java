@@ -14,8 +14,7 @@ import cn.iocoder.yudao.module.oa.controller.admin.file.vo.*;
 /**
  * 企业云盘-文件信息 Mapper
  *
- * @author 宇擎源码
- */
+  */
 @Mapper
 public interface FileInfoMapper extends BaseMapperX<FileInfoDO> {
 

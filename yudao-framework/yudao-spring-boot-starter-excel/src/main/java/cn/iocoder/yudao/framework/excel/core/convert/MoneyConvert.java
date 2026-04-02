@@ -14,8 +14,7 @@ import java.math.RoundingMode;
  *
  * 金额单位：分
  *
- * @author 宇擎源码
- */
+  */
 public class MoneyConvert implements Converter<Integer> {
 
     @Override

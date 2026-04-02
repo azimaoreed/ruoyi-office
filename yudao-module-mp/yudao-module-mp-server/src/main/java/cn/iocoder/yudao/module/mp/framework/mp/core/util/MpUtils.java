@@ -10,8 +10,7 @@ import jakarta.validation.Validator;
 /**
  * 公众号工具类
  *
- * @author 宇擎源码
- */
+  */
 @Slf4j
 public class MpUtils {
 

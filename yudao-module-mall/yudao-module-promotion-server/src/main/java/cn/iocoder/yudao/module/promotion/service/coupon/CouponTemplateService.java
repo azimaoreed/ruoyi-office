@@ -14,8 +14,7 @@ import java.util.List;
 /**
  * 优惠劵模板 Service 接口
  *
- * @author 宇擎源码
- */
+  */
 public interface CouponTemplateService {
 
     /**

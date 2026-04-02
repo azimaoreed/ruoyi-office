@@ -36,7 +36,7 @@ public class AdminUserApiImpl implements AdminUserApi {
     private DeptService deptService;
 
     @Override
-    @DataPermission(enable = false) // 忽略数据权限，避免因为过滤，导致无法查询用户。类似：https://gitee.com/yqzy1688/ruoyi-office.git/issues/1051
+    @DataPermission(enable = false) // 忽略数据权限，避免因为过滤，导致无法查询用户。类似：https://example.com/your-org/your-project.git/issues/1051
     public CommonResult<AdminUserRespDTO> getUser(Long id) {
         AdminUserDO user = userService.getUser(id);
         return success(BeanUtils.toBean(user, AdminUserRespDTO.class));

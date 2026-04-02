@@ -9,8 +9,7 @@ import java.util.Objects;
 /**
  * 代码生成模板类型
  *
- * @author 宇擎源码
- */
+  */
 @AllArgsConstructor
 @Getter
 public enum CodegenTemplateTypeEnum {

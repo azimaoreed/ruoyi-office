@@ -10,8 +10,7 @@ import java.util.Objects;
 /**
  * 营销的商品范围枚举
  *
- * @author 宇擎源码
- */
+  */
 @Getter
 @AllArgsConstructor
 public enum PromotionProductScopeEnum implements ArrayValuable<Integer> {

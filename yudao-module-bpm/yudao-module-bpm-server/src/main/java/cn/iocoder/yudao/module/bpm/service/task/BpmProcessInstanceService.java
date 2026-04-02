@@ -17,8 +17,7 @@ import static cn.iocoder.yudao.framework.common.util.collection.CollectionUtils.
 /**
  * 流程实例 Service 接口
  *
- * @author 宇擎源码
- */
+  */
 public interface BpmProcessInstanceService {
 
     // ========== Query 查询相关方法 ==========

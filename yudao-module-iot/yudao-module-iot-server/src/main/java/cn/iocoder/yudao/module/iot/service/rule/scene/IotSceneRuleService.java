@@ -14,8 +14,7 @@ import java.util.List;
 /**
  * IoT 规则场景规则 Service 接口
  *
- * @author 宇擎源码
- */
+  */
 public interface IotSceneRuleService {
 
     /**

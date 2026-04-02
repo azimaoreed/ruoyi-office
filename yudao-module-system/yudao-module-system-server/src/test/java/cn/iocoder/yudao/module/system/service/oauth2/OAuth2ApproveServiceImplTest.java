@@ -32,8 +32,7 @@ import static org.mockito.Mockito.when;
 /**
  * {@link OAuth2ApproveServiceImpl} 的单元测试类
  *
- * @author 宇擎源码
- */
+  */
 @Import(OAuth2ApproveServiceImpl.class)
 public class OAuth2ApproveServiceImplTest extends BaseDbUnitTest {
 

@@ -10,8 +10,7 @@ import java.util.Objects;
 /**
  * 支付订单的状态枚举
  *
- * @author 宇擎源码
- */
+  */
 @Getter
 @AllArgsConstructor
 public enum PayOrderStatusEnum implements ArrayValuable<Integer> {

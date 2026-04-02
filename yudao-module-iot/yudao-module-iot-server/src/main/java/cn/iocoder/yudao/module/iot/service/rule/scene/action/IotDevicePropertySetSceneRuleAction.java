@@ -19,8 +19,7 @@ import java.util.List;
 /**
  * IoT 设备属性设置的 {@link IotSceneRuleAction} 实现类
  *
- * @author 宇擎源码
- */
+  */
 @Component
 @Slf4j
 public class IotDevicePropertySetSceneRuleAction implements IotSceneRuleAction {

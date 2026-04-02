@@ -14,8 +14,7 @@ import static cn.iocoder.yudao.framework.common.util.collection.CollectionUtils.
 /**
  * ERP 产品分类 Service 接口
  *
- * @author 宇擎源码
- */
+  */
 public interface ErpProductCategoryService {
 
     /**

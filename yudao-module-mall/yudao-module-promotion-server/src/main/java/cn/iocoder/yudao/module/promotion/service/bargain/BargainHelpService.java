@@ -12,8 +12,7 @@ import java.util.Map;
 /**
  * 砍价助力 Service 接口
  *
- * @author 宇擎源码
- */
+  */
 public interface BargainHelpService {
 
     /**

@@ -206,7 +206,7 @@ public class SmsTemplateServiceImplTest extends BaseDbUnitTest {
             o.setType(SmsTemplateTypeEnum.PROMOTION.getType());
             o.setStatus(CommonStatusEnum.ENABLE.getStatus());
             o.setCode("tudou");
-            o.setContent("宇擎源码");
+            o.setContent("项目团队");
             o.setApiTemplateId("yunai");
             o.setChannelId(1L);
             o.setCreateTime(buildTime(2021, 11, 11));

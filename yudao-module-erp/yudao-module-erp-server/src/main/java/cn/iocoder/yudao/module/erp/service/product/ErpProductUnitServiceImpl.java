@@ -21,8 +21,7 @@ import static cn.iocoder.yudao.module.erp.enums.ErrorCodeConstants.*;
 /**
  * ERP 产品单位 Service 实现类
  *
- * @author 宇擎源码
- */
+  */
 @Service
 @Validated
 public class ErpProductUnitServiceImpl implements ErpProductUnitService {

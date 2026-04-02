@@ -9,8 +9,7 @@ import java.util.Date;
 /**
  * 时间工具类
  *
- * @author 宇擎源码
- */
+  */
 public class DateUtils {
 
     /**

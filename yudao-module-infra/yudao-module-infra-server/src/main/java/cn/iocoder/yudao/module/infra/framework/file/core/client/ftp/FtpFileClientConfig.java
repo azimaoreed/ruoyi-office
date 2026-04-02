@@ -9,8 +9,7 @@ import org.hibernate.validator.constraints.URL;
 /**
  * Ftp 文件客户端的配置类
  *
- * @author 宇擎源码
- */
+  */
 @Data
 public class FtpFileClientConfig implements FileClientConfig {
 

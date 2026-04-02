@@ -15,8 +15,7 @@ import java.util.List;
 /**
  * 秒杀时段 Convert
  *
- * @author 宇擎源码
- */
+  */
 @Mapper
 public interface SeckillConfigConvert {
 

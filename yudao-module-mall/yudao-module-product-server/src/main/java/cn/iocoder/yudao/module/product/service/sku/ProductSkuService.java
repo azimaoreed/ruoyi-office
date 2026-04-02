@@ -10,8 +10,7 @@ import java.util.List;
 /**
  * 商品 SKU Service 接口
  *
- * @author 宇擎源码
- */
+  */
 public interface ProductSkuService {
 
     /**

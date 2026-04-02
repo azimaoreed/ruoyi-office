@@ -10,8 +10,7 @@ import org.junit.jupiter.api.Test;
 /**
  * {@link SftpFileClient} 集成测试
  *
- * @author 宇擎源码
- */
+  */
 public class SftpFileClientTest {
 
 //    docker run -p 2222:22 -d \

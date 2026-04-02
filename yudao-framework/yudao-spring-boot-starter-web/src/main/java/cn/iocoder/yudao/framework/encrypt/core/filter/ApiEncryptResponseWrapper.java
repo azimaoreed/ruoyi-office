@@ -17,8 +17,7 @@ import java.io.PrintWriter;
 /**
  * 加密响应 {@link HttpServletResponseWrapper} 实现类
  *
- * @author 宇擎源码
- */
+  */
 public class ApiEncryptResponseWrapper extends HttpServletResponseWrapper {
 
     private final ByteArrayOutputStream byteArrayOutputStream;

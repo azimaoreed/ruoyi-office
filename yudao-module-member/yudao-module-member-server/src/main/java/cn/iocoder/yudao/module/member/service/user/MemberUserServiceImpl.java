@@ -42,8 +42,7 @@ import static cn.iocoder.yudao.module.member.enums.ErrorCodeConstants.*;
 /**
  * 会员 User Service 实现类
  *
- * @author 宇擎源码
- */
+  */
 @Service
 @Valid
 @Slf4j

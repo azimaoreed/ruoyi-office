@@ -14,8 +14,7 @@ import java.util.List;
 /**
  * IoT 告警记录 Mapper
  *
- * @author 宇擎源码
- */
+  */
 @Mapper
 public interface IotAlertRecordMapper extends BaseMapperX<IotAlertRecordDO> {
 

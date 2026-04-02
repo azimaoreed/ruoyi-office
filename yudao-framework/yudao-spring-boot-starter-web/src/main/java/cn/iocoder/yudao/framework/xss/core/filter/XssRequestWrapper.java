@@ -10,8 +10,7 @@ import java.util.Map;
 /**
  * Xss 请求 Wrapper
  *
- * @author 宇擎源码
- */
+  */
 public class XssRequestWrapper extends HttpServletRequestWrapper {
 
     private final XssCleaner xssCleaner;

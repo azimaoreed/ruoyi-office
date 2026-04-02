@@ -13,8 +13,7 @@ import java.util.List;
 /**
  * 会员标签 Service 接口
  *
- * @author 宇擎源码
- */
+  */
 public interface MemberTagService {
 
     /**

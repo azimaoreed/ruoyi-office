@@ -11,8 +11,7 @@ import org.apache.ibatis.annotations.Mapper;
 /**
  * AI API 密钥 Mapper
  *
- * @author 宇擎源码
- */
+  */
 @Mapper
 public interface AiApiKeyMapper extends BaseMapperX<AiApiKeyDO> {
 

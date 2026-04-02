@@ -116,7 +116,7 @@ public class BpmTaskRespVO {
         @Schema(description = "部门ID", example = "1")
         private Long deptId;
 
-        @Schema(description = "公司名称", example = "宇擎源码")
+        @Schema(description = "公司名称", example = "项目团队")
         private String companyName;
 
         @Schema(description = "公司ID", example = "1")

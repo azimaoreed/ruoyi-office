@@ -10,8 +10,7 @@ import org.apache.ibatis.annotations.Mapper;
 /**
  * 示例订单 Mapper
  *
- * @author 宇擎源码
- */
+  */
 @Mapper
 public interface PayDemoOrderMapper extends BaseMapperX<PayDemoOrderDO> {
 

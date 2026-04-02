@@ -8,8 +8,7 @@ import org.springframework.context.annotation.Configuration;
 /**
  * 文件配置类
  *
- * @author 宇擎源码
- */
+  */
 @Configuration(proxyBeanMethods = false)
 public class YudaoFileAutoConfiguration {
 

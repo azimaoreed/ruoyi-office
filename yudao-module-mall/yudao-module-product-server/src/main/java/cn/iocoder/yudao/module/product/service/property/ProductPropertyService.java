@@ -12,8 +12,7 @@ import java.util.List;
 /**
  * 商品属性项 Service 接口
  *
- * @author 宇擎源码
- */
+  */
 public interface ProductPropertyService {
 
     /**

@@ -12,8 +12,7 @@ import org.apache.ibatis.annotations.Mapper;
 /**
  * ERP 其它入库单 Mapper
  *
- * @author 宇擎源码
- */
+  */
 @Mapper
 public interface ErpStockInMapper extends BaseMapperX<ErpStockInDO> {
 

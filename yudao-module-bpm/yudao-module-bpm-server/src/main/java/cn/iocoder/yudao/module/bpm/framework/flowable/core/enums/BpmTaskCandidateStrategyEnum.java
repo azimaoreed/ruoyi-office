@@ -12,8 +12,7 @@ import java.util.Arrays;
  *
  * 例如说：分配给指定人审批
  *
- * @author 宇擎源码
- */
+  */
 @Getter
 @AllArgsConstructor
 public enum BpmTaskCandidateStrategyEnum implements ArrayValuable<Integer> {

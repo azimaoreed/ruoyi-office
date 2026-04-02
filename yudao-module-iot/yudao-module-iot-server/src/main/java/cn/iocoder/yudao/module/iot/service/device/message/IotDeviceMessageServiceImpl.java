@@ -51,8 +51,7 @@ import static cn.iocoder.yudao.module.iot.enums.ErrorCodeConstants.DEVICE_DOWNST
 /**
  * IoT 设备消息 Service 实现类
  *
- * @author 宇擎源码
- */
+  */
 @Service
 @Validated
 @Slf4j

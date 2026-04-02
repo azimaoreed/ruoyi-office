@@ -24,8 +24,7 @@ import static cn.iocoder.yudao.module.iot.gateway.enums.ErrorCodeConstants.DEVIC
  *
  * 注意：目前仅 HTTP 协议使用
  *
- * @author 宇擎源码
- */
+  */
 @Service
 @Slf4j
 public class IotDeviceTokenServiceImpl implements IotDeviceTokenService {

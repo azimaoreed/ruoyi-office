@@ -10,8 +10,7 @@ import jakarta.validation.Valid;
 /**
  * 示例订单 Service 接口
  *
- * @author 宇擎源码
- */
+  */
 public interface PayDemoOrderService {
 
     /**

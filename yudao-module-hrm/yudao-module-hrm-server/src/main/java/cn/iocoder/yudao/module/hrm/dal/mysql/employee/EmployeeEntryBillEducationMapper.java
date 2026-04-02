@@ -10,8 +10,7 @@ import java.util.List;
 /**
  * 员工入职申请单教育经历 Mapper
  *
- * @author 宇擎源码
- */
+  */
 @Mapper
 public interface EmployeeEntryBillEducationMapper extends BaseMapperX<EmployeeEntryBillEducationDO> {
 

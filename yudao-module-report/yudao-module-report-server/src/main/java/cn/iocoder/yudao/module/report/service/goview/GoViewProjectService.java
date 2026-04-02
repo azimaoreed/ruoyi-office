@@ -11,8 +11,7 @@ import jakarta.validation.Valid;
 /**
  * GoView 项目 Service 接口
  *
- * @author 宇擎源码
- */
+  */
 public interface GoViewProjectService {
 
     /**

@@ -15,8 +15,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 /**
  * XXL-Job 自动配置类
  *
- * @author 宇擎源码
- */
+  */
 @AutoConfiguration
 @ConditionalOnClass(XxlJobSpringExecutor.class)
 @ConditionalOnProperty(prefix = "xxl.job", name = "enabled", havingValue = "true", matchIfMissing = true)

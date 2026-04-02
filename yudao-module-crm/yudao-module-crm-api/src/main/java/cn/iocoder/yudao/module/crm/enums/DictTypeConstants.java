@@ -3,8 +3,7 @@ package cn.iocoder.yudao.module.crm.enums;
 /**
  * CRM 字典类型的枚举类
  *
- * @author 宇擎源码
- */
+  */
 public interface DictTypeConstants {
 
     String CRM_CUSTOMER_INDUSTRY = "crm_customer_industry"; // CRM 客户所属行业

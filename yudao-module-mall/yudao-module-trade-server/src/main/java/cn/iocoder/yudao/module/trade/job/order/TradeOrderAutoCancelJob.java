@@ -10,8 +10,7 @@ import jakarta.annotation.Resource;
 /**
  * 交易订单的自动过期 Job
  *
- * @author 宇擎源码
- */
+  */
 @Component
 public class TradeOrderAutoCancelJob {
 

@@ -12,8 +12,7 @@ import java.util.List;
 /**
  * 商品分类 Mapper
  *
- * @author 宇擎源码
- */
+  */
 @Mapper
 public interface ProductCategoryMapper extends BaseMapperX<ProductCategoryDO> {
 

@@ -9,8 +9,7 @@ import java.math.RoundingMode;
 /**
  * 金额工具类
  *
- * @author 宇擎源码
- */
+  */
 public class MoneyUtils {
 
     /**

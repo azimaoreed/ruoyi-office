@@ -18,8 +18,7 @@ import static cn.iocoder.yudao.module.system.enums.ErrorCodeConstants.OAUTH2_COD
 /**
  * OAuth2.0 授权码 Service 实现类
  *
- * @author 宇擎源码
- */
+  */
 @Service
 @Validated
 public class OAuth2CodeServiceImpl implements OAuth2CodeService {

@@ -10,8 +10,7 @@ import org.apache.ibatis.annotations.Mapper;
 /**
  * 文件操作 Mapper
  *
- * @author 宇擎源码
- */
+  */
 @Mapper
 public interface FileMapper extends BaseMapperX<FileDO> {
 

@@ -9,8 +9,7 @@ import java.util.Arrays;
 /**
  * IoT OTA 升级任务的状态
  *
- * @author 宇擎源码
- */
+  */
 @RequiredArgsConstructor
 @Getter
 public enum IotOtaTaskStatusEnum implements ArrayValuable<Integer> {

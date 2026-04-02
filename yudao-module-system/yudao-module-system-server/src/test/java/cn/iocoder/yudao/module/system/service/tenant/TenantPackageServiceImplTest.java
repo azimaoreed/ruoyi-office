@@ -32,7 +32,6 @@ import static org.mockito.Mockito.when;
 /**
 * {@link TenantPackageServiceImpl} 的单元测试类
 *
-* @author 宇擎源码
 */
 @Import(TenantPackageServiceImpl.class)
 public class TenantPackageServiceImplTest extends BaseDbUnitTest {
@@ -142,7 +141,7 @@ public class TenantPackageServiceImplTest extends BaseDbUnitTest {
     public void testGetTenantPackagePage() {
        // mock 数据
        TenantPackageDO dbTenantPackage = randomPojo(TenantPackageDO.class, o -> { // 等会查询到
-           o.setName("宇擎源码");
+           o.setName("项目团队");
            o.setStatus(CommonStatusEnum.ENABLE.getStatus());
            o.setRemark("源码解析");
            o.setCreateTime(buildTime(2022, 10, 10));

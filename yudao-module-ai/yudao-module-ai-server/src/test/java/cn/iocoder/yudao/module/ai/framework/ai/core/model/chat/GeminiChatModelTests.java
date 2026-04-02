@@ -19,8 +19,7 @@ import java.util.List;
 /**
  * {@link GeminiChatModel} 集成测试
  *
- * @author 宇擎源码
- */
+  */
 public class GeminiChatModelTests {
 
     private final OpenAiChatModel openAiChatModel = OpenAiChatModel.builder()

@@ -11,8 +11,7 @@ import java.util.Set;
 /**
  * 购物车 Service 接口
  *
- * @author 宇擎源码
- */
+  */
 public interface CartService {
 
     /**

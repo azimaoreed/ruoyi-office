@@ -24,8 +24,7 @@ import static cn.iocoder.yudao.module.bpm.enums.ErrorCodeConstants.USER_GROUP_NO
 /**
  * {@link BpmUserGroupServiceImpl} 的单元测试类
  *
- * @author 宇擎源码
- */
+  */
 @Import(BpmUserGroupServiceImpl.class)
 public class BpmUserGroupServiceTest extends BaseDbUnitTest {
 
@@ -102,7 +101,7 @@ public class BpmUserGroupServiceTest extends BaseDbUnitTest {
     public void testGetUserGroupPage() {
        // mock 数据
        BpmUserGroupDO dbUserGroup = RandomUtils.randomPojo(BpmUserGroupDO.class, o -> { // 等会查询到
-           o.setName("宇擎源码");
+           o.setName("项目团队");
            o.setStatus(CommonStatusEnum.ENABLE.getStatus());
            o.setCreateTime(buildTime(2021, 11, 11));
        });

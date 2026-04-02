@@ -17,8 +17,7 @@ import java.util.List;
 /**
  * 基于 {@link OpenAiChatModel} 集成 Dify 测试
  *
- * @author 宇擎源码
- */
+  */
 public class DifyChatModelTests {
 
     private final OpenAiChatModel chatModel = OpenAiChatModel.builder()

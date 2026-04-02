@@ -18,8 +18,7 @@ import java.util.List;
 /**
  * {@link DeepSeekChatModel} 集成测试
  *
- * @author 宇擎源码
- */
+  */
 public class DeepSeekChatModelTests {
 
     private final DeepSeekChatModel chatModel = DeepSeekChatModel.builder()

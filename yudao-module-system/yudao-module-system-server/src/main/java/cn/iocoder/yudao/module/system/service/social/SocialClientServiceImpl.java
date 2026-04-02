@@ -77,8 +77,7 @@ import static java.util.Collections.singletonList;
 /**
  * 社交应用 Service 实现类
  *
- * @author 宇擎源码
- */
+  */
 @Service
 @Slf4j
 public class SocialClientServiceImpl implements SocialClientService {

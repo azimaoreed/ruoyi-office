@@ -9,8 +9,7 @@ import java.util.concurrent.Callable;
 /**
  * 数据权限 Util
  *
- * @author 宇擎源码
- */
+  */
 public class DataPermissionUtils {
 
     private static DataPermission DATA_PERMISSION_DISABLE;

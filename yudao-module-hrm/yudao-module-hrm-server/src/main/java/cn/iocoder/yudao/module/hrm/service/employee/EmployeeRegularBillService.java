@@ -9,8 +9,7 @@ import cn.iocoder.yudao.framework.common.pojo.PageResult;
 /**
  * 员工转正申请单 Service 接口
  *
- * @author 宇擎源码
- */
+  */
 public interface EmployeeRegularBillService {
 
     /**

@@ -12,8 +12,7 @@ import cn.iocoder.yudao.module.wms.controller.admin.purchaseorder.vo.*;
 /**
  * 采购订单 Mapper
  *
- * @author 宇擎源码
- */
+  */
 @Mapper
 public interface PurchaseOrderMapper extends BaseMapperX<PurchaseOrderDO> {
 

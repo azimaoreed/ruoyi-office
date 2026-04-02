@@ -24,8 +24,7 @@ import static org.mockito.Mockito.when;
 /**
  * {@link OAuth2GrantServiceImpl} 的单元测试
  *
- * @author 宇擎源码
- */
+  */
 public class OAuth2GrantServiceImplTest extends BaseMockitoUnitTest {
 
     @InjectMocks

@@ -11,8 +11,7 @@ import org.apache.ibatis.annotations.Mapper;
  * 请假申请 Mapper
  *
  * @author jason
- * @author 宇擎源码
- */
+  */
 @Mapper
 public interface BpmOALeaveMapper extends BaseMapperX<BpmOALeaveDO> {
 

@@ -51,8 +51,7 @@ import static cn.iocoder.yudao.module.trade.enums.ErrorCodeConstants.*;
 /**
  * 佣金提现 Service 实现类
  *
- * @author 宇擎源码
- */
+  */
 @Service
 @Validated
 @Slf4j

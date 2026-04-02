@@ -19,8 +19,7 @@ import static cn.iocoder.yudao.module.iot.enums.ErrorCodeConstants.DEVICE_GROUP_
 /**
  * IoT 设备分组 Service 实现类
  *
- * @author 宇擎源码
- */
+  */
 @Service
 @Validated
 public class IotDeviceGroupServiceImpl implements IotDeviceGroupService {

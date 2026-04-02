@@ -12,8 +12,7 @@ import reactor.core.publisher.Flux;
 /**
  * 百川 {@link ChatModel} 实现类
  *
- * @author 宇擎源码
- */
+  */
 @Slf4j
 @RequiredArgsConstructor
 public class BaiChuanChatModel implements ChatModel {

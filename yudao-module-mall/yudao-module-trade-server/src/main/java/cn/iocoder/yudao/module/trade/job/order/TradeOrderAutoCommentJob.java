@@ -10,8 +10,7 @@ import jakarta.annotation.Resource;
 /**
  * 交易订单的自动评论 Job
  *
- * @author 宇擎源码
- */
+  */
 @Component
 public class TradeOrderAutoCommentJob {
 

@@ -21,8 +21,7 @@ import java.util.stream.Stream;
 /**
  * 随机工具类
  *
- * @author 宇擎源码
- */
+  */
 public class RandomUtils {
 
     private static final int RANDOM_STRING_LENGTH = 10;

@@ -18,8 +18,7 @@ import jakarta.annotation.Resource;
 /**
  * 砍价活动的 {@link TradePriceCalculator} 实现类
  *
- * @author 宇擎源码
- */
+  */
 @Component
 @Order(TradePriceCalculator.ORDER_BARGAIN_ACTIVITY)
 public class TradeBargainActivityPriceCalculator implements TradePriceCalculator {

@@ -9,8 +9,7 @@ import java.util.Arrays;
 /**
  * AI 模型类型的枚举
  *
- * @author 宇擎源码
- */
+  */
 @Getter
 @RequiredArgsConstructor
 public enum AiModelTypeEnum implements ArrayValuable<Integer> {

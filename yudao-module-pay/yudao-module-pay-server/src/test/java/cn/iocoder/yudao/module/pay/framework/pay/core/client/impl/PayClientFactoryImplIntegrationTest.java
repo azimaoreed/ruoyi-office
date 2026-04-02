@@ -20,8 +20,7 @@ import java.io.FileNotFoundException;
 /**
  * {@link PayClientFactoryImpl} 的集成测试
  *
- * @author 宇擎源码
- */
+  */
 @Disabled
 public class PayClientFactoryImplIntegrationTest {
 

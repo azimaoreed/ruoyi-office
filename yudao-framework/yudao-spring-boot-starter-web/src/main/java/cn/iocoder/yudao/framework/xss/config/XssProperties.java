@@ -10,8 +10,7 @@ import java.util.List;
 /**
  * Xss 配置属性
  *
- * @author 宇擎源码
- */
+  */
 @ConfigurationProperties(prefix = "yudao.xss")
 @Validated
 @Data

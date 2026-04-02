@@ -36,8 +36,7 @@ import static cn.iocoder.yudao.module.promotion.enums.ErrorCodeConstants.*;
 /**
  * 限时折扣 Service 实现类
  *
- * @author 宇擎源码
- */
+  */
 @Service
 @Validated
 public class DiscountActivityServiceImpl implements DiscountActivityService {

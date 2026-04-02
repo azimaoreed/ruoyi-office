@@ -9,8 +9,7 @@ import java.util.List;
 /**
  * 文件分享服务接口
  *
- * @author 宇擎源码
- */
+  */
 public interface FileShareService {
 
     /**

@@ -21,8 +21,7 @@ import java.util.Map;
 /**
  * 关注的事件处理器
  *
- * @author 宇擎源码
- */
+  */
 @Component
 @Slf4j
 public class SubscribeHandler implements WxMpMessageHandler {
@@ -42,7 +41,7 @@ public class SubscribeHandler implements WxMpMessageHandler {
             wxMpUser = weixinService.getUserService().userInfo(wxMessage.getFromUser());
         } catch (WxErrorException e) {
             log.error("[handle][粉丝({})] 获取粉丝信息失败！", wxMessage.getFromUser(), e);
-            // 特殊情况（个人账号，无接口权限）：https://ruoyioffice.com/cLFq5
+            // 特殊情况（个人账号，无接口权限）：https://example.com/cLFq5
             if (ObjUtil.equal(e.getError().getErrorCode(), WxMpErrorMsgEnum.CODE_48001)) {
                 wxMpUser = new WxMpUser();
                 wxMpUser.setOpenId(wxMessage.getFromUser());

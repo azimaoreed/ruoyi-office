@@ -11,8 +11,7 @@ import java.util.Map;
 /**
  * 链路追踪 Util
  *
- * @author 宇擎源码
- */
+  */
 public class TracerFrameworkUtils {
 
     /**

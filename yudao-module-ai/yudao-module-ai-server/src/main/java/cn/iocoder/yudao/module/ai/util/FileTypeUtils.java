@@ -7,8 +7,7 @@ import org.apache.tika.Tika;
 /**
  * 文件类型 Utils
  *
- * @author 宇擎源码
- */
+  */
 @Slf4j
 public class FileTypeUtils {
 

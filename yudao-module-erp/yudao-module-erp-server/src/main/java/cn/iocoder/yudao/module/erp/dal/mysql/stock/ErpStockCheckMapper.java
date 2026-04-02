@@ -12,8 +12,7 @@ import org.apache.ibatis.annotations.Mapper;
 /**
  * ERP 库存调拨单 Mapper
  *
- * @author 宇擎源码
- */
+  */
 @Mapper
 public interface ErpStockCheckMapper extends BaseMapperX<ErpStockCheckDO> {
 

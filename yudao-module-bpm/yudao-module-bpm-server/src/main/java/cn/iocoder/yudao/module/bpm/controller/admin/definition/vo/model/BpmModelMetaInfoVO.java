@@ -23,8 +23,7 @@ import java.util.List;
  * {@link cn.iocoder.yudao.module.bpm.dal.dataobject.definition.BpmProcessDefinitionInfoDO}
  * 是一致的
  *
- * @author 宇擎源码
- */
+  */
 @Data
 public class BpmModelMetaInfoVO {
 

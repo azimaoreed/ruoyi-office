@@ -20,8 +20,7 @@ import java.util.List;
 /**
  * 社交应用 Service 接口
  *
- * @author 宇擎源码
- */
+  */
 public interface SocialClientService {
 
     /**

@@ -12,8 +12,7 @@ import java.util.List;
 /**
  * 基于 DB 存储的文件客户端的配置类
  *
- * @author 宇擎源码
- */
+  */
 public class DBFileClient extends AbstractFileClient<DBFileClientConfig> {
 
     private FileContentMapper fileContentMapper;

@@ -18,8 +18,7 @@ import java.io.InputStreamReader;
 /**
  * 解密请求 {@link HttpServletRequestWrapper} 实现类
  *
- * @author 宇擎源码
- */
+  */
 public class ApiDecryptRequestWrapper extends HttpServletRequestWrapper {
 
     private final byte[] body;

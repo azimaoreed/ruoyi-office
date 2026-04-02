@@ -10,8 +10,7 @@ import java.util.Objects;
 /**
  * 会员积分的业务类型枚举
  *
- * @author 宇擎源码
- */
+  */
 @AllArgsConstructor
 @Getter
 public enum MemberPointBizTypeEnum implements ArrayValuable<Integer> {

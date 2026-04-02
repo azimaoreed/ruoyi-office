@@ -9,8 +9,7 @@ import java.util.Arrays;
 /**
  * 配送方式枚举
  *
- * @author 宇擎源码
- */
+  */
 @Getter
 @AllArgsConstructor
 public enum DeliveryTypeEnum implements ArrayValuable<Integer> {

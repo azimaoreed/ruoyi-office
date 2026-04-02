@@ -9,8 +9,7 @@ import java.util.Arrays;
 /**
  * 优惠劵状态枚举
  *
- * @author 宇擎源码
- */
+  */
 @AllArgsConstructor
 @Getter
 public enum CouponStatusEnum implements ArrayValuable<Integer> {

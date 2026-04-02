@@ -26,8 +26,7 @@ import static cn.iocoder.yudao.module.promotion.enums.ErrorCodeConstants.*;
 /**
  * 优惠劵模板 Service 实现类
  *
- * @author 宇擎源码
- */
+  */
 @Service
 @Validated
 public class CouponTemplateServiceImpl implements CouponTemplateService {

@@ -9,8 +9,7 @@ import java.util.Arrays;
 /**
  * 砍价记录的状态枚举
  *
- * @author 宇擎源码
- */
+  */
 @AllArgsConstructor
 @Getter
 public enum BargainRecordStatusEnum implements ArrayValuable<Integer> {

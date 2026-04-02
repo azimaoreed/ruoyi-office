@@ -24,8 +24,7 @@ import static cn.iocoder.yudao.module.system.enums.ErrorCodeConstants.*;
 /**
  * 短信验证码 Service 实现类
  *
- * @author 宇擎源码
- */
+  */
 @Service
 @Validated
 public class SmsCodeServiceImpl implements SmsCodeService {

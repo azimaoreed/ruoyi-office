@@ -20,8 +20,7 @@ import static cn.iocoder.yudao.module.erp.enums.ErrorCodeConstants.*;
 /**
  * ERP 结算账户 Service 实现类
  *
- * @author 宇擎源码
- */
+  */
 @Service
 @Validated
 public class ErpAccountServiceImpl implements ErpAccountService {

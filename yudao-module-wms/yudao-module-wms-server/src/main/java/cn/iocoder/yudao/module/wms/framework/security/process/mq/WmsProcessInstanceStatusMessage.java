@@ -9,8 +9,7 @@ import java.time.LocalDateTime;
 /**
  * OA 服务接收的 BPM 流程实例状态变化消息
  *
- * @author 宇擎源码
- */
+  */
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class WmsProcessInstanceStatusMessage extends AbstractRedisStreamMessage {

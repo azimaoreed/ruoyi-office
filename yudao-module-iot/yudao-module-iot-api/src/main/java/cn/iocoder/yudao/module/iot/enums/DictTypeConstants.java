@@ -3,8 +3,7 @@ package cn.iocoder.yudao.module.iot.enums;
 /**
  * IoT 字典类型的枚举类
  *
- * @author 宇擎源码
- */
+  */
 public class DictTypeConstants {
 
     public static final String NET_TYPE = "iot_net_type";

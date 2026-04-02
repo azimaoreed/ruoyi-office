@@ -12,8 +12,7 @@ import java.util.List;
 /**
  * ERP 产品 Mapper
  *
- * @author 宇擎源码
- */
+  */
 @Mapper
 public interface ErpProductMapper extends BaseMapperX<ErpProductDO> {
 

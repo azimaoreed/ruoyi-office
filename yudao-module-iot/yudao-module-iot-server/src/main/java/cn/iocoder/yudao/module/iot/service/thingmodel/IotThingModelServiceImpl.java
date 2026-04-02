@@ -38,8 +38,7 @@ import static cn.iocoder.yudao.module.iot.enums.ErrorCodeConstants.*;
 /**
  * IoT 产品物模型 Service 实现类
  *
- * @author 宇擎源码
- */
+  */
 @Service
 @Validated
 @Slf4j

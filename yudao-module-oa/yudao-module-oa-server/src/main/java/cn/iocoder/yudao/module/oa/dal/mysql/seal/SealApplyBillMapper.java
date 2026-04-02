@@ -12,8 +12,7 @@ import cn.iocoder.yudao.module.oa.controller.admin.seal.vo.*;
 /**
  * 用印申请单 Mapper
  *
- * @author 宇擎源码
- */
+  */
 @Mapper
 public interface SealApplyBillMapper extends BaseMapperX<SealApplyBillDO> {
 

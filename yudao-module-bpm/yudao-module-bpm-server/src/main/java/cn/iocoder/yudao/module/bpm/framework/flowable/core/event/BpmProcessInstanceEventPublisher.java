@@ -9,8 +9,7 @@ import org.springframework.validation.annotation.Validated;
 /**
  * {@link BpmProcessInstanceStatusEvent} 的生产者
  *
- * @author 宇擎源码
- */
+  */
 @AllArgsConstructor
 @Validated
 public class BpmProcessInstanceEventPublisher {

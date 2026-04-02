@@ -12,8 +12,7 @@ import cn.iocoder.yudao.module.oa.controller.admin.car.vo.*;
 /**
  * 用车申请单 Mapper
  *
- * @author 宇擎源码
- */
+  */
 @Mapper
 public interface CarApplyBillMapper extends BaseMapperX<CarApplyBillDO> {
 

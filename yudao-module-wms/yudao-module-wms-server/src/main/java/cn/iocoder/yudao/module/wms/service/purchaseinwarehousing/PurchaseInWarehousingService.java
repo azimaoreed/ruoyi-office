@@ -11,8 +11,7 @@ import cn.iocoder.yudao.framework.common.pojo.PageResult;
 /**
  * 采购入库 Service 接口
  *
- * @author 宇擎源码
- */
+  */
 public interface PurchaseInWarehousingService {
 
     /**

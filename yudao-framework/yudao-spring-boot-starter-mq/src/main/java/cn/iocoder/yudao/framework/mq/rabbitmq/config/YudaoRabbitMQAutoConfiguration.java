@@ -10,8 +10,7 @@ import org.springframework.context.annotation.Bean;
 /**
  * RabbitMQ 消息队列配置类
  *
- * @author 宇擎源码
- */
+  */
 @AutoConfiguration
 @Slf4j
 @ConditionalOnClass(name = "org.springframework.amqp.rabbit.core.RabbitTemplate")

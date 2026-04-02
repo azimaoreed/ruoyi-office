@@ -3,8 +3,7 @@ package cn.iocoder.yudao.module.system.service.member;
 /**
  * Member Service 接口
  *
- * @author 宇擎源码
- */
+  */
 public interface MemberService {
 
     /**

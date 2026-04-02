@@ -23,8 +23,7 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
  * 安全配置独立于 {@link cn.iocoder.yudao.framework.security.config.YudaoWebSecurityConfigurerAdapter}，
  * 使用 HTTP Basic 认证保护 Admin Server 端点，不影响现有的 Token 认证机制
  *
- * @author 宇擎源码
- */
+  */
 @Configuration(proxyBeanMethods = false)
 //@EnableAdminServer
 @ConditionalOnClass(name = "de.codecentric.boot.admin.server.config.AdminServerProperties") // 目的：按需启动 spring boot admin 监控服务

@@ -17,8 +17,7 @@ import java.util.function.Consumer;
 /**
  * Map 工具类
  *
- * @author 宇擎源码
- */
+  */
 public class MapUtils {
 
     /**

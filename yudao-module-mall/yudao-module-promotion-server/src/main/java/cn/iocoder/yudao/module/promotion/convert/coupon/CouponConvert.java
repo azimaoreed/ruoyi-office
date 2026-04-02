@@ -18,8 +18,7 @@ import java.util.Collection;
 /**
  * 优惠劵 Convert
  *
- * @author 宇擎源码
- */
+  */
 @Mapper
 public interface CouponConvert {
 

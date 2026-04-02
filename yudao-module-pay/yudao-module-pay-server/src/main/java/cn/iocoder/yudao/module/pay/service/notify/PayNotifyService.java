@@ -10,8 +10,7 @@ import java.util.List;
 /**
  * 回调通知 Service 接口
  *
- * @author 宇擎源码
- */
+  */
 public interface PayNotifyService {
 
     /**

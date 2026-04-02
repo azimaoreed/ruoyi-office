@@ -7,8 +7,7 @@ import java.util.Set;
 /**
  * Set 工具类
  *
- * @author 宇擎源码
- */
+  */
 public class SetUtils {
 
     @SafeVarargs

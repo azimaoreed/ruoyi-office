@@ -6,8 +6,7 @@ import lombok.Getter;
 /**
  * 微信公众号消息的发送来源
  *
- * @author 宇擎源码
- */
+  */
 @Getter
 @AllArgsConstructor
 public enum MpMessageSendFromEnum {

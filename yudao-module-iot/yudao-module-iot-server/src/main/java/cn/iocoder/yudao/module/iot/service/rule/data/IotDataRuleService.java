@@ -12,8 +12,7 @@ import java.util.List;
 /**
  * IoT 数据流转规则 Service 接口
  *
- * @author 宇擎源码
- */
+  */
 public interface IotDataRuleService {
 
     /**

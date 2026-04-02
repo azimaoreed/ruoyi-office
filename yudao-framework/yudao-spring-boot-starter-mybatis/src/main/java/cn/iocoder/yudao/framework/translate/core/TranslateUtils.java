@@ -9,8 +9,7 @@ import java.util.List;
 /**
  * VO 数据翻译 Utils
  *
- * @author 宇擎源码
- */
+  */
 public class TranslateUtils {
 
     private static TransService transService;

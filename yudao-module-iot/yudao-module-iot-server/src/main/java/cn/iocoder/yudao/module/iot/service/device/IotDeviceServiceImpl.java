@@ -62,8 +62,7 @@ import static java.util.Collections.singletonList;
 /**
  * IoT 设备 Service 实现类
  *
- * @author 宇擎源码
- */
+  */
 @Service
 @Validated
 @Slf4j

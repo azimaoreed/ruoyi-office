@@ -30,8 +30,7 @@ import static cn.iocoder.yudao.module.system.enums.ErrorCodeConstants.*;
 /**
  * OAuth2.0 Client Service 实现类
  *
- * @author 宇擎源码
- */
+  */
 @Service
 @Validated
 @Slf4j

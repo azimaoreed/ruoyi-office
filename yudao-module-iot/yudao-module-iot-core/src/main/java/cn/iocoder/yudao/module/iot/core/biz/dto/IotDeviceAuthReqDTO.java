@@ -8,8 +8,7 @@ import lombok.NoArgsConstructor;
 /**
  * IoT 设备认证 Request DTO
  *
- * @author 宇擎源码
- */
+  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

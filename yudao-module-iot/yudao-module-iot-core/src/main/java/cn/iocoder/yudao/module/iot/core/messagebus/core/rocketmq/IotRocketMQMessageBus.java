@@ -23,8 +23,7 @@ import java.util.List;
 /**
  * 基于 RocketMQ 的 {@link IotMessageBus} 实现类
  *
- * @author 宇擎源码
- */
+  */
 @RequiredArgsConstructor
 @Slf4j
 public class IotRocketMQMessageBus implements IotMessageBus {

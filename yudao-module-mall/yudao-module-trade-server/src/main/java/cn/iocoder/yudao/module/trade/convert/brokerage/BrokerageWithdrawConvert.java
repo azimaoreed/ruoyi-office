@@ -14,8 +14,7 @@ import java.util.Optional;
 /**
  * 佣金提现 Convert
  *
- * @author 宇擎源码
- */
+  */
 @Mapper
 public interface BrokerageWithdrawConvert {
 

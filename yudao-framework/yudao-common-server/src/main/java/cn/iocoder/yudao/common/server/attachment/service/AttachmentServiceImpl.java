@@ -20,8 +20,7 @@ import java.util.stream.Collectors;
 /**
  * 通用附件信息 Service 实现类
  *
- * @author 宇擎源码
- */
+  */
 @Service
 @Validated
 public class AttachmentServiceImpl implements AttachmentService {

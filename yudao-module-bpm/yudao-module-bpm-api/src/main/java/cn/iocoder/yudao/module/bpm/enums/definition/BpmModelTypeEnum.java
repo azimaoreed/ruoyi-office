@@ -9,8 +9,7 @@ import java.util.Arrays;
 /**
  * BPM 模型的类型的枚举
  *
- * @author 宇擎源码
- */
+  */
 @Getter
 @AllArgsConstructor
 public enum BpmModelTypeEnum implements ArrayValuable<Integer> {

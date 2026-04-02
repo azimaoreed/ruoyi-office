@@ -14,15 +14,15 @@
 
 如果这个项目让你有所收获，记得 Star 关注哦，这对我是非常不错的鼓励与支持。
 
-可参考 [《迁移文档》](https://ruoyioffice.com/migrate-module/) ，只需要 5-10 分钟，即可将【完整版】按需迁移到【精简版】
+可参考 [《迁移文档》](https://example.com/migrate-module/) ，只需要 5-10 分钟，即可将【完整版】按需迁移到【精简版】
 
 ## 🐶 新手必读
 
 * 演示地址【Vue3 + element-plus】：<http://dashboard-vue3.yudao.iocoder.cn>
 * 演示地址【Vue3 + vben(ant-design-vue)】：<http://dashboard-vben.yudao.iocoder.cn>
 * 演示地址【Vue2 + element-ui】：<http://dashboard.yudao.iocoder.cn>
-* 启动文档：<https://ruoyioffice.com/quick-start/>
-* 视频教程：<https://ruoyioffice.com/video/>
+* 启动文档：<https://example.com/quick-start/>
+* 视频教程：<https://example.com/video/>
 
 ## 🐰 版本说明
 
@@ -34,7 +34,7 @@
 * 【完整版】：包括系统功能、基础设施、会员中心、数据报表、工作流程、商城系统、微信公众号、CRM、ERP 等功能
 * 【精简版】：只包括系统功能、基础设施功能，不包括会员中心、数据报表、工作流程、商城系统、微信公众号、CRM、ERP 等功能
 
-可参考 [《迁移文档》](https://ruoyioffice.com/migrate-module/) ，只需要 5-10 分钟，即可将【完整版】按需迁移到【精简版】
+可参考 [《迁移文档》](https://example.com/migrate-module/) ，只需要 5-10 分钟，即可将【完整版】按需迁移到【精简版】
 
 ## 🐯 平台简介
 
@@ -72,7 +72,7 @@
 
 | 项目                                                              | Star                                                                                                                                                                                                                                                                                             | 简介                          |
 |-----------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------|
-| [ruoyi-vue-pro](https://gitee.com/zhijiantianya/ruoyi-vue-pro)  | [![Gitee star](https://gitee.com/zhijiantianya/ruoyi-vue-pro/badge/star.svg?theme=white)](https://gitee.com/zhijiantianya/ruoyi-vue-pro) [![GitHub stars](https://img.shields.io/github/stars/YunaiV/ruoyi-vue-pro.svg?style=social&label=Stars)](https://gitee.com/yqzy1688/ruoyi-office.git)       | 基于 Spring Boot 多模块架构        |
+| [ruoyi-vue-pro](https://gitee.com/zhijiantianya/ruoyi-vue-pro)  | [![Gitee star](https://gitee.com/zhijiantianya/ruoyi-vue-pro/badge/star.svg?theme=white)](https://gitee.com/zhijiantianya/ruoyi-vue-pro) [![GitHub stars](https://img.shields.io/github/stars/YunaiV/ruoyi-vue-pro.svg?style=social&label=Stars)](https://example.com/your-org/your-project.git)       | 基于 Spring Boot 多模块架构        |
 | [yudao-cloud](https://gitee.com/zhijiantianya/yudao-cloud)      | [![Gitee star](https://gitee.com/zhijiantianya/yudao-cloud/badge/star.svg?theme=white)](https://gitee.com/zhijiantianya/yudao-cloud) [![GitHub stars](https://img.shields.io/github/stars/YunaiV/yudao-cloud.svg?style=social&label=Stars)](https://github.com/YunaiV/yudao-cloud)               | 基于 Spring Cloud 微服务架构       |
 | [Spring-Boot-Labs](https://gitee.com/yudaocode/SpringBoot-Labs) | [![Gitee star](https://gitee.com/yudaocode/SpringBoot-Labs/badge/star.svg?theme=white)](https://gitee.com/zhijiantianya/yudao-cloud) [![GitHub stars](https://img.shields.io/github/stars/yudaocode/SpringBoot-Labs.svg?style=social&label=Stars)](https://github.com/yudaocode/SpringBoot-Labs) | 系统学习 Spring Boot & Cloud 专栏 |
 
@@ -101,7 +101,7 @@
 
 ## 🤝 项目外包
 
-我们也是接外包滴，如果你有项目想要外包，可以微信联系【**17156169080**】。
+我们也是接外包滴，如果你有项目想要外包，可以微信联系【**请填写企业联系方式**】。
 
 团队包含专业的项目经理、架构师、前端工程师、后端工程师、测试工程师、运维工程师，可以提供全流程的外包服务。
 
@@ -251,7 +251,7 @@
 
 ### 商城系统
 
-演示地址：<https://ruoyioffice.com/mall-preview/>
+演示地址：<https://example.com/mall-preview/>
 
 ![功能图](/.image/common/mall-feature.png)
 
@@ -269,19 +269,19 @@
 
 ### ERP 系统
 
-演示地址：<https://ruoyioffice.com/erp-preview/>
+演示地址：<https://example.com/erp-preview/>
 
 ![功能图](/.image/common/erp-feature.png)
 
 ### CRM 系统
 
-演示地址：<https://ruoyioffice.com/crm-preview/>
+演示地址：<https://example.com/crm-preview/>
 
 ![功能图](/.image/common/crm-feature.png)
 
 ### AI 大模型
 
-演示地址：<https://ruoyioffice.com/ai-preview/>
+演示地址：<https://example.com/ai-preview/>
 
 ![功能图](/.image/common/ai-feature.png)
 
@@ -328,7 +328,7 @@
 | [Spring MVC](https://github.com/spring-projects/spring-framework/tree/master/spring-webmvc) | MVC 框架           | 6.1.10     | [文档](http://www.iocoder.cn/SpringMVC/MVC/?yudao)                    |
 | [Spring Security](https://github.com/spring-projects/spring-security)                       | Spring 安全框架      | 6.3.1      | [文档](http://www.iocoder.cn/Spring-Boot/Spring-Security/?yudao)      |
 | [Hibernate Validator](https://github.com/hibernate/hibernate-validator)                     | 参数校验组件           | 8.0.1      | [文档](http://www.iocoder.cn/Spring-Boot/Validation/?yudao)           |
-| [Flowable](https://github.com/flowable/flowable-engine)                                     | 工作流引擎            | 7.0.0      | [文档](http://ruoyioffice.com/bpm/)                                   |
+| [Flowable](https://github.com/flowable/flowable-engine)                                     | 工作流引擎            | 7.0.0      | [文档](https://example.com/bpm/)                                   |
 | [Knife4j](https://gitee.com/xiaoym/knife4j)                                                 | Swagger 增强 UI 实现 | 4.5.0      | [文档](http://www.iocoder.cn/Spring-Boot/Swagger/?yudao)              |
 | [SkyWalking](https://skywalking.apache.org/)                                                | 分布式应用追踪系统        | 9.0.0      | [文档](http://www.iocoder.cn/Spring-Boot/SkyWalking/?yudao)           |
 | [Spring Boot Admin](https://github.com/codecentric/spring-boot-admin)                       | Spring Boot 监控平台 | 3.6.1      | [文档](http://www.iocoder.cn/Spring-Boot/Admin/?yudao)                |

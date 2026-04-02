@@ -9,8 +9,7 @@ import java.util.Arrays;
 /**
  * 用户任务的审批类型枚举
  *
- * @author 宇擎源码
- */
+  */
 @Getter
 @AllArgsConstructor
 public enum BpmUserTaskApproveTypeEnum implements ArrayValuable<Integer> {

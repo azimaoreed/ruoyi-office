@@ -29,8 +29,7 @@ import static cn.iocoder.yudao.module.infra.enums.ErrorCodeConstants.FILE_NOT_EX
 /**
  * 文件 Service 实现类
  *
- * @author 宇擎源码
- */
+  */
 @Service
 public class FileServiceImpl implements FileService {
 

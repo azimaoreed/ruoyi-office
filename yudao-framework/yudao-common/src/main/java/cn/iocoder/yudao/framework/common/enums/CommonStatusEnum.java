@@ -10,8 +10,7 @@ import java.util.Arrays;
 /**
  * 通用状态枚举
  *
- * @author 宇擎源码
- */
+  */
 @Getter
 @AllArgsConstructor
 public enum CommonStatusEnum implements ArrayValuable<Integer> {

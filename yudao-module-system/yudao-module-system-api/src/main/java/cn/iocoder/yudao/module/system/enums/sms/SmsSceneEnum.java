@@ -10,8 +10,7 @@ import java.util.Arrays;
 /**
  * 用户短信验证码发送场景的枚举
  *
- * @author 宇擎源码
- */
+  */
 @Getter
 @AllArgsConstructor
 public enum SmsSceneEnum implements ArrayValuable<Integer> {

@@ -7,8 +7,7 @@ import java.util.Collection;
 /**
  * {@link WebSocketSession} 管理器的接口
  *
- * @author 宇擎源码
- */
+  */
 public interface WebSocketSessionManager {
 
     /**

@@ -10,8 +10,7 @@ import java.util.Arrays;
 /**
  * 社交平台的类型枚举
  *
- * @author 宇擎源码
- */
+  */
 @Getter
 @AllArgsConstructor
 public enum SocialTypeEnum implements ArrayValuable<Integer> {

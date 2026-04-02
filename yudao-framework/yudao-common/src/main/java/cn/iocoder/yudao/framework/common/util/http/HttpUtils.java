@@ -22,8 +22,7 @@ import java.util.Map;
 /**
  * HTTP 工具类
  *
- * @author 宇擎源码
- */
+  */
 public class HttpUtils {
 
     /**

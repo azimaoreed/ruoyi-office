@@ -11,8 +11,7 @@ import java.util.List;
 /**
  * IoT 告警配置 Service 接口
  *
- * @author 宇擎源码
- */
+  */
 public interface IotAlertConfigService {
 
     /**

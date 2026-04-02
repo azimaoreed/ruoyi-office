@@ -12,8 +12,7 @@ import java.time.LocalDateTime;
 /**
  * 支付序号的 Redis DAO
  *
- * @author 宇擎源码
- */
+  */
 @Repository
 public class PayNoRedisDAO {
 

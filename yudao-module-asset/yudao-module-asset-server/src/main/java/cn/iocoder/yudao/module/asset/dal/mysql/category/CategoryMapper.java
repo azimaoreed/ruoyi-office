@@ -12,8 +12,7 @@ import cn.iocoder.yudao.module.asset.controller.admin.category.vo.*;
 /**
  * 资产类别 Mapper
  *
- * @author 宇擎源码
- */
+  */
 @Mapper
 public interface CategoryMapper extends BaseMapperX<CategoryDO> {
 

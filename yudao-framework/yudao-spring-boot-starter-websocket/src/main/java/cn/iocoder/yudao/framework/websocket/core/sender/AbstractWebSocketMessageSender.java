@@ -18,8 +18,7 @@ import java.util.List;
 /**
  * WebSocketMessageSender 实现类
  *
- * @author 宇擎源码
- */
+  */
 @Slf4j
 @RequiredArgsConstructor
 public abstract class AbstractWebSocketMessageSender implements WebSocketMessageSender {

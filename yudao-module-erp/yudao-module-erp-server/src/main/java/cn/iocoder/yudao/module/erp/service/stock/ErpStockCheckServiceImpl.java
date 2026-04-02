@@ -36,8 +36,7 @@ import static cn.iocoder.yudao.module.erp.enums.ErrorCodeConstants.*;
 /**
  * ERP 库存盘点单 Service 实现类
  *
- * @author 宇擎源码
- */
+  */
 @Service
 @Validated
 public class ErpStockCheckServiceImpl implements ErpStockCheckService {

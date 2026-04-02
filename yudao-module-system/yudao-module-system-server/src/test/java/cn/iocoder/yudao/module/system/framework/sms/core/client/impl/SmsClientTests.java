@@ -14,8 +14,7 @@ import java.util.List;
 /**
  * 各种 {@link SmsClient} 的集成测试
  *
- * @author 宇擎源码
- */
+  */
 public class SmsClientTests {
 
     // ========== 阿里云 ==========
@@ -62,7 +61,7 @@ public class SmsClientTests {
         SmsChannelProperties properties = new SmsChannelProperties()
                 .setApiKey(System.getenv("SMS_TENCENT_ACCESS_KEY") + " " + sdkAppId)
                 .setApiSecret(System.getenv("SMS_TENCENT_SECRET_KEY"))
-                .setSignature("宇擎源码");
+                .setSignature("项目团队");
         TencentSmsClient client = new TencentSmsClient(properties);
         // 准备参数
         Long sendLogId = System.currentTimeMillis();
@@ -81,7 +80,7 @@ public class SmsClientTests {
         SmsChannelProperties properties = new SmsChannelProperties()
                 .setApiKey(System.getenv("SMS_TENCENT_ACCESS_KEY") + " " + sdkAppId)
                 .setApiSecret(System.getenv("SMS_TENCENT_SECRET_KEY"))
-                .setSignature("宇擎源码");
+                .setSignature("项目团队");
         TencentSmsClient client = new TencentSmsClient(properties);
         // 准备参数
         String apiTemplateId = "358212";

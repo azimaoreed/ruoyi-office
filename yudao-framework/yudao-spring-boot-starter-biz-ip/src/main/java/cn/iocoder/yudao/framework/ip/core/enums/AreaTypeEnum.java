@@ -9,8 +9,7 @@ import java.util.Arrays;
 /**
  * 区域类型枚举
  *
- * @author 宇擎源码
- */
+  */
 @AllArgsConstructor
 @Getter
 public enum AreaTypeEnum implements ArrayValuable<Integer> {

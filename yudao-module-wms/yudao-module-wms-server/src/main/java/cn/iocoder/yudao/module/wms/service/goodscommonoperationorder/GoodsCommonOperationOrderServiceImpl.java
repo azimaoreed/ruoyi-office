@@ -25,8 +25,7 @@ import static cn.iocoder.yudao.module.wms.enums.ErrorCodeConstants.*;
 /**
  * 领用、退库、归还、借用、调拨主 Service 实现类
  *
- * @author 宇擎源码
- */
+  */
 @Service
 @Validated
 public class GoodsCommonOperationOrderServiceImpl implements GoodsCommonOperationOrderService {

@@ -10,8 +10,7 @@ import org.apache.ibatis.annotations.Mapper;
 /**
  * BPM 流程监听器 Mapper
  *
- * @author 宇擎源码
- */
+  */
 @Mapper
 public interface BpmProcessListenerMapper extends BaseMapperX<BpmProcessListenerDO> {
 

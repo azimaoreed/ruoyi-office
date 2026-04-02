@@ -9,8 +9,7 @@ import cn.iocoder.yudao.module.system.dal.dataobject.logger.OperateLogDO;
 /**
  * 操作日志 Service 接口
  *
- * @author 宇擎源码
- */
+  */
 public interface OperateLogService {
 
     /**

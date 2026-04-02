@@ -14,8 +14,7 @@ import java.util.List;
 /**
  * 限时折扣 Service 接口
  *
- * @author 宇擎源码
- */
+  */
 public interface DiscountActivityService {
 
     /**

@@ -14,8 +14,7 @@ import java.util.Map;
 /**
  * IoT 设备【消息】的工具类
  *
- * @author 宇擎源码
- */
+  */
 public class IotDeviceMessageUtils {
 
     // ========== Message 相关 ==========

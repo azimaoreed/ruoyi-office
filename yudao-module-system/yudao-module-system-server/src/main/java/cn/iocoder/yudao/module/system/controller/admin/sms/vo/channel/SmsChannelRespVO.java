@@ -14,7 +14,7 @@ public class SmsChannelRespVO {
     @Schema(description = "编号", requiredMode = Schema.RequiredMode.REQUIRED, example = "1024")
     private Long id;
 
-    @Schema(description = "短信签名", requiredMode = Schema.RequiredMode.REQUIRED, example = "宇擎源码")
+    @Schema(description = "短信签名", requiredMode = Schema.RequiredMode.REQUIRED, example = "项目团队")
     @NotNull(message = "短信签名不能为空")
     private String signature;
 

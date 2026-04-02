@@ -5,8 +5,7 @@ import cn.iocoder.yudao.module.bpm.enums.definition.BpmModelTypeEnum;
 /**
  * BPMN XML 常量信息
  *
- * @author 宇擎源码
- */
+  */
 public interface BpmnModelConstants {
 
     String BPMN_FILE_SUFFIX = ".bpmn";

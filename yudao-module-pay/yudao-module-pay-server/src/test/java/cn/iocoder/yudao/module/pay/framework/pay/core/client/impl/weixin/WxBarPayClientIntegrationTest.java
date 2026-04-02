@@ -23,8 +23,7 @@ import static cn.iocoder.yudao.module.pay.framework.pay.core.client.impl.weixin.
 /**
  * {@link WxBarPayClient} 的集成测试，用于快速调试微信条码支付
  *
- * @author 宇擎源码
- */
+  */
 @Disabled
 public class WxBarPayClientIntegrationTest {
 

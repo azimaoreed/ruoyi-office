@@ -17,8 +17,7 @@ import java.util.Map;
 /**
  * 商品 SPU Service 接口
  *
- * @author 宇擎源码
- */
+  */
 public interface ProductSpuService {
 
     /**

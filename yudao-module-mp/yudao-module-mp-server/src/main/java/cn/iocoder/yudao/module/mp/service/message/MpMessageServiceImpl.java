@@ -41,8 +41,7 @@ import static cn.iocoder.yudao.module.mp.enums.ErrorCodeConstants.MESSAGE_SEND_F
 /**
  * 粉丝消息 Service 实现类
  *
- * @author 宇擎源码
- */
+  */
 @Service
 @Validated
 @Slf4j

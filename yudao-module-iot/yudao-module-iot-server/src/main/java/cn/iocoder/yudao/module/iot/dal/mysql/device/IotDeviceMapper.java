@@ -21,8 +21,7 @@ import java.util.stream.Collectors;
 /**
  * IoT 设备 Mapper
  *
- * @author 宇擎源码
- */
+  */
 @Mapper
 public interface IotDeviceMapper extends BaseMapperX<IotDeviceDO> {
 

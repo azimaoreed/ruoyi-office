@@ -24,8 +24,7 @@ import static cn.iocoder.yudao.module.bpm.enums.ErrorCodeConstants.USER_GROUP_NO
 /**
  * 用户组 Service 实现类
  *
- * @author 宇擎源码
- */
+  */
 @Service
 @Validated
 public class BpmUserGroupServiceImpl implements BpmUserGroupService {

@@ -41,8 +41,7 @@ import static cn.iocoder.yudao.module.member.enums.ErrorCodeConstants.*;
 /**
  * 会员的认证 Service 接口
  *
- * @author 宇擎源码
- */
+  */
 @Service
 @Slf4j
 public class MemberAuthServiceImpl implements MemberAuthService {

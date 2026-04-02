@@ -17,8 +17,7 @@ import java.util.List;
 /**
  * 用户收件地址 Convert
  *
- * @author 宇擎源码
- */
+  */
 @Mapper
 public interface AddressConvert {
 

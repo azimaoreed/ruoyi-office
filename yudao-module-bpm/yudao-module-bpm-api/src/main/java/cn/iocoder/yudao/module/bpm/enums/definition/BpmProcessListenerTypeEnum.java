@@ -6,8 +6,7 @@ import lombok.Getter;
 /**
  * BPM 流程监听器的类型
  *
- * @author 宇擎源码
- */
+  */
 @Getter
 @AllArgsConstructor
 public enum BpmProcessListenerTypeEnum {

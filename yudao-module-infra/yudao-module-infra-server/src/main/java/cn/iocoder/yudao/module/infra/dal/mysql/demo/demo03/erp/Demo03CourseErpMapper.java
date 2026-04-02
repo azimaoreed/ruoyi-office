@@ -12,8 +12,7 @@ import java.util.List;
 /**
  * 学生课程 Mapper
  *
- * @author 宇擎源码
- */
+  */
 @Mapper
 public interface Demo03CourseErpMapper extends BaseMapperX<Demo03CourseDO> {
 

@@ -15,8 +15,7 @@ import static cn.iocoder.yudao.framework.common.util.collection.CollectionUtils.
 /**
  * ERP 仓库 Service 接口
  *
- * @author 宇擎源码
- */
+  */
 public interface ErpWarehouseService {
 
     /**

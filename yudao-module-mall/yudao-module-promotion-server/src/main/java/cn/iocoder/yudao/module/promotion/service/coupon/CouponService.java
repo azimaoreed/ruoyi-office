@@ -13,8 +13,7 @@ import java.util.*;
 /**
  * 优惠劵 Service 接口
  *
- * @author 宇擎源码
- */
+  */
 public interface CouponService {
 
     /**

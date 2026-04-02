@@ -23,8 +23,7 @@ import static cn.iocoder.yudao.framework.common.util.collection.CollectionUtils.
 /**
  * OAuth2 批准 Service 实现类
  *
- * @author 宇擎源码
- */
+  */
 @Service
 @Validated
 public class OAuth2ApproveServiceImpl implements OAuth2ApproveService {

@@ -13,8 +13,7 @@ import java.util.List;
 /**
  * BPM 流程分类 Mapper
  *
- * @author 宇擎源码
- */
+  */
 @Mapper
 public interface BpmCategoryMapper extends BaseMapperX<BpmCategoryDO> {
 

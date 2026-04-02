@@ -25,8 +25,7 @@ import static cn.iocoder.yudao.module.bpm.enums.ErrorCodeConstants.OA_LEAVE_NOT_
  * OA 请假申请 Service 实现类
  *
  * @author jason
- * @author 宇擎源码
- */
+  */
 @Service
 @Validated
 public class BpmOALeaveServiceImpl implements BpmOALeaveService {

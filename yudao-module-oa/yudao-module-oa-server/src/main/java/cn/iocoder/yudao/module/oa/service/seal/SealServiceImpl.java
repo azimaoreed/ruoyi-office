@@ -19,8 +19,7 @@ import static cn.iocoder.yudao.module.oa.enums.ErrorCodeConstants.*;
 /**
  * 印章信息 Service 实现类
  *
- * @author 宇擎源码
- */
+  */
 @Service
 @Validated
 public class SealServiceImpl implements SealService {

@@ -8,8 +8,7 @@ import org.springframework.stereotype.Repository;
 /**
  * 设备关联的网关 serverId 的 Redis DAO
  *
- * @author 宇擎源码
- */
+  */
 @Repository
 public class DeviceServerIdRedisDAO {
 

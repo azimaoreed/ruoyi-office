@@ -6,8 +6,7 @@ import lombok.Getter;
 /**
  * 代码生成的前端类型枚举
  *
- * @author 宇擎源码
- */
+  */
 @AllArgsConstructor
 @Getter
 public enum CodegenFrontTypeEnum {

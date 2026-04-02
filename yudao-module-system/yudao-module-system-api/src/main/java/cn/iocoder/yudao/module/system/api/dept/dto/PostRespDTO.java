@@ -6,8 +6,7 @@ import lombok.Data;
 /**
  * 岗位 Response DTO
  *
- * @author 宇擎源码
- */
+  */
 @Schema(description = "RPC 服务 - 岗位 Response DTO")
 @Data
 public class PostRespDTO {

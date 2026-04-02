@@ -7,8 +7,7 @@ import java.util.Map;
 /**
  * 交易订单的操作日志 Utils
  *
- * @author 宇擎源码
- */
+  */
 public class TradeOrderLogUtils {
 
     public static void setOrderInfo(Long id, Integer beforeStatus, Integer afterStatus) {

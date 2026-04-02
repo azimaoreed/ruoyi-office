@@ -10,8 +10,7 @@ import java.util.List;
 /**
  * 日程接收人关系 Mapper
  *
- * @author 宇擎源码
- */
+  */
 @Mapper
 public interface ScheduleReceiverMapper extends BaseMapperX<ScheduleReceiverDO> {
 

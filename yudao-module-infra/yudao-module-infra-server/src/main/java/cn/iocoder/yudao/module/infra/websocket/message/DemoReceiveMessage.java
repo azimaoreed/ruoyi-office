@@ -5,8 +5,7 @@ import lombok.Data;
 /**
  * 示例：server -> client 同步消息
  *
- * @author 宇擎源码
- */
+  */
 @Data
 public class DemoReceiveMessage {
 

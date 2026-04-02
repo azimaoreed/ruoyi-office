@@ -9,8 +9,7 @@ import java.util.Arrays;
 /**
  * IoT 告警的接收方式枚举
  *
- * @author 宇擎源码
- */
+  */
 @RequiredArgsConstructor
 @Getter
 public enum IotAlertReceiveTypeEnum implements ArrayValuable<Integer> {

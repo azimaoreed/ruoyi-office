@@ -12,8 +12,7 @@ import cn.iocoder.yudao.module.hrm.controller.admin.employee.vo.EmployeeEntryBil
 /**
  * 员工入职申请单 Mapper
  *
- * @author 宇擎源码
- */
+  */
 @Mapper
 public interface EmployeeEntryBillMapper extends BaseMapperX<EmployeeEntryBillDO> {
 

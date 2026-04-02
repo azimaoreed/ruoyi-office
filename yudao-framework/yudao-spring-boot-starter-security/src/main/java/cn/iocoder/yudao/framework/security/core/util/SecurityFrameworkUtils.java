@@ -19,8 +19,7 @@ import java.util.Collections;
 /**
  * 安全服务工具类
  *
- * @author 宇擎源码
- */
+  */
 public class SecurityFrameworkUtils {
 
     /**

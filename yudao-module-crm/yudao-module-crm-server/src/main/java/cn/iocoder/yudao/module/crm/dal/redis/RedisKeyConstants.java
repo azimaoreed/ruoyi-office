@@ -3,8 +3,7 @@ package cn.iocoder.yudao.module.crm.dal.redis;
 /**
  * CRM Redis Key 枚举类
  *
- * @author 宇擎源码
- */
+  */
 public interface RedisKeyConstants {
 
     /**

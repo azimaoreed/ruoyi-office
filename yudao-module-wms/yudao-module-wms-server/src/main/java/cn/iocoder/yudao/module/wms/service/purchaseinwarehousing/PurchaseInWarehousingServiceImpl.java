@@ -25,8 +25,7 @@ import static cn.iocoder.yudao.module.wms.enums.ErrorCodeConstants.*;
 /**
  * 采购入库 Service 实现类
  *
- * @author 宇擎源码
- */
+  */
 @Service
 @Validated
 public class PurchaseInWarehousingServiceImpl implements PurchaseInWarehousingService {

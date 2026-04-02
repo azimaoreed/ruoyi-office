@@ -12,8 +12,7 @@ import org.apache.ibatis.annotations.Mapper;
 /**
  * ERP 付款单 Mapper
  *
- * @author 宇擎源码
- */
+  */
 @Mapper
 public interface ErpFinancePaymentMapper extends BaseMapperX<ErpFinancePaymentDO> {
 

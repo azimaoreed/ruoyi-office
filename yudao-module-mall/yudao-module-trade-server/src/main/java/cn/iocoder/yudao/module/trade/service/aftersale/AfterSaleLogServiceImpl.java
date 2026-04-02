@@ -13,8 +13,7 @@ import java.util.List;
 /**
  * 交易售后日志 Service 实现类
  *
- * @author 宇擎源码
- */
+  */
 @Service
 @Validated
 public class AfterSaleLogServiceImpl implements AfterSaleLogService {

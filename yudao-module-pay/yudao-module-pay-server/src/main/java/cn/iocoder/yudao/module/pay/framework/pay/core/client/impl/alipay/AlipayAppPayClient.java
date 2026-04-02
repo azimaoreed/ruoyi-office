@@ -17,8 +17,7 @@ import lombok.extern.slf4j.Slf4j;
  *
  * // TODO 芋艿：未详细测试，因为手头没 App
  *
- * @author 宇擎源码
- */
+  */
 @Slf4j
 public class AlipayAppPayClient extends AbstractAlipayPayClient {
 

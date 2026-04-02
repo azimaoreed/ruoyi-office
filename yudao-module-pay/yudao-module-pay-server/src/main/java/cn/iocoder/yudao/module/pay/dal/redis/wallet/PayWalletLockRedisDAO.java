@@ -13,8 +13,7 @@ import static cn.iocoder.yudao.module.pay.dal.redis.RedisKeyConstants.PAY_WALLET
 /**
  * 支付钱包的锁 Redis DAO
  *
- * @author 宇擎源码
- */
+  */
 @Repository
 public class PayWalletLockRedisDAO {
 

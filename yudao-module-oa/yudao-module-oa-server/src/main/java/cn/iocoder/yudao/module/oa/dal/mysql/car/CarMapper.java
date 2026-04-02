@@ -12,8 +12,7 @@ import cn.iocoder.yudao.module.oa.controller.admin.car.vo.*;
 /**
  * 车辆信息 Mapper
  *
- * @author 宇擎源码
- */
+  */
 @Mapper
 public interface CarMapper extends BaseMapperX<CarDO> {
 

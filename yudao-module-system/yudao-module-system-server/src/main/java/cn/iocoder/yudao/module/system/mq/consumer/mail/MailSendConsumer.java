@@ -12,8 +12,7 @@ import jakarta.annotation.Resource;
 /**
  * 针对 {@link MailSendMessage} 的消费者
  *
- * @author 宇擎源码
- */
+  */
 @Component
 @Slf4j
 public class MailSendConsumer {

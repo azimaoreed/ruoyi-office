@@ -14,8 +14,7 @@ import java.util.stream.Collectors;
 /**
  * 字符串工具类
  *
- * @author 宇擎源码
- */
+  */
 public class StrUtils {
 
     public static String maxLength(CharSequence str, int maxLength) {
@@ -95,7 +94,7 @@ public class StrUtils {
             if (item == null) {
                 return "";
             }
-            // 讨论可见：https://ruoyioffice.com/XUJVk、https://ruoyioffice.com/MnKcL
+            // 讨论可见：https://example.com/XUJVk、https://example.com/MnKcL
             String clazzName = item.getClass().getName();
             if (StrUtil.startWithAny(clazzName, "javax.servlet", "jakarta.servlet", "org.springframework.web")) {
                 return "";

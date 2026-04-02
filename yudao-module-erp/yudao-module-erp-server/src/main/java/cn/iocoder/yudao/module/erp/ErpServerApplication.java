@@ -6,25 +6,24 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 /**
  * 项目的启动类
  * <p>
- * 如果你碰到启动的问题，请认真阅读 https://ruoyioffice.com/quick-start/ 文章
- * 如果你碰到启动的问题，请认真阅读 https://ruoyioffice.com/quick-start/ 文章
- * 如果你碰到启动的问题，请认真阅读 https://ruoyioffice.com/quick-start/ 文章
+ * 如遇启动问题，请查阅项目部署文档。
+ * 如遇启动问题，请查阅项目部署文档。
+ * 如遇启动问题，请查阅项目部署文档。
  *
- * @author 宇擎源码
- */
+  */
 @SpringBootApplication
 public class ErpServerApplication {
 
     public static void main(String[] args) {
-        // 如果你碰到启动的问题，请认真阅读 https://ruoyioffice.com/quick-start/ 文章
-        // 如果你碰到启动的问题，请认真阅读 https://ruoyioffice.com/quick-start/ 文章
-        // 如果你碰到启动的问题，请认真阅读 https://ruoyioffice.com/quick-start/ 文章
+        // 如遇启动问题，请查阅项目部署文档。
+        // 如遇启动问题，请查阅项目部署文档。
+        // 如遇启动问题，请查阅项目部署文档。
 
         SpringApplication.run(ErpServerApplication.class, args);
 
-        // 如果你碰到启动的问题，请认真阅读 https://ruoyioffice.com/quick-start/ 文章
-        // 如果你碰到启动的问题，请认真阅读 https://ruoyioffice.com/quick-start/ 文章
-        // 如果你碰到启动的问题，请认真阅读 https://ruoyioffice.com/quick-start/ 文章
+        // 如遇启动问题，请查阅项目部署文档。
+        // 如遇启动问题，请查阅项目部署文档。
+        // 如遇启动问题，请查阅项目部署文档。
     }
 
 }

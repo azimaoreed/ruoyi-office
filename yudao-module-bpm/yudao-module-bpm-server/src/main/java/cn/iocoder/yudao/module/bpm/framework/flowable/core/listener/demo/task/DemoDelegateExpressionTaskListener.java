@@ -8,8 +8,7 @@ import org.springframework.stereotype.Component;
 /**
  * 类型为 delegateExpression 的 TaskListener 监听器示例
  *
- * @author 宇擎源码
- */
+  */
 @Component
 @Slf4j
 public class DemoDelegateExpressionTaskListener implements TaskListener {

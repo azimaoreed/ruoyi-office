@@ -56,8 +56,7 @@ import static cn.iocoder.yudao.module.system.enums.LogRecordConstants.*;
 /**
  * 后台用户 Service 实现类
  *
- * @author 宇擎源码
- */
+  */
 @Service("adminUserService")
 @Slf4j
 public class AdminUserServiceImpl implements AdminUserService {

@@ -13,7 +13,7 @@
 
     <name>${project.artifactId}</name>
     <description>数据权限</description>
-    <url>https://gitee.com/yqzy1688/ruoyi-office.git</url>
+    <url>https://example.com/your-org/your-project.git</url>
 
     <dependencies>
         <dependency>

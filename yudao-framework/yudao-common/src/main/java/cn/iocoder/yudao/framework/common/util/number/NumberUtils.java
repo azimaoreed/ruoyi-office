@@ -10,8 +10,7 @@ import java.util.List;
 /**
  * 数字的工具类，补全 {@link cn.hutool.core.util.NumberUtil} 的功能
  *
- * @author 宇擎源码
- */
+  */
 public class NumberUtils {
 
     public static Long parseLong(String str) {

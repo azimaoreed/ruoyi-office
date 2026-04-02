@@ -3,8 +3,7 @@ package cn.iocoder.yudao.module.system.enums;
 /**
  * System 字典类型的枚举类
  *
- * @author 宇擎源码
- */
+  */
 public interface DictTypeConstants {
 
     String USER_TYPE = "user_type"; // 用户类型

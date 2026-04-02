@@ -38,8 +38,7 @@ import static cn.iocoder.yudao.framework.common.exception.util.ServiceExceptionU
  * 疑问：为什么不使用 SpringMVC 的 RequestBodyAdvice 或 ResponseBodyAdvice 机制呢？
  * 回答：考虑到项目中会记录访问日志、异常日志，以及 HTTP API 签名等场景，最好是全局级、且提前做解析！！！
  *
- * @author 宇擎源码
- */
+  */
 @Slf4j
 public class ApiEncryptFilter extends ApiRequestFilter {
 
@@ -132,7 +131,7 @@ public class ApiEncryptFilter extends ApiRequestFilter {
     @SuppressWarnings("PatternVariableCanBeUsed")
     private ApiEncrypt getApiEncrypt(HttpServletRequest request) {
         try {
-            // 特殊：兼容 SpringBoot 2.X 版本会报错的问题 https://ruoyioffice.com/kqyiB
+            // 特殊：兼容 SpringBoot 2.X 版本会报错的问题 https://example.com/kqyiB
             if (!ServletRequestPathUtils.hasParsedRequestPath(request)) {
                 ServletRequestPathUtils.parseAndCache(request);
             }

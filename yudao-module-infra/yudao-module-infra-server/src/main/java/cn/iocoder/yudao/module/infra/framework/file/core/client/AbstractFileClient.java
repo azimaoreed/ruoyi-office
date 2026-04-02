@@ -6,8 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * 文件客户端的抽象类，提供模板方法，减少子类的冗余代码
  *
- * @author 宇擎源码
- */
+  */
 @Slf4j
 public abstract class AbstractFileClient<Config extends FileClientConfig> implements FileClient {
 
@@ -23,7 +22,7 @@ public abstract class AbstractFileClient<Config extends FileClientConfig> implem
      * 原始的文件配置
      *
      * 原因：{@link #config} 可能被子类所修改，无法用于判断配置是否变更
-     * @link <a href="https://ruoyioffice.com/29wkW">相关案例</a>
+     * @link <a href="https://example.com/29wkW">相关案例</a>
      */
     private Config originalConfig;
 

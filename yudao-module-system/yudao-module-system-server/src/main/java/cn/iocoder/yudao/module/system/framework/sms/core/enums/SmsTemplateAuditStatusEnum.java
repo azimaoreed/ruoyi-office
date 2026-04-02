@@ -6,8 +6,7 @@ import lombok.Getter;
 /**
  * 短信模板的审核状态枚举
  *
- * @author 宇擎源码
- */
+  */
 @AllArgsConstructor
 @Getter
 public enum SmsTemplateAuditStatusEnum {

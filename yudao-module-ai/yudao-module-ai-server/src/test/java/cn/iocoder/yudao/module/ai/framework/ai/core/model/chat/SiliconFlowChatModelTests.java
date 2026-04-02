@@ -20,8 +20,7 @@ import java.util.List;
 /**
  * {@link SiliconFlowChatModel} 集成测试
  *
- * @author 宇擎源码
- */
+  */
 public class SiliconFlowChatModelTests {
 
     private final DeepSeekChatModel openAiChatModel = DeepSeekChatModel.builder()

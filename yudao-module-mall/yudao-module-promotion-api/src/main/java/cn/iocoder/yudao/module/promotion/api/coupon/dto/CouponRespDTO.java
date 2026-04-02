@@ -11,8 +11,7 @@ import java.util.List;
 /**
  * 优惠劵 Response DTO
  *
- * @author 宇擎源码
- */
+  */
 @Data
 public class CouponRespDTO {
 

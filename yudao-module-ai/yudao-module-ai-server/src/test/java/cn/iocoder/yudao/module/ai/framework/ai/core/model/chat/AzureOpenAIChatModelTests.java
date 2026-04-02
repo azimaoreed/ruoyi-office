@@ -21,8 +21,7 @@ import static org.springframework.ai.model.azure.openai.autoconfigure.AzureOpenA
 /**
  * {@link AzureOpenAiChatModel} 集成测试
  *
- * @author 宇擎源码
- */
+  */
 public class AzureOpenAIChatModelTests {
 
     // TODO @芋艿：晚点在调整

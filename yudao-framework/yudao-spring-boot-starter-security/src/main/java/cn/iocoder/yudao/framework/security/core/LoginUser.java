@@ -13,8 +13,7 @@ import java.util.Map;
 /**
  * 登录用户信息
  *
- * @author 宇擎源码
- */
+  */
 @Data
 public class LoginUser {
 

@@ -11,8 +11,7 @@ import java.util.Arrays;
 /**
  * 流程实例 ProcessInstance 的状态
  *
- * @author 宇擎源码
- */
+  */
 @Getter
 @AllArgsConstructor
 public enum BpmProcessInstanceStatusEnum implements ArrayValuable<Integer> {

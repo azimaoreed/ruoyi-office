@@ -6,8 +6,7 @@ import lombok.Getter;
 /**
  * 支付通知类型
  *
- * @author 宇擎源码
- */
+  */
 @Getter
 @AllArgsConstructor
 public enum PayNotifyTypeEnum {

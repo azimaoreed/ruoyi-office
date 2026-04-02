@@ -10,8 +10,7 @@ import java.util.Arrays;
 /**
  * 促销活动的状态枚举
  *
- * @author 宇擎源码
- */
+  */
 @AllArgsConstructor
 @Getter
 public enum PromotionActivityStatusEnum implements ArrayValuable<Integer> {

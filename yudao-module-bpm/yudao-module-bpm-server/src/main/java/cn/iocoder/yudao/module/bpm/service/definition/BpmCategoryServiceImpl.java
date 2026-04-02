@@ -25,8 +25,7 @@ import static cn.iocoder.yudao.module.bpm.enums.ErrorCodeConstants.*;
 /**
  * BPM 流程分类 Service 实现类
  *
- * @author 宇擎源码
- */
+  */
 @Service
 @Validated
 public class BpmCategoryServiceImpl implements BpmCategoryService {

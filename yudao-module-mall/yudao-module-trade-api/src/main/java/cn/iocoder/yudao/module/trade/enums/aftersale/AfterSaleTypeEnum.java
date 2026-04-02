@@ -9,8 +9,7 @@ import java.util.Arrays;
 /**
  * 交易售后 - 类型
  *
- * @author 宇擎源码
- */
+  */
 @RequiredArgsConstructor
 @Getter
 public enum AfterSaleTypeEnum implements ArrayValuable<Integer> {

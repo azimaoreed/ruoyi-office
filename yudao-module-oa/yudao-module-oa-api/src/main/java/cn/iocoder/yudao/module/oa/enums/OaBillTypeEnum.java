@@ -5,8 +5,7 @@ import cn.iocoder.yudao.framework.common.enums.BillTypeEnum;
 /**
  * 单据类型枚举
  *
- * @author 宇擎源码
- */
+  */
 public enum OaBillTypeEnum implements BillTypeEnum {
     /**
      * 用车申请单

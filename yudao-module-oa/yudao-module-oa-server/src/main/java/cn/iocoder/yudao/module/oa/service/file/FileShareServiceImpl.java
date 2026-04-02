@@ -28,8 +28,7 @@ import static cn.iocoder.yudao.module.oa.enums.ErrorCodeConstants.*;
 /**
  * 文件分享服务实现类
  *
- * @author 宇擎源码
- */
+  */
 @Service
 @Slf4j
 public class FileShareServiceImpl implements FileShareService {

@@ -9,8 +9,7 @@ import jakarta.validation.constraints.NotEmpty;
 /**
  * AI 知识库段落搜索 Request BO
  *
- * @author 宇擎源码
- */
+  */
 @Data
 public class AiKnowledgeSegmentSearchReqBO {
 

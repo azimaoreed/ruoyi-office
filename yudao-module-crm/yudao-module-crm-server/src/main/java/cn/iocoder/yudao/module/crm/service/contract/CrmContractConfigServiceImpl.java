@@ -17,8 +17,7 @@ import static cn.iocoder.yudao.module.crm.enums.LogRecordConstants.*;
 /**
  * 合同配置 Service 实现类
  *
- * @author 宇擎源码
- */
+  */
 @Service
 @Validated
 public class CrmContractConfigServiceImpl implements CrmContractConfigService {

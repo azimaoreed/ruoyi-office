@@ -23,8 +23,7 @@ import static cn.iocoder.yudao.module.product.enums.ErrorCodeConstants.*;
 /**
  * 品牌 Service 实现类
  *
- * @author 宇擎源码
- */
+  */
 @Service
 @Validated
 public class ProductBrandServiceImpl implements ProductBrandService {

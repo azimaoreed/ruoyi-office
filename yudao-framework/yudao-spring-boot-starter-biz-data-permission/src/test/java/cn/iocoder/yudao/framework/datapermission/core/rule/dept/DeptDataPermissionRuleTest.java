@@ -31,8 +31,7 @@ import static org.mockito.Mockito.when;
 /**
  * {@link DeptDataPermissionRule} 的单元测试
  *
- * @author 宇擎源码
- */
+  */
 class DeptDataPermissionRuleTest extends BaseMockitoUnitTest {
 
     @InjectMocks

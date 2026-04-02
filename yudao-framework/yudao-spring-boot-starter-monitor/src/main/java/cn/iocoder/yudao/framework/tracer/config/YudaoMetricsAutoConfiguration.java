@@ -12,8 +12,7 @@ import org.springframework.context.annotation.Configuration;
 /**
  * Metrics 配置类
  *
- * @author 宇擎源码
- */
+  */
 @AutoConfiguration
 @ConditionalOnClass({MeterRegistryCustomizer.class})
 @ConditionalOnProperty(prefix = "yudao.metrics", value = "enable", matchIfMissing = true) // 允许使用 yudao.metrics.enable=false 禁用 Metrics

@@ -11,8 +11,7 @@ import java.util.List;
 /**
  * 商品分类 Service 接口
  *
- * @author 宇擎源码
- */
+  */
 public interface ProductCategoryService {
 
     /**

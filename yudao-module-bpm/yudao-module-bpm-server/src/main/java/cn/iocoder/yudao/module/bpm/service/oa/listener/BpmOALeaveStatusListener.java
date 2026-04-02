@@ -10,8 +10,7 @@ import org.springframework.stereotype.Component;
 /**
  * OA 请假单的结果的监听器实现类
  *
- * @author 宇擎源码
- */
+  */
 @Component
 public class BpmOALeaveStatusListener extends BpmProcessInstanceStatusEventListener {
 

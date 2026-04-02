@@ -54,7 +54,7 @@ public class CrmFollowUpRecordRespVO {
     @Schema(description = "创建人", example = "1024")
     @ExcelProperty("创建人")
     private String creator;
-    @Schema(description = "创建人名字", example = "宇擎源码")
+    @Schema(description = "创建人名字", example = "项目团队")
     @ExcelProperty("创建人名字")
     private String creatorName;
 

@@ -37,8 +37,7 @@ import static cn.iocoder.yudao.framework.common.util.collection.CollectionUtils.
 /**
  * Flowable 相关的工具方法
  *
- * @author 宇擎源码
- */
+  */
 public class FlowableUtils {
 
     // ========== User 相关的工具方法 ==========

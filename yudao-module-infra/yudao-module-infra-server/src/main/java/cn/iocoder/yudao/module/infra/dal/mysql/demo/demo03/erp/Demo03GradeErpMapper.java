@@ -12,8 +12,7 @@ import java.util.List;
 /**
  * 学生班级 Mapper
  *
- * @author 宇擎源码
- */
+  */
 @Mapper
 public interface Demo03GradeErpMapper extends BaseMapperX<Demo03GradeDO> {
 

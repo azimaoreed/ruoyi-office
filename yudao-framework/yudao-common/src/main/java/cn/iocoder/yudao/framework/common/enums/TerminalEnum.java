@@ -9,8 +9,7 @@ import java.util.Arrays;
 /**
  * 终端的枚举
  *
- * @author 宇擎源码
- */
+  */
 @RequiredArgsConstructor
 @Getter
 public enum TerminalEnum implements ArrayValuable<Integer> {

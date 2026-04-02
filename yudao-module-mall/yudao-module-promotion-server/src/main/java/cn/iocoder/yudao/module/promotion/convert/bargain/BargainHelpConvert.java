@@ -15,8 +15,7 @@ import java.util.Map;
 /**
  * 砍价助力 Convert
  *
- * @author 宇擎源码
- */
+  */
 @Mapper
 public interface BargainHelpConvert {
 

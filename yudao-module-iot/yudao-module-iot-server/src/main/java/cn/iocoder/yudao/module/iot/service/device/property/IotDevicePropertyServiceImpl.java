@@ -41,8 +41,7 @@ import static cn.iocoder.yudao.framework.common.util.collection.MapUtils.getBigD
 /**
  * IoT 设备【属性】数据 Service 实现类
  *
- * @author 宇擎源码
- */
+  */
 @Service
 @Slf4j
 public class IotDevicePropertyServiceImpl implements IotDevicePropertyService {

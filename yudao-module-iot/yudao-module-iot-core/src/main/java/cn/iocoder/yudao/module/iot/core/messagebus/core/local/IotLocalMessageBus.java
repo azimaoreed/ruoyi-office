@@ -18,8 +18,7 @@ import java.util.Map;
  *
  * 注意：仅适用于单机场景！！！
  *
- * @author 宇擎源码
- */
+  */
 @RequiredArgsConstructor
 @Slf4j
 public class IotLocalMessageBus implements IotMessageBus {

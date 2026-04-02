@@ -10,8 +10,7 @@ import java.util.List;
 /**
  * ERP 其它出库单项 Mapper
  *
- * @author 宇擎源码
- */
+  */
 @Mapper
 public interface ErpStockOutItemMapper extends BaseMapperX<ErpStockOutItemDO> {
 

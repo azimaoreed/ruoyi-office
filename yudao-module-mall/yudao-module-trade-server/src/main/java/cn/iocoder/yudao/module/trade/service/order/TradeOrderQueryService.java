@@ -17,8 +17,7 @@ import static java.util.Collections.singleton;
 /**
  * 交易订单【读】 Service 接口
  *
- * @author 宇擎源码
- */
+  */
 public interface TradeOrderQueryService {
 
     // =================== Order ===================

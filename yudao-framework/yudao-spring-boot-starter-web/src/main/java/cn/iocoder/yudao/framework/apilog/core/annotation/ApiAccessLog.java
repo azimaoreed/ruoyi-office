@@ -10,8 +10,7 @@ import java.lang.annotation.Target;
 /**
  * 访问日志注解
  *
- * @author 宇擎源码
- */
+  */
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ApiAccessLog {

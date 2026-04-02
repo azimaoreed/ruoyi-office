@@ -18,8 +18,7 @@ import static cn.iocoder.yudao.module.infra.enums.ErrorCodeConstants.*;
 /**
  * 示例分类 Service 实现类
  *
- * @author 宇擎源码
- */
+  */
 @Service
 @Validated
 public class Demo02CategoryServiceImpl implements Demo02CategoryService {

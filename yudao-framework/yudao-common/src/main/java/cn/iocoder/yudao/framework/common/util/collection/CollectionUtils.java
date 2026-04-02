@@ -17,8 +17,7 @@ import static java.util.Arrays.asList;
 /**
  * Collection 工具类
  *
- * @author 宇擎源码
- */
+  */
 public class CollectionUtils {
 
     public static boolean containsAny(Object source, Object... targets) {

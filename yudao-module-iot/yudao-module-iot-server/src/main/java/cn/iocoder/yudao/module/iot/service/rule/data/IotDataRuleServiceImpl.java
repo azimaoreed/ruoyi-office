@@ -38,8 +38,7 @@ import static cn.iocoder.yudao.module.iot.enums.ErrorCodeConstants.DATA_RULE_NOT
 /**
  * IoT 数据流转规则 Service 实现类
  *
- * @author 宇擎源码
- */
+  */
 @Service
 @Validated
 @Slf4j

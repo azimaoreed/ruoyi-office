@@ -18,8 +18,7 @@ import java.util.stream.Collectors;
 /**
  * 满减送活动 Mapper
  *
- * @author 宇擎源码
- */
+  */
 @Mapper
 public interface RewardActivityMapper extends BaseMapperX<RewardActivityDO> {
 

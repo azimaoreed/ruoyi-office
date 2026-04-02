@@ -29,8 +29,7 @@ import java.util.Map;
 /**
  * 默认的 {@link MpServiceFactory} 实现类
  *
- * @author 宇擎源码
- */
+  */
 @Slf4j
 @RequiredArgsConstructor
 public class DefaultMpServiceFactory implements MpServiceFactory {

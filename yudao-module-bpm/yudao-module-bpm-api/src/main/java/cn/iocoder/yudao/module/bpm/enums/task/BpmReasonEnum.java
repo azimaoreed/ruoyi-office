@@ -7,8 +7,7 @@ import lombok.Getter;
 /**
  * 流程实例/任务的的处理原因枚举
  *
- * @author 宇擎源码
- */
+  */
 @Getter
 @AllArgsConstructor
 public enum BpmReasonEnum {

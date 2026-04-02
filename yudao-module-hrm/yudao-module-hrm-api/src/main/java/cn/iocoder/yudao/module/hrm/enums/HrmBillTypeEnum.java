@@ -5,8 +5,7 @@ import cn.iocoder.yudao.framework.common.enums.BillTypeEnum;
 /**
  * HRM 单据类型枚举
  *
- * @author 宇擎源码
- */
+  */
 public enum HrmBillTypeEnum implements BillTypeEnum {
     /**
      * 员工入职申请单

@@ -12,8 +12,7 @@ import java.util.List;
 /**
  * AI 工具 Service 接口
  *
- * @author 宇擎源码
- */
+  */
 public interface AiToolService {
 
     /**

@@ -7,8 +7,7 @@ import jakarta.validation.constraints.NotNull;
 /**
  * 优惠劵使用 Request DTO
  *
- * @author 宇擎源码
- */
+  */
 @Data
 public class CouponUseReqDTO {
 

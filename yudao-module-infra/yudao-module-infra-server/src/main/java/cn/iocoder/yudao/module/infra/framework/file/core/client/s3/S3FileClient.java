@@ -27,8 +27,7 @@ import java.time.Duration;
 /**
  * 基于 S3 协议的文件客户端，实现 MinIO、阿里云、腾讯云、七牛云、华为云等云服务
  *
- * @author 宇擎源码
- */
+  */
 public class S3FileClient extends AbstractFileClient<S3FileClientConfig> {
 
     private static final Duration EXPIRATION_DEFAULT = Duration.ofHours(24);
@@ -55,7 +54,7 @@ public class S3FileClient extends AbstractFileClient<S3FileClientConfig> {
         URI endpoint = URI.create(buildEndpoint());
         S3Configuration serviceConfiguration = S3Configuration.builder() // Path-style 访问
                 .pathStyleAccessEnabled(Boolean.TRUE.equals(config.getEnablePathStyleAccess()))
-                .chunkedEncodingEnabled(false) // 禁用分块编码，参见 https://ruoyioffice.com/kBy57
+                .chunkedEncodingEnabled(false) // 禁用分块编码，参见 https://example.com/kBy57
                 .build();
         client = S3Client.builder()
                 .credentialsProvider(credentialsProvider)

@@ -26,8 +26,7 @@ import java.util.*;
 /**
  * Spring AI 工具类
  *
- * @author 宇擎源码
- */
+  */
 public class AiUtils {
 
     public static final String TOOL_CONTEXT_LOGIN_USER = "LOGIN_USER";

@@ -39,8 +39,7 @@ import static cn.iocoder.yudao.module.system.enums.LogRecordConstants.*;
 /**
  * 角色 Service 实现类
  *
- * @author 宇擎源码
- */
+  */
 @Service
 @Slf4j
 public class RoleServiceImpl implements RoleService {

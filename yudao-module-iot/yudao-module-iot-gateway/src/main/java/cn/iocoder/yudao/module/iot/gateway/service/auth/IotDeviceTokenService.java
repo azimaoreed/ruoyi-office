@@ -5,8 +5,7 @@ import cn.iocoder.yudao.module.iot.core.topic.IotDeviceIdentity;
 /**
  * IoT 设备 Token Service 接口
  *
- * @author 宇擎源码
- */
+  */
 public interface IotDeviceTokenService {
 
     /**

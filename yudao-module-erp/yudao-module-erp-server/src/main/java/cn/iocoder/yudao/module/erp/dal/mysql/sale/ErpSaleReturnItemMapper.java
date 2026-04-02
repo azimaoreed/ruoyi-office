@@ -17,8 +17,7 @@ import static cn.iocoder.yudao.framework.common.util.collection.CollectionUtils.
 /**
  * ERP 销售退货项 Mapper
  *
- * @author 宇擎源码
- */
+  */
 @Mapper
 public interface ErpSaleReturnItemMapper extends BaseMapperX<ErpSaleReturnItemDO> {
 

@@ -10,7 +10,7 @@ public class MpAccountSimpleRespVO {
     @Schema(description = "编号", requiredMode = Schema.RequiredMode.REQUIRED, example = "1024")
     private Long id;
 
-    @Schema(description = "公众号名称", requiredMode = Schema.RequiredMode.REQUIRED, example = "宇擎源码")
+    @Schema(description = "公众号名称", requiredMode = Schema.RequiredMode.REQUIRED, example = "项目团队")
     private String name;
 
 }

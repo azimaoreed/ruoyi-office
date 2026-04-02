@@ -10,8 +10,7 @@ import java.util.List;
 /**
  * 用户收件地址 Service 接口
  *
- * @author 宇擎源码
- */
+  */
 public interface AddressService {
 
     /**

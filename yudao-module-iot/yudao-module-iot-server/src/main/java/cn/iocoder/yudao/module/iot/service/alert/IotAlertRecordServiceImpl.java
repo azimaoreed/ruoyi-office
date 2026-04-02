@@ -19,8 +19,7 @@ import java.util.List;
 /**
  * IoT 告警记录 Service 实现类
  *
- * @author 宇擎源码
- */
+  */
 @Service
 @Validated
 public class IotAlertRecordServiceImpl implements IotAlertRecordService {

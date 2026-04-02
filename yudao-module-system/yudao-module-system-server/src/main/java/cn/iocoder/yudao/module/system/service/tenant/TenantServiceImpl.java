@@ -48,8 +48,7 @@ import static java.util.Collections.singleton;
 /**
  * 租户 Service 实现类
  *
- * @author 宇擎源码
- */
+  */
 @Service
 @Validated
 @Slf4j

@@ -12,8 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * IoT 网关 EMQX 上行消息处理器
  *
- * @author 宇擎源码
- */
+  */
 @Slf4j
 public class IotEmqxUpstreamHandler {
 

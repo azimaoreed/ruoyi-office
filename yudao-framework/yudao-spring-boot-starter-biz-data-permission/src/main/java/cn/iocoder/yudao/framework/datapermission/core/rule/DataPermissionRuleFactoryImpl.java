@@ -15,8 +15,7 @@ import java.util.stream.Collectors;
  * 默认的 DataPermissionRuleFactoryImpl 实现类
  * 支持通过 {@link DataPermissionContextHolder} 过滤数据权限
  *
- * @author 宇擎源码
- */
+  */
 @RequiredArgsConstructor
 public class DataPermissionRuleFactoryImpl implements DataPermissionRuleFactory {
 
@@ -45,7 +44,7 @@ public class DataPermissionRuleFactoryImpl implements DataPermissionRuleFactory 
         if (!dataPermission.enable()) {
             return Collections.emptyList();
         }
-        // 1.4 特殊：数据翻译时，强制忽略数据权限 https://gitee.com/yqzy1688/ruoyi-office.git/issues/1007
+        // 1.4 特殊：数据翻译时，强制忽略数据权限 https://example.com/your-org/your-project.git/issues/1007
         if (isTranslateCall()) {
             return Collections.emptyList();
         }

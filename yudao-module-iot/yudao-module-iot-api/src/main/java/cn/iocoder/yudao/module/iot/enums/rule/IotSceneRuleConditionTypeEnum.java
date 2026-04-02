@@ -10,8 +10,7 @@ import java.util.Arrays;
 /**
  * IoT 条件类型枚举
  *
- * @author 宇擎源码
- */
+  */
 @RequiredArgsConstructor
 @Getter
 public enum IotSceneRuleConditionTypeEnum implements ArrayValuable<Integer> {

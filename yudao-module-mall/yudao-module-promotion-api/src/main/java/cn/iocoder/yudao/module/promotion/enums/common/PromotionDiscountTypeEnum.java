@@ -9,8 +9,7 @@ import java.util.Arrays;
 /**
  * 优惠类型枚举
  *
- * @author 宇擎源码
- */
+  */
 @Getter
 @AllArgsConstructor
 public enum PromotionDiscountTypeEnum implements ArrayValuable<Integer> {

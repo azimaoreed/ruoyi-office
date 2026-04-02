@@ -19,8 +19,7 @@ import java.util.function.Consumer;
 /**
  * 优惠劵模板 Mapper
  *
- * @author 宇擎源码
- */
+  */
 @Mapper
 public interface CouponTemplateMapper extends BaseMapperX<CouponTemplateDO> {
 

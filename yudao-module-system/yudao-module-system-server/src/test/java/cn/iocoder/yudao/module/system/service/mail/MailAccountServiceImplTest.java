@@ -25,8 +25,7 @@ import static org.mockito.Mockito.when;
 /**
  * {@link MailAccountServiceImpl} 的单元测试类
  *
- * @author 宇擎源码
- */
+  */
 @Import(MailAccountServiceImpl.class)
 public class MailAccountServiceImplTest extends BaseDbUnitTest {
 

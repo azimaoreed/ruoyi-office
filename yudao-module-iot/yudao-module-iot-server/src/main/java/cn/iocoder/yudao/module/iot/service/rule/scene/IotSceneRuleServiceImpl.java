@@ -42,8 +42,7 @@ import static cn.iocoder.yudao.module.iot.enums.ErrorCodeConstants.RULE_SCENE_NO
 /**
  * IoT 规则场景 Service 实现类
  *
- * @author 宇擎源码
- */
+  */
 @Service
 @Validated
 @Slf4j

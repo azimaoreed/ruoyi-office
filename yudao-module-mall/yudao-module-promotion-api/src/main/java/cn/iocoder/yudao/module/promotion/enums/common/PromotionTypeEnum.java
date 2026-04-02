@@ -9,8 +9,7 @@ import java.util.Arrays;
 /**
  * 营销类型枚举
  *
- * @author 宇擎源码
- */
+  */
 @Getter
 @AllArgsConstructor
 public enum PromotionTypeEnum implements ArrayValuable<Integer> {

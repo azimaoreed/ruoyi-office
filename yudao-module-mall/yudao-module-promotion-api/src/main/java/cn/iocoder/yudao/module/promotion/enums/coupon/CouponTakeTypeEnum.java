@@ -10,8 +10,7 @@ import java.util.Objects;
 /**
  * 优惠劵领取方式
  *
- * @author 宇擎源码
- */
+  */
 @AllArgsConstructor
 @Getter
 public enum CouponTakeTypeEnum implements ArrayValuable<Integer> {

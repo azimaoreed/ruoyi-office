@@ -10,8 +10,7 @@ import java.util.List;
 /**
  * 员工工作经历 Mapper
  *
- * @author 宇擎源码
- */
+  */
 @Mapper
 public interface EmployeeWorkExperienceMapper extends BaseMapperX<EmployeeWorkExperienceDO> {
 

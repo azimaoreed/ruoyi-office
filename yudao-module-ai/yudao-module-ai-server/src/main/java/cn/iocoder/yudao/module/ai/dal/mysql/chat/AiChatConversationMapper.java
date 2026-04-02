@@ -12,8 +12,7 @@ import java.util.List;
 /**
  * AI 聊天对话 Mapper
  *
- * @author 宇擎源码
- */
+  */
 @Mapper
 public interface AiChatConversationMapper extends BaseMapperX<AiChatConversationDO> {
 

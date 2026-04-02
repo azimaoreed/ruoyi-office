@@ -8,8 +8,7 @@ import java.time.LocalDateTime;
 /**
  * 拼团记录 Response DTO
  *
- * @author 宇擎源码
- */
+  */
 @Data
 public class CombinationRecordRespDTO {
 

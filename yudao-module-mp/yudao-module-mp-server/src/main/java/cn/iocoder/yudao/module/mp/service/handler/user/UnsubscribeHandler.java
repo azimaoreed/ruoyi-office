@@ -17,8 +17,7 @@ import java.util.Map;
 /**
  * 取消关注的事件处理器
  *
- * @author 宇擎源码
- */
+  */
 @Component
 @Slf4j
 public class UnsubscribeHandler implements WxMpMessageHandler {

@@ -5,8 +5,7 @@ import cn.iocoder.yudao.framework.common.enums.BillTypeEnum;
 /**
  * 流程表单服务接口
  * 
- * @author 宇擎源码
- */
+  */
 public interface FlowBillService<T extends BillTypeEnum> {
 
     /**

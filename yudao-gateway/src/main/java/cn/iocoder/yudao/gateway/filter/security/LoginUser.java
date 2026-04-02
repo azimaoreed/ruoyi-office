@@ -11,8 +11,7 @@ import java.util.Map;
  *
  * copy from yudao-spring-boot-starter-security 的 LoginUser 类
  *
- * @author 宇擎源码
- */
+  */
 @Data
 public class LoginUser {
 

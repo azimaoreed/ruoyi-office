@@ -6,8 +6,7 @@ import lombok.Getter;
 /**
  * 性别的枚举值
  *
- * @author 宇擎源码
- */
+  */
 @Getter
 @AllArgsConstructor
 public enum SexEnum {

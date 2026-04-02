@@ -24,8 +24,7 @@ import java.util.concurrent.CompletableFuture;
  * BPM 流程通知管理器
  * 统一管理各种通知方式的分发
  *
- * @author 宇擎源码
- */
+  */
 @Slf4j
 @Component
 public class BpmNotificationManager {

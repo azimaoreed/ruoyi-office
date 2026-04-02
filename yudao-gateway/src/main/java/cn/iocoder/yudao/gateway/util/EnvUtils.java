@@ -13,8 +13,7 @@ import java.util.Objects;
  *
  * copy from yudao-spring-boot-starter-env 的 EnvUtils 类
  *
- * @author 宇擎源码
- */
+  */
 public class EnvUtils {
 
     private static final String HEADER_TAG = "tag";

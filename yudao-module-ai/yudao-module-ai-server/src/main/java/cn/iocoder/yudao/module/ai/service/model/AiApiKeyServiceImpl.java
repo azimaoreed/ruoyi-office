@@ -20,8 +20,7 @@ import static cn.iocoder.yudao.module.ai.enums.ErrorCodeConstants.API_KEY_NOT_EX
 /**
  * AI API 密钥 Service 实现类
  *
- * @author 宇擎源码
- */
+  */
 @Service
 @Validated
 public class AiApiKeyServiceImpl implements AiApiKeyService {

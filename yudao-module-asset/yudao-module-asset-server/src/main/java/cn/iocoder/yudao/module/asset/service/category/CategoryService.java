@@ -10,8 +10,7 @@ import cn.iocoder.yudao.framework.common.pojo.PageParam;
 /**
  * 资产类别 Service 接口
  *
- * @author 宇擎源码
- */
+  */
 public interface CategoryService {
 
     /**

@@ -6,8 +6,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 /**
  * 环境配置
  *
- * @author 宇擎源码
- */
+  */
 @ConfigurationProperties(prefix = "yudao.env")
 @Data
 public class EnvProperties {

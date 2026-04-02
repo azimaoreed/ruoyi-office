@@ -18,8 +18,7 @@ import java.util.List;
 /**
  * {@link OllamaChatModel} 集成测试
  *
- * @author 宇擎源码
- */
+  */
 public class OllamaChatModelTests {
 
     private final OllamaChatModel chatModel = OllamaChatModel.builder()

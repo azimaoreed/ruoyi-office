@@ -55,8 +55,7 @@ import static cn.iocoder.yudao.module.pay.framework.job.config.PayJobConfigurati
 /**
  * 支付通知 Core Service 实现类
  *
- * @author 宇擎源码
- */
+  */
 @Service
 @Valid
 @Slf4j

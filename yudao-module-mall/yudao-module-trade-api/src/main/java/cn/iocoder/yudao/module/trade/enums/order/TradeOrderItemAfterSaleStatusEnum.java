@@ -10,8 +10,7 @@ import java.util.Arrays;
 /**
  * 交易订单项 - 售后状态
  *
- * @author 宇擎源码
- */
+  */
 @RequiredArgsConstructor
 @Getter
 public enum TradeOrderItemAfterSaleStatusEnum implements ArrayValuable<Integer> {

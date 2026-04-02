@@ -9,8 +9,7 @@ import cn.iocoder.yudao.module.member.dal.dataobject.signin.MemberSignInRecordDO
 /**
  * 签到记录 Service 接口
  *
- * @author 宇擎源码
- */
+  */
 public interface MemberSignInRecordService {
 
     /**

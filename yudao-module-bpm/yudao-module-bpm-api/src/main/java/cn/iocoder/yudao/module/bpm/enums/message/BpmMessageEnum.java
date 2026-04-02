@@ -6,8 +6,7 @@ import lombok.Getter;
 /**
  * Bpm 消息的枚举
  *
- * @author 宇擎源码
- */
+  */
 @AllArgsConstructor
 @Getter
 public enum BpmMessageEnum {

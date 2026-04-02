@@ -16,7 +16,7 @@ public class BpmUserGroupRespVO {
     @Schema(description = "组名", requiredMode = Schema.RequiredMode.REQUIRED, example = "宇擎")
     private String name;
 
-    @Schema(description = "描述", requiredMode = Schema.RequiredMode.REQUIRED, example = "宇擎源码")
+    @Schema(description = "描述", requiredMode = Schema.RequiredMode.REQUIRED, example = "项目团队")
     private String description;
 
     @Schema(description = "成员编号数组", requiredMode = Schema.RequiredMode.REQUIRED, example = "1,2,3")

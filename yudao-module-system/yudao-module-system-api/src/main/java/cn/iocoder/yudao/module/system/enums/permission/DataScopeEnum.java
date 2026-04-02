@@ -11,8 +11,7 @@ import java.util.Arrays;
  *
  * 用于实现数据级别的权限
  *
- * @author 宇擎源码
- */
+  */
 @Getter
 @AllArgsConstructor
 public enum DataScopeEnum implements ArrayValuable<Integer> {

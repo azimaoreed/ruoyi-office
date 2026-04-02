@@ -15,8 +15,7 @@ import java.util.Set;
 /**
  * IoT 设备【属性】数据 Service 接口
  *
- * @author 宇擎源码
- */
+  */
 public interface IotDevicePropertyService {
 
     // ========== 设备属性相关操作 ==========

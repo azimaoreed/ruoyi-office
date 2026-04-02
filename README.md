@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
-  RuoYi Office · 企业管理一体化平台
+  企业管理平台
   <br>
 </h1>
 
@@ -17,31 +17,20 @@
 </p>
 
 <p align="center">
-  <a href="#-在线体验">🌐 在线演示</a> •
   <a href="#-功能模块总览">📦 功能模块</a> •
   <a href="#-技术架构">🏗️ 技术架构</a> •
-  <a href="#-快速开始">🚀 快速开始</a> •
-  <a href="#-联系我们">📞 联系我们</a>
+  <a href="#-快速开始">🚀 快速开始</a>
 </p>
-
----
-
-<div align="center">
-
-
-[![在线演示](https://img.shields.io/badge/🌐_点击体验-在线演示-blue?style=for-the-badge)](http://ruoyioffice.com/web/)
-
-</div>
 
 ---
 
 ## ⚡ 一句话介绍
 
-> **RuoYi Office** 是基于 **Spring Cloud Alibaba + Gateway + Nacos + RocketMQ + Vue3 + Vben Admin** 构建的**中小企业全业务办公一体化平台**，涵盖 **OA 协同办公、BPM 审批流程、HRM 人力资源、CRM 客户管理、ERP 进销存、合同管理、PMS 项目管理、EAM 资产管理、WMS 仓储管理、MALL 企业商城、AI 智能助手、IoT 物联网、数据报表** 等十余个子系统，**一套代码解决中小企业全业务信息化需求。**
+> 本项目基于 **Spring Cloud Alibaba + Gateway + Nacos + RocketMQ + Vue3 + Vben Admin** 构建，覆盖 OA、BPM、HRM、CRM、ERP、资产、仓储、商城、AI、IoT、报表等多个业务域，可作为企业管理平台的二次开发基础工程。
 
 ---
 
-## 🎯 为什么选择 RuoYi Office？
+## 🎯 项目特点
 
 <table>
 <tr>
@@ -74,19 +63,9 @@
 
 ---
 
-## 🌐 在线体验
+## 🌐 使用说明
 
-| 🖥️ 体验入口 | 地址 | 账号/密码 |
-|:---:|:---:|:---:|
-| **✅ 演示地址** | 👉 **[http://ruoyioffice.com/web/](http://ruoyioffice.com/web/)** | `admin` / `admin123` |
-
-> 💡 **温馨提示**：演示环境数据每日重置，请勿存储重要信息。建议使用 Chrome / Edge 浏览器获得最佳体验。
-
-<!-- 
-  📸 系统截图展示区 —— 请替换为实际截图
-  建议截图尺寸：1920x1080 或 1440x900
-  存放路径：/.image/ 目录下
--->
+当前 README 不再附带外部演示地址、联系人或第三方推广信息。如需对外展示，请替换为你们自己的品牌信息与环境地址。
 
 <table>
 <tr>
@@ -317,7 +296,7 @@ MySQL / PostgreSQL / Oracle / 达梦 / 人大金仓 / SQL Server，**全面适�
 
 ## 📸 系统截图
 
-> 📌 以下为系统核心功能截图，更多功能请访问 [在线演示](http://ruoyioffice.com/web/) 体验
+> 📌 以下为系统核心功能截图，更多功能请访问 [在线演示](https://example.com/web/) 体验
 
 ### 系统管理
 
@@ -347,7 +326,7 @@ MySQL / PostgreSQL / Oracle / 达梦 / 人大金仓 / SQL Server，**全面适�
 |:---|:---:|
 | 车辆管理（含用车分类、车辆信息、状态管理） | ![OA-车辆管理](/.image/readme/oa.png) |
 
-> 📸 更多 OA 模块截图（印章管理、会议室预约、企业云盘、日程管理等）请访问 [在线演示](http://ruoyioffice.com/web/) 体验
+> 📸 更多 OA 模块截图（印章管理、会议室预约、企业云盘、日程管理等）请访问 [在线演示](https://example.com/web/) 体验
 
 ### HRM 人力资源
 
@@ -355,7 +334,7 @@ MySQL / PostgreSQL / Oracle / 达梦 / 人大金仓 / SQL Server，**全面适�
 |:---|:---:|
 | 员工档案（员工工号/姓名/部门/职位/入职/转正全流程） | ![HRM-员工档案](/.image/readme/hrm.png) |
 
-> 📸 更多 HRM 模块截图（组织架构图、入职管理、转正管理、调动管理、离职管理等）请访问 [在线演示](http://ruoyioffice.com/web/) 体验
+> 📸 更多 HRM 模块截图（组织架构图、入职管理、转正管理、调动管理、离职管理等）请访问 [在线演示](https://example.com/web/) 体验
 
 ### CRM 客户管理
 
@@ -457,7 +436,7 @@ pnpm install
 npm run dev:antd
 ```
 
-> 📖 更详细的部署文档请查看 [快速启动指南](https://ruoyioffice.com/quick-start/)
+> 📖 更详细的部署文档请查看 [快速启动指南](https://example.com/quick-start/)
 
 ---
 
@@ -523,7 +502,7 @@ npm run dev:antd
 <!-- 请替换为实际微信二维码图片 -->
 ![微信二维码](/.image/readme/wechat.jpg)
 
-微信号：**17156169080**
+微信号：**请填写企业联系方式**
 
 </td>
 <td align="center" width="50%">
@@ -546,14 +525,14 @@ npm run dev:antd
 <td align="center" width="33%">
 
 #### Step 1️⃣ 体验系统
-访问 [在线演示](http://ruoyioffice.com/web/)
+访问 [在线演示](https://example.com/web/)
 <br>账号密码：`admin` / `admin123`
 
 </td>
 <td align="center" width="33%">
 
 #### Step 2️⃣ 添加微信
-扫码或搜索微信号 **17156169080**
+扫码或搜索微信号 **请填写企业联系方式**
 <br>备注「**RuoYi Office**」
 
 </td>
@@ -611,7 +590,7 @@ npm run dev:antd
   <br>
   <sub>一个平台，管好整个企业 —— 让中小企业数字化转型更简单</sub>
   <br><br>
-  <a href="http://ruoyioffice.com/web/">🌐 在线演示</a> •
+  <a href="https://example.com/web/">🌐 在线演示</a> •
   <a href="#-联系我们">📞 联系我们</a> •
   <a href="#-获取方式">🛒 立即获取</a>
 </p>

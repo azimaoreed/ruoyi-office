@@ -23,8 +23,7 @@ import static cn.iocoder.yudao.module.iot.gateway.enums.ErrorCodeConstants.DEVIC
  *
  * 参考 <a href="阿里云 IoT —— HTTPS 连接通信">https://help.aliyun.com/zh/iot/user-guide/establish-connections-over-https</a>
  *
- * @author 宇擎源码
- */
+  */
 public class IotHttpAuthHandler extends IotHttpAbstractHandler {
 
     public static final String PATH = "/auth";

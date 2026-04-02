@@ -10,8 +10,7 @@ import java.util.List;
 /**
  * 员工入职申请单家属信息 Mapper
  *
- * @author 宇擎源码
- */
+  */
 @Mapper
 public interface EmployeeEntryBillFamilyMapper extends BaseMapperX<EmployeeEntryBillFamilyDO> {
 

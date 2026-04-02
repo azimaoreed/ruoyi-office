@@ -8,8 +8,7 @@ import java.time.LocalDateTime;
 /**
  * 资产信息 DO
  *
- * @author 宇擎源码
- */
+  */
 @Data
 public class AssetInfoReqDTO  {
 

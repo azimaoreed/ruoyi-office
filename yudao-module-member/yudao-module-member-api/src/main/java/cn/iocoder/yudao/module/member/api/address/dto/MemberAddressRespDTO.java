@@ -22,7 +22,7 @@ public class MemberAddressRespDTO {
     @Schema(description = "地区编号", requiredMode = Schema.RequiredMode.REQUIRED, example = "2666")
     private Integer areaId;
 
-    @Schema(description = "收件详细地址", requiredMode = Schema.RequiredMode.REQUIRED, example = "宇擎源码 88 小区 106 号")
+    @Schema(description = "收件详细地址", requiredMode = Schema.RequiredMode.REQUIRED, example = "项目团队 88 小区 106 号")
     private String detailAddress;
 
     @Schema(description = "是否默认", requiredMode = Schema.RequiredMode.REQUIRED, example = "true")

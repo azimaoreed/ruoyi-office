@@ -42,8 +42,7 @@ import static cn.iocoder.yudao.module.pay.framework.pay.core.client.impl.weixin.
 /**
  * 微信支付抽象类，实现微信统一的接口、以及部分实现（退款）
  *
- * @author 宇擎源码
- */
+  */
 @Slf4j
 public abstract class AbstractWxPayClient extends AbstractPayClient<WxPayClientConfig> {
 
@@ -68,7 +67,7 @@ public abstract class AbstractWxPayClient extends AbstractPayClient<WxPayClientC
             payConfig.setKeyPath(FileUtils.createTempFile(Base64.decode(config.getKeyContent())).getPath());
         } else if (Objects.equals(config.getApiVersion(), API_VERSION_V3)) {
             payConfig.setPrivateKeyPath(FileUtils.createTempFile(config.getPrivateKeyContent()).getPath());
-            // 参考 https://gitee.com/yudaocode/yudao-ui-admin-vue3/issues/ICUE53 和 https://ruoyioffice.com/ODR5V
+            // 参考 https://gitee.com/yudaocode/yudao-ui-admin-vue3/issues/ICUE53 和 https://example.com/ODR5V
             if (StrUtil.isNotBlank(config.getPublicKeyContent())) {
                 payConfig.setPublicKeyPath(FileUtils.createTempFile(config.getPublicKeyContent()).getPath());
             }

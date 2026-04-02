@@ -12,8 +12,7 @@ import java.util.List;
 /**
  * 用户组 Service 接口
  *
- * @author 宇擎源码
- */
+  */
 public interface BpmUserGroupService {
 
     /**

@@ -19,8 +19,7 @@ import java.util.Map;
  * 流程任务实例 Service 接口
  *
  * @author jason
- * @author 宇擎源码
- */
+  */
 public interface BpmTaskService {
 
     // ========== Query 查询相关方法 ==========

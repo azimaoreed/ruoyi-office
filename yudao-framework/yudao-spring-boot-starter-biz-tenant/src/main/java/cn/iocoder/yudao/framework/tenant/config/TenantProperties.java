@@ -10,8 +10,7 @@ import java.util.Set;
 /**
  * 多租户配置
  *
- * @author 宇擎源码
- */
+  */
 @ConfigurationProperties(prefix = "yudao.tenant")
 @Data
 public class TenantProperties {

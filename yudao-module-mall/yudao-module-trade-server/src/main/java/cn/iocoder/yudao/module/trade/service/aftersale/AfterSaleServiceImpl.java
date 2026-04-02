@@ -56,8 +56,7 @@ import static cn.iocoder.yudao.module.trade.enums.ErrorCodeConstants.*;
 /**
  * 售后订单 Service 实现类
  *
- * @author 宇擎源码
- */
+  */
 @Slf4j
 @Service
 @Validated
@@ -355,7 +354,7 @@ public class AfterSaleServiceImpl implements AfterSaleService {
 
         Integer newStatus;
         if (ObjUtil.equals(afterSale.getRefundPrice(), 0)) {
-            // 特殊：退款为 0 的订单，直接标记为完成（积分商城）。关联案例：https://ruoyioffice.com/AQEvL
+            // 特殊：退款为 0 的订单，直接标记为完成（积分商城）。关联案例：https://example.com/AQEvL
             updateAfterSaleStatus(afterSale.getId(), AfterSaleStatusEnum.WAIT_REFUND.getStatus(), new AfterSaleDO()
                     .setStatus(AfterSaleStatusEnum.COMPLETE.getStatus()).setRefundTime(LocalDateTime.now()));
             newStatus = AfterSaleStatusEnum.COMPLETE.getStatus();

@@ -25,8 +25,7 @@ import static cn.iocoder.yudao.module.infra.enums.ErrorCodeConstants.*;
 /**
  * 学生 Service 实现类
  *
- * @author 宇擎源码
- */
+  */
 @Service
 @Validated
 public class Demo03StudentErpServiceImpl implements Demo03StudentErpService {

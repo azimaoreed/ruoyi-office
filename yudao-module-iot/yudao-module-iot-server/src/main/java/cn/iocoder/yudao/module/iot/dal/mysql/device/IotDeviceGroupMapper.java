@@ -12,8 +12,7 @@ import java.util.List;
 /**
  * IoT 设备分组 Mapper
  *
- * @author 宇擎源码
- */
+  */
 @Mapper
 public interface IotDeviceGroupMapper extends BaseMapperX<IotDeviceGroupDO> {
 

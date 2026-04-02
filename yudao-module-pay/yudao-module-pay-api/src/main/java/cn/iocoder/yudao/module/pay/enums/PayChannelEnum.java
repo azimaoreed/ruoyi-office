@@ -11,8 +11,7 @@ import java.util.Arrays;
 /**
  * 支付渠道的编码的枚举
  *
- * @author 宇擎源码
- */
+  */
 @Getter
 @AllArgsConstructor
 public enum PayChannelEnum implements ArrayValuable<String> {

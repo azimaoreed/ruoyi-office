@@ -6,8 +6,7 @@ import lombok.Getter;
 /**
  * 用印状态枚举
  *
- * @author 宇擎源码
- */
+  */
 @AllArgsConstructor
 @Getter
 public enum SealUseStatusEnum {

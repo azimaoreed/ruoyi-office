@@ -22,8 +22,7 @@ import java.util.Set;
  *
  * 本质上，实现和 {@link BpmParallelMultiInstanceBehavior} 一样，只是继承的类不一样
  *
- * @author 宇擎源码
- */
+  */
 @Setter
 public class BpmSequentialMultiInstanceBehavior extends SequentialMultiInstanceBehavior {
 
@@ -82,7 +81,7 @@ public class BpmSequentialMultiInstanceBehavior extends SequentialMultiInstanceB
 
     @Override
     protected void executeOriginalBehavior(DelegateExecution execution, ExecutionEntity multiInstanceRootExecution, int loopCounter) {
-        // 参见 https://ruoyioffice.com/53Meo 情况
+        // 参见 https://example.com/53Meo 情况
         if (execution.getCurrentFlowElement() instanceof CallActivity
             || execution.getCurrentFlowElement() instanceof SubProcess) {
             super.executeOriginalBehavior(execution, multiInstanceRootExecution, loopCounter);

@@ -16,8 +16,7 @@ import static cn.iocoder.yudao.framework.common.util.collection.CollectionUtils.
 /**
  * IoT 设备分组 Service 接口
  *
- * @author 宇擎源码
- */
+  */
 public interface IotDeviceGroupService {
 
     /**

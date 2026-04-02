@@ -18,8 +18,7 @@ import java.util.List;
 /**
  * {@link AnthropicChatModel} 集成测试类
  *
- * @author 宇擎源码
- */
+  */
 public class AnthropicChatModelTest {
 
     private final AnthropicChatModel chatModel = AnthropicChatModel.builder()

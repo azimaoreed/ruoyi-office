@@ -9,8 +9,7 @@ import java.util.Arrays;
 /**
  * 商品 SPU 状态
  *
- * @author 宇擎源码
- */
+  */
 @Getter
 @AllArgsConstructor
 public enum ProductSpuStatusEnum implements ArrayValuable<Integer> {

@@ -9,8 +9,7 @@ import java.util.Arrays;
 /**
  * IoT 数据目的的类型枚举
  *
- * @author 宇擎源码
- */
+  */
 @RequiredArgsConstructor
 @Getter
 public enum IotDataSinkTypeEnum implements ArrayValuable<Integer> {

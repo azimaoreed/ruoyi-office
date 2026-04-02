@@ -9,8 +9,7 @@ import java.util.Arrays;
 /**
  * ERP 库存明细 - 业务类型枚举
  *
- * @author 宇擎源码
- */
+  */
 @RequiredArgsConstructor
 @Getter
 public enum ErpStockRecordBizTypeEnum implements ArrayValuable<Integer> {

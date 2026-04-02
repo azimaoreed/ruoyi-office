@@ -20,8 +20,7 @@ import static cn.iocoder.yudao.framework.common.pojo.CommonResult.success;
 /**
  * 管理后台 - 用户应用配置 Controller
  *
- * @author 宇擎源码
- */
+  */
 @Tag(name = "管理后台 - 用户应用配置")
 @RestController
 @RequestMapping("/system/home-app-user")
