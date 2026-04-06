@@ -444,7 +444,8 @@ MySQL / PostgreSQL / Oracle / 达梦 / 人大金仓 / SQL Server，**全面适�
 git clone https://github.com/your-org/ruoyi-office.git
 
 # 2. 导入数据库
-mysql -u root -p < sql/mysql/ruoyi-vue-pro.sql
+mysql -u root -p < sql/mysql/dump-ruoyi-office-20260305.sql
+
 
 # 3. 启动后端（先启动 Nacos）
 cd ruoyi-office
