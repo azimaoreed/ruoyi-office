@@ -36,6 +36,7 @@ import cn.iocoder.yudao.module.bpm.service.definition.BpmProcessDefinitionServic
 import cn.iocoder.yudao.module.bpm.service.message.BpmMessageService;
 import cn.iocoder.yudao.module.bpm.service.message.dto.BpmMessageSendWhenTaskTimeoutReqDTO;
 import cn.iocoder.yudao.module.bpm.service.notification.BpmNotificationManager;
+import cn.iocoder.yudao.module.bpm.service.task.support.BpmRejectReplayLoopGuard;
 import cn.iocoder.yudao.module.system.api.dept.DeptApi;
 import cn.iocoder.yudao.module.system.api.permission.PermissionApi;
 import cn.iocoder.yudao.module.system.api.permission.RoleApi;
@@ -86,8 +87,6 @@ import static cn.iocoder.yudao.module.bpm.framework.flowable.core.util.BpmnModel
 @Slf4j
 @Service
 public class BpmTaskServiceImpl implements BpmTaskService {
-
-    private static final int DEFAULT_REJECT_REPLAY_MAX_COUNT = 3;
 
     @Resource
     private TaskService taskService;
@@ -1009,19 +1008,18 @@ public class BpmTaskServiceImpl implements BpmTaskService {
     private boolean handleRejectReplayLoopLimit(Task task, Long userId, String rejectDetail) {
         long replayRejectCount = rejectHistoryService.countRejectHistory(task.getProcessInstanceId(),
                 BpmTaskRejectModeEnum.RETURN_AND_REPLAY.getType());
-        Integer maxCount = Convert.toInt(runtimeService.getVariable(task.getProcessInstanceId(),
-                BpmProcessVariableConstants.REJECT_REPLAY_MAX_COUNT), DEFAULT_REJECT_REPLAY_MAX_COUNT);
-        if (maxCount == null || maxCount <= 0 || replayRejectCount < maxCount) {
+        Integer maxCountValue = Convert.toInt(runtimeService.getVariable(task.getProcessInstanceId(),
+                BpmProcessVariableConstants.REJECT_REPLAY_MAX_COUNT));
+        Integer actionValue = Convert.toInt(runtimeService.getVariable(task.getProcessInstanceId(),
+                BpmProcessVariableConstants.REJECT_REPLAY_OVER_LIMIT_ACTION));
+        int maxCount = BpmRejectReplayLoopGuard.resolveMaxCount(maxCountValue);
+        BpmRejectReplayLoopGuard.Decision decision = BpmRejectReplayLoopGuard.decide(replayRejectCount, maxCountValue, actionValue);
+        if (decision == BpmRejectReplayLoopGuard.Decision.PASS) {
             return false;
         }
-        Integer actionValue = Convert.toInt(runtimeService.getVariable(task.getProcessInstanceId(),
-                BpmProcessVariableConstants.REJECT_REPLAY_OVER_LIMIT_ACTION),
-                BpmTaskRejectLoopLimitActionEnum.BLOCK.getAction());
-        BpmTaskRejectLoopLimitActionEnum action = ObjectUtil.defaultIfNull(
-                BpmTaskRejectLoopLimitActionEnum.typeOf(actionValue), BpmTaskRejectLoopLimitActionEnum.BLOCK);
-        log.warn("[handleRejectReplayLoopLimit][processInstanceId({}) taskId({}) rejectCount({}) maxCount({}) action({}) detail({})]",
-                task.getProcessInstanceId(), task.getId(), replayRejectCount, maxCount, action.name(), rejectDetail);
-        if (action == BpmTaskRejectLoopLimitActionEnum.TRANSFER_ADMIN) {
+        log.warn("[handleRejectReplayLoopLimit][processInstanceId({}) taskId({}) rejectCount({}) maxCount({}) decision({}) detail({})]",
+                task.getProcessInstanceId(), task.getId(), replayRejectCount, maxCount, decision.name(), rejectDetail);
+        if (decision == BpmRejectReplayLoopGuard.Decision.TRANSFER_ADMIN) {
             Long transferUserId = resolveTimeoutTransferUserId(task, userId);
             if (transferUserId == null) {
                 throw exception(TASK_REJECT_REPLAY_ADMIN_REQUIRED);
