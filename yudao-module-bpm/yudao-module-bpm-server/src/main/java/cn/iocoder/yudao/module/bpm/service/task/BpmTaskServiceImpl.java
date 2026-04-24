@@ -103,6 +103,8 @@ public class BpmTaskServiceImpl implements BpmTaskService {
     @Resource
     private BpmProcessInstanceVersionService processInstanceVersionService;
     @Resource
+    private BpmFrozenTaskService frozenTaskService;
+    @Resource
     private BpmRejectHistoryService rejectHistoryService;
     @Resource
     private BpmModelService modelService;
@@ -401,6 +403,13 @@ public class BpmTaskServiceImpl implements BpmTaskService {
         return task;
     }
 
+    private void validateProcessInstanceNotFrozen(String processInstanceId) {
+        if (Boolean.TRUE.equals(frozenTaskService.existsActiveFrozenTask(processInstanceId,
+                BpmFrozenTaskStatusEnum.FROZEN.getStatus()))) {
+            throw exception(TASK_OPERATE_FAIL_PROCESS_FROZEN);
+        }
+    }
+
     @Override
     public Task getTask(String id) {
         return taskService.createTaskQuery().taskId(id).includeTaskLocalVariables().singleResult();
@@ -627,6 +636,7 @@ public class BpmTaskServiceImpl implements BpmTaskService {
     public void approveTask(Long userId, @Valid BpmTaskApproveReqVO reqVO) {
         // 1.1 校验任务存在
         Task task = validateTask(userId, reqVO.getId());
+        validateProcessInstanceNotFrozen(task.getProcessInstanceId());
         // 1.2 校验流程实例存在
         ProcessInstance instance = processInstanceService.getProcessInstance(task.getProcessInstanceId());
         if (instance == null) {
@@ -875,6 +885,7 @@ public class BpmTaskServiceImpl implements BpmTaskService {
     public void rejectTask(Long userId, @Valid BpmTaskRejectReqVO reqVO) {
         // 1.1 校验任务存在
         Task task = validateTask(userId, reqVO.getId());
+        validateProcessInstanceNotFrozen(task.getProcessInstanceId());
         // 1.2 校验流程实例存在
         ProcessInstance instance = processInstanceService.getProcessInstance(task.getProcessInstanceId());
         if (instance == null) {
@@ -1014,6 +1025,7 @@ public class BpmTaskServiceImpl implements BpmTaskService {
     public void returnTask(Long userId, BpmTaskReturnReqVO reqVO) {
         // 1.1 当前任务 task
         Task task = validateTask(userId, reqVO.getId());
+        validateProcessInstanceNotFrozen(task.getProcessInstanceId());
         if (task.isSuspended()) {
             throw exception(TASK_IS_PENDING);
         }
@@ -1325,6 +1337,7 @@ public class BpmTaskServiceImpl implements BpmTaskService {
         String taskId = reqVO.getId();
         // 1.1 校验任务
         Task task = validateTask(userId, reqVO.getId());
+        validateProcessInstanceNotFrozen(task.getProcessInstanceId());
         if (task.getAssignee().equals(reqVO.getDelegateUserId().toString())) { // 校验当前审批人和被委派人不是同一人
             throw exception(TASK_DELEGATE_FAIL_USER_REPEAT);
         }
@@ -1356,6 +1369,7 @@ public class BpmTaskServiceImpl implements BpmTaskService {
         String taskId = reqVO.getId();
         // 1.1 校验任务
         Task task = validateTask(userId, reqVO.getId());
+        validateProcessInstanceNotFrozen(task.getProcessInstanceId());
         if (task.getAssignee().equals(reqVO.getAssigneeUserId().toString())) { // 校验当前审批人和被转派人不是同一人
             throw exception(TASK_TRANSFER_FAIL_USER_REPEAT);
         }
@@ -1471,6 +1485,7 @@ public class BpmTaskServiceImpl implements BpmTaskService {
      */
     private TaskEntityImpl validateTaskCanCreateSign(Long userId, BpmTaskSignCreateReqVO reqVO) {
         TaskEntityImpl taskEntity = (TaskEntityImpl) validateTask(userId, reqVO.getId());
+        validateProcessInstanceNotFrozen(taskEntity.getProcessInstanceId());
         // 向前加签和向后加签不能同时存在
         if (taskEntity.getScopeType() != null
                 && ObjectUtil.notEqual(taskEntity.getScopeType(), reqVO.getType())) {
@@ -1543,6 +1558,7 @@ public class BpmTaskServiceImpl implements BpmTaskService {
     public void deleteSignTask(Long userId, BpmTaskSignDeleteReqVO reqVO) {
         // 1.1 校验 task 可以被减签
         Task task = validateTaskCanSignDelete(reqVO.getId());
+        validateProcessInstanceNotFrozen(task.getProcessInstanceId());
         // 1.2 校验取消人存在
         AdminUserRespDTO cancelUser = null;
         if (StrUtil.isNotBlank(task.getAssignee())) {
@@ -1573,6 +1589,8 @@ public class BpmTaskServiceImpl implements BpmTaskService {
 
     @Override
     public void copyTask(Long userId, BpmTaskCopyReqVO reqVO) {
+        Task task = validateTaskExist(reqVO.getId());
+        validateProcessInstanceNotFrozen(task.getProcessInstanceId());
         processInstanceCopyService.createProcessInstanceCopy(reqVO.getCopyUserIds(), reqVO.getReason(), reqVO.getId());
     }
 
