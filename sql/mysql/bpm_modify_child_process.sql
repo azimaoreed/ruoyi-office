@@ -1,0 +1,41 @@
+CREATE TABLE IF NOT EXISTS `bpm_parent_child_process_link` (
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `parent_process_instance_id` varchar(64) NOT NULL COMMENT '主流程实例 ID',
+  `parent_task_id` varchar(64) NOT NULL COMMENT '发起修改时的主流程任务 ID',
+  `parent_task_definition_key` varchar(255) NOT NULL COMMENT '发起修改时所在节点',
+  `child_process_instance_id` varchar(64) DEFAULT NULL COMMENT '子流程实例 ID',
+  `child_process_definition_key` varchar(255) NOT NULL COMMENT '子流程定义 Key',
+  `last_active_node_key` varchar(255) DEFAULT NULL COMMENT '冻结前最后活动节点',
+  `resume_strategy` tinyint NOT NULL COMMENT '恢复策略',
+  `status` tinyint NOT NULL COMMENT '状态',
+  `result_json` text COMMENT '子流程处理结果 JSON',
+  `creator` varchar(64) DEFAULT '' COMMENT '创建者',
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `updater` varchar(64) DEFAULT '' COMMENT '更新者',
+  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+  PRIMARY KEY (`id`),
+  KEY `idx_bpm_parent_child_link_parent` (`parent_process_instance_id`, `status`, `deleted`),
+  KEY `idx_bpm_parent_child_link_task` (`parent_task_id`, `deleted`),
+  KEY `idx_bpm_parent_child_link_child` (`child_process_instance_id`, `deleted`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='主子流程关联表';
+
+CREATE TABLE IF NOT EXISTS `bpm_frozen_task` (
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `process_instance_id` varchar(64) NOT NULL COMMENT '流程实例 ID',
+  `task_id` varchar(64) NOT NULL COMMENT '冻结任务 ID',
+  `task_definition_key` varchar(255) NOT NULL COMMENT '节点 Key',
+  `assignee_user_id` bigint DEFAULT NULL COMMENT '当前处理人',
+  `freeze_reason` varchar(500) DEFAULT NULL COMMENT '冻结原因',
+  `link_id` bigint DEFAULT NULL COMMENT '关联主子流程关系 ID',
+  `status` tinyint NOT NULL COMMENT '状态',
+  `creator` varchar(64) DEFAULT '' COMMENT '创建者',
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `updater` varchar(64) DEFAULT '' COMMENT '更新者',
+  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+  PRIMARY KEY (`id`),
+  KEY `idx_bpm_frozen_task_instance` (`process_instance_id`, `status`, `deleted`),
+  KEY `idx_bpm_frozen_task_task` (`task_id`, `deleted`),
+  KEY `idx_bpm_frozen_task_link` (`link_id`, `deleted`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='冻结任务表';

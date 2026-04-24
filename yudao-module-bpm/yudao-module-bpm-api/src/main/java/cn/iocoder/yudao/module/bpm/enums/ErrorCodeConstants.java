@@ -66,6 +66,7 @@ public interface ErrorCodeConstants {
     ErrorCode TASK_WITHDRAW_FAIL_NEXT_TASK_NOT_ALLOW = new ErrorCode(1_009_005_020, "撤回失败，下一节点不满足撤回条件！");
     ErrorCode TASK_REJECT_TARGET_REQUIRED = new ErrorCode(1_009_005_021, "驳回失败，缺少目标节点");
     ErrorCode TASK_REJECT_MODE_NOT_SUPPORTED = new ErrorCode(1_009_005_022, "驳回失败，当前模式暂未支持");
+    ErrorCode TASK_MODIFY_CHILD_PROCESS_NOT_SUPPORTED = new ErrorCode(1_009_005_023, "发起修改子流程功能暂未支持");
 
     // ========== 动态表单模块 1-009-010-000 ==========
     ErrorCode FORM_NOT_EXISTS = new ErrorCode(1_009_010_000, "动态表单不存在");

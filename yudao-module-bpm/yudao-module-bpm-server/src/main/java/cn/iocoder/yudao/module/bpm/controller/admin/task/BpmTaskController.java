@@ -10,6 +10,7 @@ import cn.iocoder.yudao.module.bpm.dal.dataobject.definition.BpmFormDO;
 import cn.iocoder.yudao.module.bpm.dal.dataobject.definition.BpmProcessDefinitionInfoDO;
 import cn.iocoder.yudao.module.bpm.service.definition.BpmFormService;
 import cn.iocoder.yudao.module.bpm.service.definition.BpmProcessDefinitionService;
+import cn.iocoder.yudao.module.bpm.service.task.BpmModifyChildProcessService;
 import cn.iocoder.yudao.module.bpm.service.task.BpmProcessInstanceService;
 import cn.iocoder.yudao.module.bpm.service.task.BpmTaskService;
 import cn.iocoder.yudao.module.system.api.dept.DeptApi;
@@ -48,6 +49,8 @@ public class BpmTaskController {
 
     @Resource
     private BpmTaskService taskService;
+    @Resource
+    private BpmModifyChildProcessService modifyChildProcessService;
     @Resource
     private BpmProcessInstanceService processInstanceService;
     @Resource
@@ -224,6 +227,14 @@ public class BpmTaskController {
     @PreAuthorize("@ss.hasPermission('bpm:task:update')")
     public CommonResult<Boolean> copyTask(@Valid @RequestBody BpmTaskCopyReqVO reqVO) {
         taskService.copyTask(getLoginUserId(), reqVO);
+        return success(true);
+    }
+
+    @PutMapping("/start-modify-child-process")
+    @Operation(summary = "发起修改申请子流程")
+    @PreAuthorize("@ss.hasPermission('bpm:task:update')")
+    public CommonResult<Boolean> startModifyChildProcess(@Valid @RequestBody BpmTaskStartModifyChildReqVO reqVO) {
+        modifyChildProcessService.startModifyChildProcess(getLoginUserId(), reqVO);
         return success(true);
     }
 
