@@ -70,6 +70,8 @@ public interface ErrorCodeConstants {
     ErrorCode TASK_OPERATE_FAIL_PROCESS_FROZEN = new ErrorCode(1_009_005_024, "操作失败，当前流程已冻结，请等待子流程处理完成");
     ErrorCode TASK_COPY_TARGET_REQUIRED = new ErrorCode(1_009_005_025, "抄送失败，抄送对象不能为空");
     ErrorCode TASK_COPY_TARGET_INVALID = new ErrorCode(1_009_005_026, "抄送失败，抄送对象不合法");
+    ErrorCode TASK_REJECT_REPLAY_LIMIT_EXCEEDED = new ErrorCode(1_009_005_027, "驳回重走失败，已达到最大次数({})");
+    ErrorCode TASK_REJECT_REPLAY_ADMIN_REQUIRED = new ErrorCode(1_009_005_028, "驳回重走失败，超限后未找到可转交的流程管理员");
 
     // ========== 动态表单模块 1-009-010-000 ==========
     ErrorCode FORM_NOT_EXISTS = new ErrorCode(1_009_010_000, "动态表单不存在");

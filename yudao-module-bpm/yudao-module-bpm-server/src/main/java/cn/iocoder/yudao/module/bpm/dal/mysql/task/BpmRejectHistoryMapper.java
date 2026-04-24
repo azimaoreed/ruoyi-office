@@ -16,4 +16,10 @@ public interface BpmRejectHistoryMapper extends BaseMapperX<BpmRejectHistoryDO> 
                 .orderByAsc(BpmRejectHistoryDO::getId));
     }
 
+    default Long selectCountByProcessInstanceIdAndRejectMode(String processInstanceId, Integer rejectMode) {
+        return selectCount(new LambdaQueryWrapperX<BpmRejectHistoryDO>()
+                .eq(BpmRejectHistoryDO::getProcessInstanceId, processInstanceId)
+                .eq(BpmRejectHistoryDO::getRejectMode, rejectMode));
+    }
+
 }

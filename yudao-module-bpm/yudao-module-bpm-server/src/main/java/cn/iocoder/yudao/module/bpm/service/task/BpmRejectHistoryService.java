@@ -27,4 +27,13 @@ public interface BpmRejectHistoryService {
      */
     List<BpmRejectHistoryDO> getRejectHistoryList(@NotEmpty(message = "流程实例编号不能为空") String processInstanceId);
 
+    /**
+     * 统计流程实例下指定驳回模式的次数。
+     *
+     * @param processInstanceId 流程实例编号
+     * @param rejectMode 驳回模式
+     * @return 次数
+     */
+    long countRejectHistory(@NotEmpty(message = "流程实例编号不能为空") String processInstanceId, Integer rejectMode);
+
 }

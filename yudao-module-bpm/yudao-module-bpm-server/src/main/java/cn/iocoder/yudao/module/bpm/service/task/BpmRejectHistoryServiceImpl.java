@@ -29,4 +29,9 @@ public class BpmRejectHistoryServiceImpl implements BpmRejectHistoryService {
         return rejectHistoryMapper.selectListByProcessInstanceId(processInstanceId);
     }
 
+    @Override
+    public long countRejectHistory(String processInstanceId, Integer rejectMode) {
+        return rejectHistoryMapper.selectCountByProcessInstanceIdAndRejectMode(processInstanceId, rejectMode);
+    }
+
 }

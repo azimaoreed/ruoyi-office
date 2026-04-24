@@ -87,6 +87,8 @@ import static cn.iocoder.yudao.module.bpm.framework.flowable.core.util.BpmnModel
 @Service
 public class BpmTaskServiceImpl implements BpmTaskService {
 
+    private static final int DEFAULT_REJECT_REPLAY_MAX_COUNT = 3;
+
     @Resource
     private TaskService taskService;
     @Resource
@@ -898,6 +900,15 @@ public class BpmTaskServiceImpl implements BpmTaskService {
             throw exception(PROCESS_INSTANCE_NOT_EXISTS);
         }
         String rejectDetail = buildRejectDetail(reqVO);
+        BpmnModel bpmnModel = modelService.getBpmnModelByDefinitionId(task.getProcessDefinitionId());
+        FlowElement userTaskElement = BpmnModelUtils.getFlowElementById(bpmnModel, task.getTaskDefinitionKey());
+        BpmTaskRejectModeEnum rejectMode = resolveRejectMode(reqVO, userTaskElement);
+        BpmProcessInstanceVersionDO currentVersion = processInstanceVersionService
+                .createInitialVersionIfAbsent(task.getProcessInstanceId());
+        if (rejectMode == BpmTaskRejectModeEnum.RETURN_AND_REPLAY
+                && handleRejectReplayLoopLimit(task, userId, rejectDetail)) {
+            return;
+        }
         if (reqVO.getVariables() != null && !reqVO.getVariables().isEmpty()) {
             runtimeService.setVariables(task.getProcessInstanceId(), reqVO.getVariables());
         }
@@ -919,18 +930,15 @@ public class BpmTaskServiceImpl implements BpmTaskService {
         }
 
         // 3. 根据不同的 RejectHandler 处理策略
-        BpmnModel bpmnModel = modelService.getBpmnModelByDefinitionId(task.getProcessDefinitionId());
-        FlowElement userTaskElement = BpmnModelUtils.getFlowElementById(bpmnModel, task.getTaskDefinitionKey());
-        BpmTaskRejectModeEnum rejectMode = resolveRejectMode(reqVO, userTaskElement);
-        BpmProcessInstanceVersionDO currentVersion = processInstanceVersionService
-                .createInitialVersionIfAbsent(task.getProcessInstanceId());
         // 3.1 情况一：驳回到指定的任务节点并重新流转
         if (rejectMode == BpmTaskRejectModeEnum.RETURN_AND_REPLAY) {
+            long replayRejectCount = rejectHistoryService.countRejectHistory(task.getProcessInstanceId(), rejectMode.getType()) + 1;
             String returnTaskId = resolveRejectTargetTaskDefinitionKey(task, reqVO, userTaskElement);
             FlowElement targetElement = validateTargetTaskCanReturn(bpmnModel, task.getTaskDefinitionKey(), returnTaskId);
             BpmRejectHistoryDO rejectHistory = createRejectHistory(task, reqVO, currentVersion.getVersionNo(),
                     currentVersion.getVersionNo() + 1, returnTaskId, rejectMode, rejectDetail);
             processInstanceVersionService.createNextVersion(task.getProcessInstanceId(), rejectHistory.getId());
+            runtimeService.setVariable(task.getProcessInstanceId(), BpmProcessVariableConstants.REJECT_REPLAY_COUNT, replayRejectCount);
             returnTask(userId, bpmnModel, task, targetElement, new BpmTaskReturnReqVO().setId(task.getId())
                     .setTargetTaskDefinitionKey(returnTaskId).setReason(rejectDetail));
             notificationManager.sendTaskEventNotification(instance, task, BpmEventTypeEnum.TASK_REJECTED, 2, rejectDetail);
@@ -996,6 +1004,35 @@ public class BpmTaskServiceImpl implements BpmTaskService {
         }
         rejectMode = BpmTaskRejectModeEnum.typeOf(rejectHandlerType.getType());
         return ObjectUtil.defaultIfNull(rejectMode, BpmTaskRejectModeEnum.FINISH_PROCESS);
+    }
+
+    private boolean handleRejectReplayLoopLimit(Task task, Long userId, String rejectDetail) {
+        long replayRejectCount = rejectHistoryService.countRejectHistory(task.getProcessInstanceId(),
+                BpmTaskRejectModeEnum.RETURN_AND_REPLAY.getType());
+        Integer maxCount = Convert.toInt(runtimeService.getVariable(task.getProcessInstanceId(),
+                BpmProcessVariableConstants.REJECT_REPLAY_MAX_COUNT), DEFAULT_REJECT_REPLAY_MAX_COUNT);
+        if (maxCount == null || maxCount <= 0 || replayRejectCount < maxCount) {
+            return false;
+        }
+        Integer actionValue = Convert.toInt(runtimeService.getVariable(task.getProcessInstanceId(),
+                BpmProcessVariableConstants.REJECT_REPLAY_OVER_LIMIT_ACTION),
+                BpmTaskRejectLoopLimitActionEnum.BLOCK.getAction());
+        BpmTaskRejectLoopLimitActionEnum action = ObjectUtil.defaultIfNull(
+                BpmTaskRejectLoopLimitActionEnum.typeOf(actionValue), BpmTaskRejectLoopLimitActionEnum.BLOCK);
+        log.warn("[handleRejectReplayLoopLimit][processInstanceId({}) taskId({}) rejectCount({}) maxCount({}) action({}) detail({})]",
+                task.getProcessInstanceId(), task.getId(), replayRejectCount, maxCount, action.name(), rejectDetail);
+        if (action == BpmTaskRejectLoopLimitActionEnum.TRANSFER_ADMIN) {
+            Long transferUserId = resolveTimeoutTransferUserId(task, userId);
+            if (transferUserId == null) {
+                throw exception(TASK_REJECT_REPLAY_ADMIN_REQUIRED);
+            }
+            getSelf().transferTask(userId, new BpmTaskTransferReqVO()
+                    .setId(task.getId())
+                    .setAssigneeUserId(transferUserId)
+                    .setReason(StrUtil.format("驳回重走已达上限({})，{}", maxCount, StrUtil.blankToDefault(rejectDetail, "请管理员介入处理"))));
+            return true;
+        }
+        throw exception(TASK_REJECT_REPLAY_LIMIT_EXCEEDED, maxCount);
     }
 
     private String resolveRejectTargetTaskDefinitionKey(Task task, BpmTaskRejectReqVO reqVO, FlowElement userTaskElement) {

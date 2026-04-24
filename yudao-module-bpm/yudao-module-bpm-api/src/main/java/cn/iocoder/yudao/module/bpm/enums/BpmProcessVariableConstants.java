@@ -94,4 +94,19 @@ public interface BpmProcessVariableConstants {
      * 运行时修改子流程变量：恢复策略
      */
     String MODIFY_RESUME_STRATEGY = "modifyResumeStrategy";
+
+    /**
+     * 驳回重走次数上限，默认由服务端兜底
+     */
+    String REJECT_REPLAY_MAX_COUNT = "rejectReplayMaxCount";
+
+    /**
+     * 驳回重走超限处理动作
+     */
+    String REJECT_REPLAY_OVER_LIMIT_ACTION = "rejectReplayOverLimitAction";
+
+    /**
+     * 驳回重走累计次数
+     */
+    String REJECT_REPLAY_COUNT = "rejectReplayCount";
 }
