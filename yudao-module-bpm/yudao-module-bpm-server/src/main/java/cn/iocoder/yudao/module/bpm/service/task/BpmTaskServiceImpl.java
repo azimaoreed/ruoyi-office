@@ -948,8 +948,6 @@ public class BpmTaskServiceImpl implements BpmTaskService {
             return;
         }
         if (rejectMode == BpmTaskRejectModeEnum.CONTINUE_AFTER_MODIFY) {
-            taskService.addComment(task.getId(), task.getProcessInstanceId(), BpmCommentTypeEnum.REJECT.getType(),
-                    BpmCommentTypeEnum.REJECT.formatComment(buildRejectComment(reqVO, rejectDetail)));
             BpmTaskStartModifyChildReqVO startModifyReqVO = new BpmTaskStartModifyChildReqVO();
             startModifyReqVO.setId(task.getId());
             startModifyReqVO.setChildProcessDefinitionKey(reqVO.getChildProcessDefinitionKey());
