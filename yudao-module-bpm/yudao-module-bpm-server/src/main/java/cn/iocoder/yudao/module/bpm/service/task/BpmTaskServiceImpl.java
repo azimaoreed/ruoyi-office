@@ -37,6 +37,8 @@ import cn.iocoder.yudao.module.bpm.service.message.BpmMessageService;
 import cn.iocoder.yudao.module.bpm.service.message.dto.BpmMessageSendWhenTaskTimeoutReqDTO;
 import cn.iocoder.yudao.module.bpm.service.notification.BpmNotificationManager;
 import cn.iocoder.yudao.module.system.api.dept.DeptApi;
+import cn.iocoder.yudao.module.system.api.permission.PermissionApi;
+import cn.iocoder.yudao.module.system.api.permission.RoleApi;
 import cn.iocoder.yudao.module.system.api.dept.dto.DeptRespDTO;
 import cn.iocoder.yudao.module.system.api.user.AdminUserApi;
 import cn.iocoder.yudao.module.system.api.user.dto.AdminUserRespDTO;
@@ -119,6 +121,10 @@ public class BpmTaskServiceImpl implements BpmTaskService {
     private AdminUserApi adminUserApi;
     @Resource
     private DeptApi deptApi;
+    @Resource
+    private RoleApi roleApi;
+    @Resource
+    private PermissionApi permissionApi;
 
     // ========== Query 查询相关方法 ==========
 
@@ -1621,7 +1627,38 @@ public class BpmTaskServiceImpl implements BpmTaskService {
     public void copyTask(Long userId, BpmTaskCopyReqVO reqVO) {
         Task task = validateTaskExist(reqVO.getId());
         validateProcessInstanceNotFrozen(task.getProcessInstanceId());
-        processInstanceCopyService.createProcessInstanceCopy(reqVO.getCopyUserIds(), reqVO.getReason(), reqVO.getId());
+        processInstanceCopyService.createProcessInstanceCopy(resolveCopyUserIds(reqVO), reqVO.getReason(), reqVO.getId());
+    }
+
+    private Collection<Long> resolveCopyUserIds(BpmTaskCopyReqVO reqVO) {
+        if (CollUtil.isEmpty(reqVO.getCopyUserIds()) && CollUtil.isEmpty(reqVO.getCopyRoleIds())
+                && CollUtil.isEmpty(reqVO.getCopyDeptIds())) {
+            throw exception(TASK_COPY_TARGET_REQUIRED);
+        }
+        LinkedHashSet<Long> userIds = new LinkedHashSet<>();
+        if (CollUtil.isNotEmpty(reqVO.getCopyUserIds())) {
+            if (!adminUserApi.validateUserList(reqVO.getCopyUserIds()).getCheckedData()) {
+                throw exception(TASK_COPY_TARGET_INVALID);
+            }
+            userIds.addAll(reqVO.getCopyUserIds());
+        }
+        if (CollUtil.isNotEmpty(reqVO.getCopyRoleIds())) {
+            if (!roleApi.validRoleList(reqVO.getCopyRoleIds()).getCheckedData()) {
+                throw exception(TASK_COPY_TARGET_INVALID);
+            }
+            userIds.addAll(permissionApi.getUserRoleIdListByRoleIds(reqVO.getCopyRoleIds()).getCheckedData());
+        }
+        if (CollUtil.isNotEmpty(reqVO.getCopyDeptIds())) {
+            if (!deptApi.validateDeptList(reqVO.getCopyDeptIds()).getCheckedData()) {
+                throw exception(TASK_COPY_TARGET_INVALID);
+            }
+            userIds.addAll(convertList(adminUserApi.getUserListByDeptIds(reqVO.getCopyDeptIds()).getCheckedData(),
+                    AdminUserRespDTO::getId));
+        }
+        if (CollUtil.isEmpty(userIds)) {
+            throw exception(TASK_COPY_TARGET_REQUIRED);
+        }
+        return userIds;
     }
 
     @Override

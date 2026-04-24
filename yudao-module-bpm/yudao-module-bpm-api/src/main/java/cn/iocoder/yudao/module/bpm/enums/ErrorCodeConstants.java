@@ -68,6 +68,8 @@ public interface ErrorCodeConstants {
     ErrorCode TASK_REJECT_MODE_NOT_SUPPORTED = new ErrorCode(1_009_005_022, "驳回失败，当前模式暂未支持");
     ErrorCode TASK_MODIFY_CHILD_PROCESS_NOT_SUPPORTED = new ErrorCode(1_009_005_023, "发起修改子流程功能暂未支持");
     ErrorCode TASK_OPERATE_FAIL_PROCESS_FROZEN = new ErrorCode(1_009_005_024, "操作失败，当前流程已冻结，请等待子流程处理完成");
+    ErrorCode TASK_COPY_TARGET_REQUIRED = new ErrorCode(1_009_005_025, "抄送失败，抄送对象不能为空");
+    ErrorCode TASK_COPY_TARGET_INVALID = new ErrorCode(1_009_005_026, "抄送失败，抄送对象不合法");
 
     // ========== 动态表单模块 1-009-010-000 ==========
     ErrorCode FORM_NOT_EXISTS = new ErrorCode(1_009_010_000, "动态表单不存在");
