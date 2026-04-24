@@ -954,7 +954,8 @@ public class BpmTaskServiceImpl implements BpmTaskService {
             startModifyReqVO.setReasonType(reqVO.getRejectReasonType());
             startModifyReqVO.setReasonDetail(rejectDetail);
             startModifyReqVO.setModifyPayload(reqVO.getModifyPayload());
-            startModifyReqVO.setResumeStrategy(reqVO.getResumeStrategy());
+            startModifyReqVO.setResumeStrategy(ObjectUtil.defaultIfNull(reqVO.getResumeStrategy(),
+                    BpmModifyChildProcessResumeStrategyEnum.CONTINUE_LAST_ACTIVE_NODE.getType()));
             modifyChildProcessService.startModifyChildProcess(userId, startModifyReqVO);
             notificationManager.sendTaskEventNotification(instance, task, BpmEventTypeEnum.TASK_REJECTED, 2, rejectDetail);
             return;
