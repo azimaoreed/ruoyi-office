@@ -2,6 +2,7 @@ package cn.iocoder.yudao.module.bpm.service.task;
 
 import cn.iocoder.yudao.module.bpm.dal.dataobject.task.BpmFrozenTaskDO;
 import cn.iocoder.yudao.module.bpm.dal.mysql.task.BpmFrozenTaskMapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -32,6 +33,14 @@ public class BpmFrozenTaskServiceImpl implements BpmFrozenTaskService {
     @Override
     public Boolean existsActiveFrozenTask(String processInstanceId, Integer status) {
         return frozenTaskMapper.existsActiveByProcessInstanceId(processInstanceId, status);
+    }
+
+    @Override
+    public void updateFrozenTaskStatusByLinkId(Long linkId, Integer status) {
+        BpmFrozenTaskDO frozenTask = new BpmFrozenTaskDO();
+        frozenTask.setStatus(status);
+        frozenTaskMapper.update(frozenTask, new LambdaUpdateWrapper<BpmFrozenTaskDO>()
+                .eq(BpmFrozenTaskDO::getLinkId, linkId));
     }
 
 }

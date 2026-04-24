@@ -141,6 +141,9 @@ public class BpmProcessInstanceServiceImpl implements BpmProcessInstanceService 
     private BpmProcessInstanceVersionService processInstanceVersionService;
     @Resource
     private BpmRejectHistoryService rejectHistoryService;
+    @Resource
+    @Lazy // 避免和 BpmModifyChildProcessServiceImpl 相互注入时的循环依赖
+    private BpmModifyChildProcessService modifyChildProcessService;
 
     // ========== Query 查询相关方法 ==========
 
@@ -1314,9 +1317,12 @@ public class BpmProcessInstanceServiceImpl implements BpmProcessInstanceService 
                     status);
         }
 
+        boolean modifyChildHandled = modifyChildProcessService.handleChildProcessCompleted(instance, status, reason);
+
         // 1.3 如果子流程拒绝，设置其父流程也为拒绝状态，且结束父流程
         // 相关问题链接：https://example.com/kZhyb
-        if (Objects.equals(status, BpmProcessInstanceStatusEnum.REJECT.getStatus())
+        if (!modifyChildHandled
+                && Objects.equals(status, BpmProcessInstanceStatusEnum.REJECT.getStatus())
                 && StrUtil.isNotBlank(instance.getSuperExecutionId())) {
             // 1.3.1 获取父流程实例 并标记为不通过
             Execution execution = runtimeService.createExecutionQuery().executionId(instance.getSuperExecutionId()).singleResult();

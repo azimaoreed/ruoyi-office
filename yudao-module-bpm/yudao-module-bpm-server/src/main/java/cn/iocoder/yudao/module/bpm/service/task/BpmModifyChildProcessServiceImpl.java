@@ -1,22 +1,29 @@
 package cn.iocoder.yudao.module.bpm.service.task;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.IdUtil;
+import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.iocoder.yudao.framework.common.util.json.JsonUtils;
 import cn.iocoder.yudao.framework.common.util.number.NumberUtils;
 import cn.iocoder.yudao.module.bpm.api.task.dto.BpmProcessInstanceCreateReqDTO;
 import cn.iocoder.yudao.module.bpm.controller.admin.task.vo.task.BpmTaskStartModifyChildReqVO;
+import cn.iocoder.yudao.module.bpm.controller.admin.task.vo.task.BpmTaskReturnReqVO;
 import cn.iocoder.yudao.module.bpm.dal.dataobject.task.BpmFrozenTaskDO;
 import cn.iocoder.yudao.module.bpm.dal.dataobject.task.BpmParentChildProcessLinkDO;
 import cn.iocoder.yudao.module.bpm.enums.BpmProcessVariableConstants;
 import cn.iocoder.yudao.module.bpm.enums.task.BpmFrozenTaskStatusEnum;
+import cn.iocoder.yudao.module.bpm.enums.task.BpmModifyChildProcessResumeStrategyEnum;
 import cn.iocoder.yudao.module.bpm.enums.task.BpmParentChildProcessLinkStatusEnum;
+import cn.iocoder.yudao.module.bpm.enums.task.BpmProcessInstanceStatusEnum;
 import cn.iocoder.yudao.module.bpm.service.definition.BpmProcessDefinitionService;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.flowable.engine.repository.ProcessDefinition;
 import org.flowable.engine.runtime.ProcessInstance;
 import org.flowable.task.api.Task;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
@@ -36,9 +43,14 @@ import static cn.iocoder.yudao.module.bpm.enums.ErrorCodeConstants.*;
 @Slf4j
 public class BpmModifyChildProcessServiceImpl implements BpmModifyChildProcessService {
 
+    private static final String MODIFY_APPROVED_CONTINUE = "MODIFY_APPROVED_CONTINUE";
+    private static final String MODIFY_APPROVED_RETURN = "MODIFY_APPROVED_RETURN";
+    private static final String MODIFY_REJECTED_CONTINUE_MAIN = "MODIFY_REJECTED_CONTINUE_MAIN";
+
     @Resource
     private BpmTaskService taskService;
     @Resource
+    @Lazy // 避免和 BpmProcessInstanceServiceImpl 相互注入时的循环依赖
     private BpmProcessInstanceService processInstanceService;
     @Resource
     private BpmProcessDefinitionService processDefinitionService;
@@ -80,6 +92,40 @@ public class BpmModifyChildProcessServiceImpl implements BpmModifyChildProcessSe
 
         log.info("[startModifyChildProcess][parentProcessInstanceId({}) parentTaskId({}) childProcessInstanceId({})]",
                 task.getProcessInstanceId(), task.getId(), childProcessInstanceId);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean handleChildProcessCompleted(ProcessInstance childProcessInstance, Integer status, String reason) {
+        BpmParentChildProcessLinkDO link = resolveLink(childProcessInstance);
+        if (link == null) {
+            return false;
+        }
+
+        ProcessInstance parentProcessInstance = processInstanceService.getProcessInstance(link.getParentProcessInstanceId());
+        Task parentTask = taskService.getTask(link.getParentTaskId());
+        String targetTaskDefinitionKey = resolveReturnTargetTaskDefinitionKey(childProcessInstance, link, parentTask);
+        boolean rejected = ObjectUtil.equal(status, BpmProcessInstanceStatusEnum.REJECT.getStatus());
+        boolean needReturn = !rejected
+                && ObjectUtil.equal(link.getResumeStrategy(), BpmModifyChildProcessResumeStrategyEnum.RETURN_TO_TARGET_NODE.getType())
+                && parentTask != null
+                && StrUtil.isNotBlank(targetTaskDefinitionKey)
+                && !StrUtil.equals(targetTaskDefinitionKey, parentTask.getTaskDefinitionKey());
+
+        frozenTaskService.updateFrozenTaskStatusByLinkId(link.getId(), BpmFrozenTaskStatusEnum.RESUMED.getStatus());
+        if (needReturn) {
+            taskService.returnTask(NumberUtils.parseLong(parentTask.getAssignee()), new BpmTaskReturnReqVO()
+                    .setId(parentTask.getId())
+                    .setTargetTaskDefinitionKey(targetTaskDefinitionKey)
+                    .setReason(StrUtil.blankToDefault(reason, "修改申请子流程完成，主流程回退重走")));
+        }
+
+        String resultType = rejected ? MODIFY_REJECTED_CONTINUE_MAIN : (needReturn ? MODIFY_APPROVED_RETURN : MODIFY_APPROVED_CONTINUE);
+        parentChildProcessLinkService.updateLinkResult(link.getId(), BpmParentChildProcessLinkStatusEnum.RESUMED.getStatus(),
+                buildResultJson(childProcessInstance, parentProcessInstance, status, reason, resultType, targetTaskDefinitionKey));
+        log.info("[handleChildProcessCompleted][childProcessInstanceId({}) parentProcessInstanceId({}) resultType({}) targetTaskDefinitionKey({})]",
+                childProcessInstance.getId(), link.getParentProcessInstanceId(), resultType, targetTaskDefinitionKey);
+        return true;
     }
 
     private void validateTaskCanStartModifyChild(Task task) {
@@ -162,6 +208,47 @@ public class BpmModifyChildProcessServiceImpl implements BpmModifyChildProcessSe
 
     private String buildChildProcessBusinessKey(Task task) {
         return StrUtil.format("modify-child:{}:{}:{}", task.getProcessInstanceId(), task.getId(), IdUtil.fastSimpleUUID());
+    }
+
+    private BpmParentChildProcessLinkDO resolveLink(ProcessInstance childProcessInstance) {
+        BpmParentChildProcessLinkDO link = parentChildProcessLinkService.getLinkByChildProcessInstanceId(childProcessInstance.getId());
+        if (link != null) {
+            return link;
+        }
+        Long linkId = Convert.toLong(childProcessInstance.getProcessVariables().get(MODIFY_LINK_ID));
+        if (linkId == null) {
+            return null;
+        }
+        link = parentChildProcessLinkService.getLink(linkId);
+        if (link != null && StrUtil.isBlank(link.getChildProcessInstanceId())) {
+            parentChildProcessLinkService.updateChildProcessInstanceId(linkId, childProcessInstance.getId());
+            link.setChildProcessInstanceId(childProcessInstance.getId());
+        }
+        return link;
+    }
+
+    private String resolveReturnTargetTaskDefinitionKey(ProcessInstance childProcessInstance, BpmParentChildProcessLinkDO link,
+                                                        Task parentTask) {
+        String targetTaskDefinitionKey = Convert.toStr(childProcessInstance.getProcessVariables().get(RETURN_NODE));
+        if (StrUtil.isBlank(targetTaskDefinitionKey)) {
+            targetTaskDefinitionKey = StrUtil.blankToDefault(link.getLastActiveNodeKey(), link.getParentTaskDefinitionKey());
+        }
+        if (parentTask == null) {
+            return targetTaskDefinitionKey;
+        }
+        return StrUtil.blankToDefault(targetTaskDefinitionKey, parentTask.getTaskDefinitionKey());
+    }
+
+    private String buildResultJson(ProcessInstance childProcessInstance, ProcessInstance parentProcessInstance,
+                                   Integer status, String reason, String resultType, String targetTaskDefinitionKey) {
+        Map<String, Object> result = new HashMap<>();
+        result.put("childProcessInstanceId", childProcessInstance.getId());
+        result.put("parentProcessInstanceId", parentProcessInstance != null ? parentProcessInstance.getId() : null);
+        result.put("childProcessStatus", status);
+        result.put("childProcessReason", reason);
+        result.put("resultType", resultType);
+        result.put("targetTaskDefinitionKey", targetTaskDefinitionKey);
+        return JsonUtils.toJsonString(result);
     }
 
 }

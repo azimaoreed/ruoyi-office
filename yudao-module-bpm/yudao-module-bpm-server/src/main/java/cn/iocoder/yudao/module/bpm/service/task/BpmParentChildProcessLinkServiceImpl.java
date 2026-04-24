@@ -25,10 +25,24 @@ public class BpmParentChildProcessLinkServiceImpl implements BpmParentChildProce
     }
 
     @Override
+    public BpmParentChildProcessLinkDO getLink(Long id) {
+        return parentChildProcessLinkMapper.selectById(id);
+    }
+
+    @Override
     public void updateChildProcessInstanceId(Long id, String childProcessInstanceId) {
         BpmParentChildProcessLinkDO link = new BpmParentChildProcessLinkDO();
         link.setId(id);
         link.setChildProcessInstanceId(childProcessInstanceId);
+        parentChildProcessLinkMapper.updateById(link);
+    }
+
+    @Override
+    public void updateLinkResult(Long id, Integer status, String resultJson) {
+        BpmParentChildProcessLinkDO link = new BpmParentChildProcessLinkDO();
+        link.setId(id);
+        link.setStatus(status);
+        link.setResultJson(resultJson);
         parentChildProcessLinkMapper.updateById(link);
     }
 
