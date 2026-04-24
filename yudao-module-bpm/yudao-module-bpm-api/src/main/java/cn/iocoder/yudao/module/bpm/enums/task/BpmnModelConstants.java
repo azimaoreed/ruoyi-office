@@ -57,6 +57,10 @@ public interface BpmnModelConstants {
      */
     String USER_TASK_REJECT_RETURN_TASK_ID = "rejectReturnTaskId";
     /**
+     * BPMN ExtensionElement 的扩展属性，用于标记用户任务拒绝后的动态退回表达式
+     */
+    String USER_TASK_REJECT_RETURN_TASK_EXPRESSION = "rejectReturnTaskExpression";
+    /**
      * BPMN ExtensionElement 的扩展属性，用于标记用户任务驳回目标类型
      */
     String USER_TASK_REJECT_TARGET_TYPE = "rejectTargetType";

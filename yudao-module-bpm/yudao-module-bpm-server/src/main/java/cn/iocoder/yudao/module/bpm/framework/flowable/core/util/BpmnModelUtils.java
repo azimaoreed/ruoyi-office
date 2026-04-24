@@ -182,6 +182,7 @@ public class BpmnModelUtils {
         addExtensionElement(userTask, USER_TASK_REJECT_HANDLER_TYPE, StrUtil.toStringOrNull(rejectHandler.getType()));
         addExtensionElement(userTask, USER_TASK_REJECT_TARGET_TYPE, StrUtil.toStringOrNull(rejectHandler.getTargetType()));
         addExtensionElement(userTask, USER_TASK_REJECT_RETURN_TASK_ID, rejectHandler.getReturnNodeId());
+        addExtensionElement(userTask, USER_TASK_REJECT_RETURN_TASK_EXPRESSION, rejectHandler.getReturnNodeExpression());
         addExtensionElement(userTask, USER_TASK_REJECT_REASON_TYPES, CollUtil.join(rejectHandler.getReasonTypes(), ","));
     }
 
@@ -204,6 +205,16 @@ public class BpmnModelUtils {
      */
     public static String parseReturnTaskId(FlowElement flowElement) {
         return parseExtensionElement(flowElement, USER_TASK_REJECT_RETURN_TASK_ID);
+    }
+
+    /**
+     * 解析任务拒绝返回任务节点表达式
+     *
+     * @param flowElement 任务节点
+     * @return 任务拒绝返回任务节点表达式
+     */
+    public static String parseReturnTaskExpression(FlowElement flowElement) {
+        return parseExtensionElement(flowElement, USER_TASK_REJECT_RETURN_TASK_EXPRESSION);
     }
 
     /**

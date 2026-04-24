@@ -199,6 +199,9 @@ public class BpmSimpleModelNodeVO {
         @Schema(description = "任务拒绝后默认驳回的节点 Id", example = "Activity_1")
         private String returnNodeId;
 
+        @Schema(description = "任务拒绝后动态驳回节点表达式", example = "modifyType == 'filing_related' ? 'Activity_Filing' : 'Activity_Design'")
+        private String returnNodeExpression;
+
         @Schema(description = "允许的驳回原因分类", example = "[1, 2]")
         private List<Integer> reasonTypes;
     }

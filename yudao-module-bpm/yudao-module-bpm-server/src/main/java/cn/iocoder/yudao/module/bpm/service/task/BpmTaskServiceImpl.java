@@ -920,7 +920,7 @@ public class BpmTaskServiceImpl implements BpmTaskService {
                 .createInitialVersionIfAbsent(task.getProcessInstanceId());
         // 3.1 情况一：驳回到指定的任务节点并重新流转
         if (rejectMode == BpmTaskRejectModeEnum.RETURN_AND_REPLAY) {
-            String returnTaskId = resolveRejectTargetTaskDefinitionKey(reqVO, userTaskElement);
+            String returnTaskId = resolveRejectTargetTaskDefinitionKey(task, reqVO, userTaskElement);
             FlowElement targetElement = validateTargetTaskCanReturn(bpmnModel, task.getTaskDefinitionKey(), returnTaskId);
             BpmRejectHistoryDO rejectHistory = createRejectHistory(task, reqVO, currentVersion.getVersionNo(),
                     currentVersion.getVersionNo() + 1, returnTaskId, rejectMode, rejectDetail);
@@ -992,15 +992,45 @@ public class BpmTaskServiceImpl implements BpmTaskService {
         return ObjectUtil.defaultIfNull(rejectMode, BpmTaskRejectModeEnum.FINISH_PROCESS);
     }
 
-    private String resolveRejectTargetTaskDefinitionKey(BpmTaskRejectReqVO reqVO, FlowElement userTaskElement) {
+    private String resolveRejectTargetTaskDefinitionKey(Task task, BpmTaskRejectReqVO reqVO, FlowElement userTaskElement) {
         if (StrUtil.isNotBlank(reqVO.getTargetTaskDefinitionKey())) {
             return reqVO.getTargetTaskDefinitionKey();
+        }
+        if (ObjectUtil.equal(parseRejectTargetType(userTaskElement), BpmUserTaskRejectTargetTypeEnum.EXPRESSION_NODE)) {
+            String returnTaskId = resolveRejectTargetTaskDefinitionKeyByExpression(task, userTaskElement);
+            if (StrUtil.isNotBlank(returnTaskId)) {
+                return returnTaskId;
+            }
         }
         String returnTaskId = parseReturnTaskId(userTaskElement);
         if (StrUtil.isBlank(returnTaskId)) {
             throw exception(TASK_REJECT_TARGET_REQUIRED);
         }
         return returnTaskId;
+    }
+
+    private String resolveRejectTargetTaskDefinitionKeyByExpression(Task task, FlowElement userTaskElement) {
+        String expression = parseReturnTaskExpression(userTaskElement);
+        if (StrUtil.isBlank(expression)) {
+            return null;
+        }
+        try {
+            Map<String, Object> processVariables = runtimeService.getVariables(task.getProcessInstanceId());
+            Object value = FlowableUtils.getExpressionValue(processVariables, normalizeFlowableExpression(expression));
+            return StrUtil.emptyToNull(Convert.toStr(value));
+        } catch (Exception ex) {
+            log.warn("[resolveRejectTargetTaskDefinitionKeyByExpression][taskId({}) taskDefinitionKey({}) expression({}) 解析失败，回退默认节点]",
+                    task.getId(), task.getTaskDefinitionKey(), expression, ex);
+            return null;
+        }
+    }
+
+    private String normalizeFlowableExpression(String expression) {
+        String expressionValue = StrUtil.trim(expression);
+        if (StrUtil.startWithAny(expressionValue, "${", "#{")) {
+            return expressionValue;
+        }
+        return StrUtil.format("${{{}}}", expressionValue);
     }
 
     private BpmRejectHistoryDO createRejectHistory(Task task, BpmTaskRejectReqVO reqVO, Integer fromVersionNo,
