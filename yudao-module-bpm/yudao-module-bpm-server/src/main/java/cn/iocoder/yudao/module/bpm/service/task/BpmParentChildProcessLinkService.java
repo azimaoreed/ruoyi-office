@@ -20,6 +20,15 @@ public interface BpmParentChildProcessLinkService {
     BpmParentChildProcessLinkDO createLink(@Valid BpmParentChildProcessLinkDO link);
 
     /**
+     * 回填子流程实例 ID。
+     *
+     * @param id 关联记录 ID
+     * @param childProcessInstanceId 子流程实例 ID
+     */
+    void updateChildProcessInstanceId(Long id,
+                                      @NotEmpty(message = "子流程实例 ID 不能为空") String childProcessInstanceId);
+
+    /**
      * 查询子流程实例对应的主子流程关联。
      *
      * @param childProcessInstanceId 子流程实例 ID

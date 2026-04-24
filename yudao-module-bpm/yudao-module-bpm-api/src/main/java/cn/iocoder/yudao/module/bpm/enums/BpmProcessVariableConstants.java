@@ -49,4 +49,49 @@ public interface BpmProcessVariableConstants {
      * 用于在待办列表中显示申请人所属公司ID
      */
     String COMPANY_ID = "companyId";
+
+    /**
+     * 运行时修改子流程变量：主流程实例 ID
+     */
+    String PARENT_PROCESS_INSTANCE_ID = "parentProcessInstanceId";
+
+    /**
+     * 运行时修改子流程变量：主流程任务 ID
+     */
+    String PARENT_TASK_ID = "parentTaskId";
+
+    /**
+     * 运行时修改子流程变量：主流程任务定义 Key
+     */
+    String PARENT_TASK_DEFINITION_KEY = "parentTaskDefinitionKey";
+
+    /**
+     * 运行时修改子流程变量：主子流程关联 ID
+     */
+    String MODIFY_LINK_ID = "modifyLinkId";
+
+    /**
+     * 运行时修改子流程变量：冻结前最后活动节点
+     */
+    String LAST_ACTIVE_NODE = "lastActiveNode";
+
+    /**
+     * 运行时修改子流程变量：修改类型
+     */
+    String MODIFY_TYPE = "modifyType";
+
+    /**
+     * 运行时修改子流程变量：默认回退节点
+     */
+    String RETURN_NODE = "returnNode";
+
+    /**
+     * 运行时修改子流程变量：修改说明
+     */
+    String MODIFY_REASON_DETAIL = "modifyReasonDetail";
+
+    /**
+     * 运行时修改子流程变量：恢复策略
+     */
+    String MODIFY_RESUME_STRATEGY = "modifyResumeStrategy";
 }
