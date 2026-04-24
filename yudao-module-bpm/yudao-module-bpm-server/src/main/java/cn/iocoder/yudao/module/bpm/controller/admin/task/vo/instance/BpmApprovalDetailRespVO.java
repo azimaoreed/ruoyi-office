@@ -19,8 +19,14 @@ public class BpmApprovalDetailRespVO {
     @Schema(description = "流程实例的状态", requiredMode = Schema.RequiredMode.REQUIRED, example = "1")
     private Integer status; // 参见 BpmProcessInstanceStatusEnum 枚举
 
+    @Schema(description = "当前流程版本号", example = "2")
+    private Integer currentVersionNo;
+
     @Schema(description = "活动节点列表", requiredMode = Schema.RequiredMode.REQUIRED)
     private List<ActivityNode> activityNodes;
+
+    @Schema(description = "按版本分组的活动节点列表")
+    private List<VersionGroup> versionGroups;
 
     @Schema(description = "表单字段权限")
     private Map<String, String> formFieldsPermission;
@@ -59,6 +65,12 @@ public class BpmApprovalDetailRespVO {
         @Schema(description = "节点的结束时间")
         private LocalDateTime endTime;
 
+        @Schema(description = "所属流程版本号", example = "2")
+        private Integer versionNo;
+
+        @Schema(description = "所属流程版本标签", example = "V2")
+        private String versionLabel;
+
         @Schema(description = "审批节点的任务信息")
         private List<ActivityNodeTask> tasks;
 
@@ -75,6 +87,47 @@ public class BpmApprovalDetailRespVO {
         @Schema(description = "流程编号", example = "8761d8e0-0922-11f0-bd37-00ff1db677bf")
         private String processInstanceId; // 当且仅当，该节点是子流程节点时，才会有值（CallActivity 的 calledProcessInstanceId 字段）
 
+    }
+
+    @Schema(description = "流程版本分组信息")
+    @Data
+    public static class VersionGroup {
+
+        @Schema(description = "版本号", example = "2")
+        private Integer versionNo;
+
+        @Schema(description = "版本标签", example = "V2")
+        private String versionLabel;
+
+        @Schema(description = "版本状态", example = "1")
+        private Integer versionStatus;
+
+        @Schema(description = "来源驳回记录编号", example = "1")
+        private Long sourceRejectId;
+
+        @Schema(description = "来源版本号", example = "1")
+        private Integer sourceVersionNo;
+
+        @Schema(description = "目标版本号", example = "2")
+        private Integer targetVersionNo;
+
+        @Schema(description = "驳回来源节点", example = "Activity_1")
+        private String sourceTaskDefinitionKey;
+
+        @Schema(description = "驳回目标节点", example = "Activity_2")
+        private String targetTaskDefinitionKey;
+
+        @Schema(description = "驳回模式", example = "2")
+        private Integer rejectMode;
+
+        @Schema(description = "驳回原因分类", example = "1")
+        private Integer rejectReasonType;
+
+        @Schema(description = "驳回说明", example = "需要补充设计资料")
+        private String rejectDetail;
+
+        @Schema(description = "版本内活动节点")
+        private List<ActivityNode> activityNodes;
     }
 
     @Schema(description = "活动节点的任务信息")

@@ -20,9 +20,12 @@ import cn.iocoder.yudao.module.bpm.controller.admin.definition.vo.model.BpmModel
 import cn.iocoder.yudao.module.bpm.controller.admin.definition.vo.model.simple.BpmSimpleModelNodeVO;
 import cn.iocoder.yudao.module.bpm.controller.admin.task.vo.instance.*;
 import cn.iocoder.yudao.module.bpm.controller.admin.task.vo.instance.BpmApprovalDetailRespVO.ActivityNodeTask;
+import cn.iocoder.yudao.module.bpm.controller.admin.task.vo.instance.BpmApprovalDetailRespVO.VersionGroup;
 import cn.iocoder.yudao.module.bpm.controller.admin.task.vo.task.BpmTaskRespVO;
 import cn.iocoder.yudao.module.bpm.convert.task.BpmProcessInstanceConvert;
 import cn.iocoder.yudao.module.bpm.dal.dataobject.definition.BpmProcessDefinitionInfoDO;
+import cn.iocoder.yudao.module.bpm.dal.dataobject.task.BpmProcessInstanceVersionDO;
+import cn.iocoder.yudao.module.bpm.dal.dataobject.task.BpmRejectHistoryDO;
 import cn.iocoder.yudao.module.bpm.dal.redis.BpmProcessIdRedisDAO;
 import cn.iocoder.yudao.module.bpm.enums.BpmProcessVariableConstants;
 import cn.iocoder.yudao.module.bpm.enums.ErrorCodeConstants;
@@ -71,6 +74,7 @@ import org.springframework.transaction.support.TransactionSynchronization;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 import org.springframework.validation.annotation.Validated;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 import static cn.iocoder.yudao.framework.common.exception.util.ServiceExceptionUtil.exception;
@@ -135,6 +139,8 @@ public class BpmProcessInstanceServiceImpl implements BpmProcessInstanceService 
     private BpmNotificationManager notificationManager;
     @Resource
     private BpmProcessInstanceVersionService processInstanceVersionService;
+    @Resource
+    private BpmRejectHistoryService rejectHistoryService;
 
     // ========== Query 查询相关方法 ==========
 
@@ -229,9 +235,10 @@ public class BpmProcessInstanceServiceImpl implements BpmProcessInstanceService 
 
         // 2.2 流程已经结束，直接 return，无需预测
         if (BpmProcessInstanceStatusEnum.isProcessEndStatus(processInstanceStatus)) {
-            return buildApprovalDetail(reqVO, bpmnModel, processDefinition, processDefinitionInfo,
+            return enrichApprovalDetailByVersion(buildApprovalDetail(reqVO, bpmnModel, processDefinition, processDefinitionInfo,
                     historicProcessInstance,
-                    processInstanceStatus, endActivityNodes, runActivityNodes, null, null);
+                    processInstanceStatus, endActivityNodes, runActivityNodes, null, null),
+                    reqVO.getProcessInstanceId(), processInstanceStatus);
         }
 
         // 3.1 计算当前登录用户的待办任务
@@ -254,8 +261,10 @@ public class BpmProcessInstanceServiceImpl implements BpmProcessInstanceService 
                 processVariables, activities, needSimulateTaskDefKeysByReturn);
 
         // 4. 拼接最终数据
-        return buildApprovalDetail(reqVO, bpmnModel, processDefinition, processDefinitionInfo, historicProcessInstance,
-                processInstanceStatus, endActivityNodes, runActivityNodes, simulateActivityNodes, todoTask);
+        return enrichApprovalDetailByVersion(buildApprovalDetail(reqVO, bpmnModel, processDefinition, processDefinitionInfo,
+                historicProcessInstance,
+                processInstanceStatus, endActivityNodes, runActivityNodes, simulateActivityNodes, todoTask),
+                reqVO.getProcessInstanceId(), processInstanceStatus);
     }
 
     @Override
@@ -422,6 +431,99 @@ public class BpmProcessInstanceServiceImpl implements BpmProcessInstanceService 
         return BpmProcessInstanceConvert.INSTANCE.buildApprovalDetail(bpmnModel, processDefinition,
                 processDefinitionInfo, processInstance,
                 processInstanceStatus, approveNodes, todoTask, formFieldsPermission, userMap, deptMap);
+    }
+
+    private BpmApprovalDetailRespVO enrichApprovalDetailByVersion(BpmApprovalDetailRespVO detailRespVO,
+                                                                  String processInstanceId,
+                                                                  Integer processInstanceStatus) {
+        if (detailRespVO == null || StrUtil.isBlank(processInstanceId)) {
+            return detailRespVO;
+        }
+        List<ActivityNode> activityNodes = ObjectUtil.defaultIfNull(detailRespVO.getActivityNodes(), Collections.emptyList());
+        List<BpmProcessInstanceVersionDO> versionList = processInstanceVersionService.getVersionList(processInstanceId);
+        List<BpmRejectHistoryDO> rejectHistoryList = rejectHistoryService.getRejectHistoryList(processInstanceId);
+        if (CollUtil.isEmpty(versionList)) {
+            Integer versionStatus = BpmProcessInstanceStatusEnum.isProcessEndStatus(processInstanceStatus)
+                    ? BpmProcessInstanceVersionStatusEnum.FINISHED.getStatus()
+                    : BpmProcessInstanceVersionStatusEnum.RUNNING.getStatus();
+            versionList = ListUtil.of(BpmProcessInstanceVersionDO.builder()
+                    .processInstanceId(processInstanceId)
+                    .versionNo(1)
+                    .versionStatus(versionStatus)
+                    .build());
+        }
+
+        Map<Long, BpmRejectHistoryDO> rejectHistoryMap = convertMap(rejectHistoryList, BpmRejectHistoryDO::getId);
+        Map<Integer, LocalDateTime> versionStartTimeMap = new HashMap<>();
+        Map<Integer, LocalDateTime> versionEndTimeMap = new HashMap<>();
+        rejectHistoryList.forEach(history -> {
+            if (history.getToVersionNo() != null) {
+                versionStartTimeMap.put(history.getToVersionNo(), history.getCreateTime());
+            }
+            if (history.getFromVersionNo() != null) {
+                versionEndTimeMap.put(history.getFromVersionNo(), history.getCreateTime());
+            }
+        });
+
+        List<BpmProcessInstanceVersionDO> finalVersionList = versionList;
+        int currentVersionNo = CollUtil.getLast(finalVersionList).getVersionNo();
+        Map<Integer, List<ActivityNode>> versionActivityNodeMap = new LinkedHashMap<>();
+        activityNodes.forEach(activityNode -> {
+            Integer versionNo = resolveActivityNodeVersionNo(activityNode, finalVersionList, versionStartTimeMap,
+                    versionEndTimeMap, currentVersionNo);
+            activityNode.setVersionNo(versionNo);
+            activityNode.setVersionLabel(buildVersionLabel(versionNo));
+            versionActivityNodeMap.computeIfAbsent(versionNo, key -> new ArrayList<>()).add(activityNode);
+        });
+
+        List<VersionGroup> versionGroups = convertList(finalVersionList, version -> {
+            VersionGroup versionGroup = new VersionGroup()
+                    .setVersionNo(version.getVersionNo())
+                    .setVersionLabel(buildVersionLabel(version.getVersionNo()))
+                    .setVersionStatus(version.getVersionStatus())
+                    .setSourceRejectId(version.getSourceRejectId())
+                    .setActivityNodes(versionActivityNodeMap.getOrDefault(version.getVersionNo(), Collections.emptyList()));
+            if (version.getSourceRejectId() != null) {
+                BpmRejectHistoryDO rejectHistory = rejectHistoryMap.get(version.getSourceRejectId());
+                if (rejectHistory != null) {
+                    versionGroup.setSourceVersionNo(rejectHistory.getFromVersionNo())
+                            .setTargetVersionNo(rejectHistory.getToVersionNo())
+                            .setSourceTaskDefinitionKey(rejectHistory.getSourceTaskDefinitionKey())
+                            .setTargetTaskDefinitionKey(rejectHistory.getTargetTaskDefinitionKey())
+                            .setRejectMode(rejectHistory.getRejectMode())
+                            .setRejectReasonType(rejectHistory.getRejectReasonType())
+                            .setRejectDetail(rejectHistory.getRejectDetail());
+                }
+            }
+            return versionGroup;
+        });
+        detailRespVO.setCurrentVersionNo(currentVersionNo).setVersionGroups(versionGroups);
+        return detailRespVO;
+    }
+
+    private Integer resolveActivityNodeVersionNo(ActivityNode activityNode,
+                                                 List<BpmProcessInstanceVersionDO> versionList,
+                                                 Map<Integer, LocalDateTime> versionStartTimeMap,
+                                                 Map<Integer, LocalDateTime> versionEndTimeMap,
+                                                 Integer currentVersionNo) {
+        LocalDateTime activityTime = ObjectUtil.defaultIfNull(activityNode.getStartTime(), activityNode.getEndTime());
+        if (activityTime == null) {
+            return currentVersionNo;
+        }
+        for (BpmProcessInstanceVersionDO version : versionList) {
+            LocalDateTime startTime = versionStartTimeMap.get(version.getVersionNo());
+            LocalDateTime endTime = versionEndTimeMap.get(version.getVersionNo());
+            boolean afterStart = startTime == null || !activityTime.isBefore(startTime);
+            boolean beforeEnd = endTime == null || activityTime.isBefore(endTime);
+            if (afterStart && beforeEnd) {
+                return version.getVersionNo();
+            }
+        }
+        return currentVersionNo;
+    }
+
+    private String buildVersionLabel(Integer versionNo) {
+        return "V" + versionNo;
     }
 
     /**

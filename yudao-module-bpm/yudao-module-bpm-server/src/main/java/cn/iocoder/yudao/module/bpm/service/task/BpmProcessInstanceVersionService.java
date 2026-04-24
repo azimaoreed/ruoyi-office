@@ -4,6 +4,8 @@ import cn.iocoder.yudao.module.bpm.dal.dataobject.task.BpmProcessInstanceVersion
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
+import java.util.List;
+
 /**
  * 流程实例版本 Service 接口
  */
@@ -24,6 +26,14 @@ public interface BpmProcessInstanceVersionService {
      * @return 当前版本
      */
     BpmProcessInstanceVersionDO getCurrentVersion(@NotEmpty(message = "流程实例编号不能为空") String processInstanceId);
+
+    /**
+     * 获取流程实例的所有版本。
+     *
+     * @param processInstanceId 流程实例编号
+     * @return 版本列表
+     */
+    List<BpmProcessInstanceVersionDO> getVersionList(@NotEmpty(message = "流程实例编号不能为空") String processInstanceId);
 
     /**
      * 归档当前版本并创建下一个版本。

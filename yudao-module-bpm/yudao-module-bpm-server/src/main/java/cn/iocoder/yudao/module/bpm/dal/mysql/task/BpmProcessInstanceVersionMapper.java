@@ -25,4 +25,10 @@ public interface BpmProcessInstanceVersionMapper extends BaseMapperX<BpmProcessI
                 .stream().findFirst().orElse(null);
     }
 
+    default java.util.List<BpmProcessInstanceVersionDO> selectListByProcessInstanceId(String processInstanceId) {
+        return selectList(new LambdaQueryWrapperX<BpmProcessInstanceVersionDO>()
+                .eq(BpmProcessInstanceVersionDO::getProcessInstanceId, processInstanceId)
+                .orderByAsc(BpmProcessInstanceVersionDO::getVersionNo));
+    }
+
 }

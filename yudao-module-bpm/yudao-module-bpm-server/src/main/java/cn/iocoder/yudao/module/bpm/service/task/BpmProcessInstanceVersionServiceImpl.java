@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -45,6 +46,11 @@ public class BpmProcessInstanceVersionServiceImpl implements BpmProcessInstanceV
     @Override
     public BpmProcessInstanceVersionDO getCurrentVersion(String processInstanceId) {
         return processInstanceVersionMapper.selectCurrentByProcessInstanceId(processInstanceId);
+    }
+
+    @Override
+    public List<BpmProcessInstanceVersionDO> getVersionList(String processInstanceId) {
+        return processInstanceVersionMapper.selectListByProcessInstanceId(processInstanceId);
     }
 
     @Override
