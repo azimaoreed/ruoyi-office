@@ -1,6 +1,7 @@
 package cn.iocoder.yudao.module.bpm.controller.admin.task.vo.task;
 
 import cn.iocoder.yudao.framework.common.validation.InEnum;
+import cn.iocoder.yudao.module.bpm.enums.task.BpmModifyChildProcessResumeStrategyEnum;
 import cn.iocoder.yudao.module.bpm.enums.task.BpmTaskRejectModeEnum;
 import cn.iocoder.yudao.module.bpm.enums.task.BpmTaskRejectReasonTypeEnum;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -36,5 +37,15 @@ public class BpmTaskRejectReqVO {
 
     @Schema(description = "驳回时回写的流程变量")
     private Map<String, Object> variables;
+
+    @Schema(description = "修改后继续模式对应的子流程定义 Key", example = "modify_design_process")
+    private String childProcessDefinitionKey;
+
+    @Schema(description = "修改后继续模式对应的子流程启动变量")
+    private Map<String, Object> modifyPayload;
+
+    @Schema(description = "修改后继续模式对应的恢复策略", example = "1")
+    @InEnum(BpmModifyChildProcessResumeStrategyEnum.class)
+    private Integer resumeStrategy;
 
 }

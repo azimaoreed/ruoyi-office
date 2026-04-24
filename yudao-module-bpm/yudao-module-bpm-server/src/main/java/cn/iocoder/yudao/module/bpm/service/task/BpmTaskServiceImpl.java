@@ -64,6 +64,7 @@ import org.flowable.task.api.history.HistoricTaskInstance;
 import org.flowable.task.api.history.HistoricTaskInstanceQuery;
 import org.flowable.task.service.impl.persistence.entity.TaskEntity;
 import org.flowable.task.service.impl.persistence.entity.TaskEntityImpl;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionSynchronization;
@@ -126,6 +127,9 @@ public class BpmTaskServiceImpl implements BpmTaskService {
     private RoleApi roleApi;
     @Resource
     private PermissionApi permissionApi;
+    @Resource
+    @Lazy
+    private BpmModifyChildProcessService modifyChildProcessService;
 
     // ========== Query 查询相关方法 ==========
 
@@ -944,7 +948,18 @@ public class BpmTaskServiceImpl implements BpmTaskService {
             return;
         }
         if (rejectMode == BpmTaskRejectModeEnum.CONTINUE_AFTER_MODIFY) {
-            throw exception(TASK_REJECT_MODE_NOT_SUPPORTED);
+            taskService.addComment(task.getId(), task.getProcessInstanceId(), BpmCommentTypeEnum.REJECT.getType(),
+                    BpmCommentTypeEnum.REJECT.formatComment(buildRejectComment(reqVO, rejectDetail)));
+            BpmTaskStartModifyChildReqVO startModifyReqVO = new BpmTaskStartModifyChildReqVO();
+            startModifyReqVO.setId(task.getId());
+            startModifyReqVO.setChildProcessDefinitionKey(reqVO.getChildProcessDefinitionKey());
+            startModifyReqVO.setReasonType(reqVO.getRejectReasonType());
+            startModifyReqVO.setReasonDetail(rejectDetail);
+            startModifyReqVO.setModifyPayload(reqVO.getModifyPayload());
+            startModifyReqVO.setResumeStrategy(reqVO.getResumeStrategy());
+            modifyChildProcessService.startModifyChildProcess(userId, startModifyReqVO);
+            notificationManager.sendTaskEventNotification(instance, task, BpmEventTypeEnum.TASK_REJECTED, 2, rejectDetail);
+            return;
         }
 
         // 3.2 情况二： 标记流程为不通过并结束流程
