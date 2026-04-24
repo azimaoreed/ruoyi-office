@@ -25,6 +25,7 @@ import org.flowable.common.engine.api.delegate.Expression;
 import org.flowable.common.engine.impl.util.io.BytesStreamSource;
 
 import java.util.*;
+import java.util.stream.Stream;
 
 import static cn.iocoder.yudao.module.bpm.enums.task.BpmnModelConstants.*;
 import static org.flowable.bpmn.constants.BpmnXMLConstants.FLOWABLE_EXTENSIONS_NAMESPACE;
@@ -179,7 +180,9 @@ public class BpmnModelUtils {
             return;
         }
         addExtensionElement(userTask, USER_TASK_REJECT_HANDLER_TYPE, StrUtil.toStringOrNull(rejectHandler.getType()));
+        addExtensionElement(userTask, USER_TASK_REJECT_TARGET_TYPE, StrUtil.toStringOrNull(rejectHandler.getTargetType()));
         addExtensionElement(userTask, USER_TASK_REJECT_RETURN_TASK_ID, rejectHandler.getReturnNodeId());
+        addExtensionElement(userTask, USER_TASK_REJECT_REASON_TYPES, CollUtil.join(rejectHandler.getReasonTypes(), ","));
     }
 
     /**
@@ -201,6 +204,34 @@ public class BpmnModelUtils {
      */
     public static String parseReturnTaskId(FlowElement flowElement) {
         return parseExtensionElement(flowElement, USER_TASK_REJECT_RETURN_TASK_ID);
+    }
+
+    /**
+     * 解析任务拒绝目标类型
+     *
+     * @param flowElement 任务节点
+     * @return 任务拒绝目标类型
+     */
+    public static BpmUserTaskRejectTargetTypeEnum parseRejectTargetType(FlowElement flowElement) {
+        Integer targetType = NumberUtils.parseInt(parseExtensionElement(flowElement, USER_TASK_REJECT_TARGET_TYPE));
+        return BpmUserTaskRejectTargetTypeEnum.typeOf(targetType);
+    }
+
+    /**
+     * 解析任务拒绝原因分类数组
+     *
+     * @param flowElement 任务节点
+     * @return 任务拒绝原因分类数组
+     */
+    public static List<Integer> parseRejectReasonTypes(FlowElement flowElement) {
+        String reasonTypes = parseExtensionElement(flowElement, USER_TASK_REJECT_REASON_TYPES);
+        if (StrUtil.isBlank(reasonTypes)) {
+            return Collections.emptyList();
+        }
+        return Stream.of(StrUtil.splitToArray(reasonTypes, ','))
+                .map(NumberUtils::parseInt)
+                .filter(ObjUtil::isNotNull)
+                .toList();
     }
 
     /**

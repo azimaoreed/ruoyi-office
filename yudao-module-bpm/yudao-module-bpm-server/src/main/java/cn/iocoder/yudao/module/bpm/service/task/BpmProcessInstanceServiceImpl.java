@@ -29,6 +29,7 @@ import cn.iocoder.yudao.module.bpm.enums.ErrorCodeConstants;
 import cn.iocoder.yudao.module.bpm.enums.definition.BpmModelTypeEnum;
 import cn.iocoder.yudao.module.bpm.enums.definition.BpmSimpleModelNodeTypeEnum;
 import cn.iocoder.yudao.module.bpm.enums.task.BpmProcessInstanceStatusEnum;
+import cn.iocoder.yudao.module.bpm.enums.task.BpmProcessInstanceVersionStatusEnum;
 import cn.iocoder.yudao.module.bpm.enums.task.BpmReasonEnum;
 import cn.iocoder.yudao.module.bpm.enums.task.BpmTaskStatusEnum;
 import cn.iocoder.yudao.module.bpm.framework.flowable.core.candidate.BpmTaskCandidateInvoker;
@@ -132,6 +133,8 @@ public class BpmProcessInstanceServiceImpl implements BpmProcessInstanceService 
 
     @Resource
     private BpmNotificationManager notificationManager;
+    @Resource
+    private BpmProcessInstanceVersionService processInstanceVersionService;
 
     // ========== Query 查询相关方法 ==========
 
@@ -1005,6 +1008,7 @@ public class BpmProcessInstanceServiceImpl implements BpmProcessInstanceService 
         processInstanceBuilder.name(generateProcessInstanceName(userId, definition, processDefinitionInfo, variables));
         // 3.3 发起流程实例
         ProcessInstance instance = processInstanceBuilder.start();
+        processInstanceVersionService.createInitialVersionIfAbsent(instance.getId());
         return instance.getId();
     }
 
@@ -1193,6 +1197,8 @@ public class BpmProcessInstanceServiceImpl implements BpmProcessInstanceService 
 
     @Override
     public void processProcessInstanceCompleted(ProcessInstance instance) {
+        processInstanceVersionService.markCurrentVersionStatus(instance.getId(),
+                BpmProcessInstanceVersionStatusEnum.FINISHED.getStatus());
         // 1.1 获取当前状态
         Integer status = (Integer) instance.getProcessVariables()
                 .get(BpmnVariableConstants.PROCESS_INSTANCE_VARIABLE_STATUS);

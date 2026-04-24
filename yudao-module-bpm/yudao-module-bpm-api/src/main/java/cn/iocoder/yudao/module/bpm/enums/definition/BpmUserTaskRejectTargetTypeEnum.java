@@ -8,24 +8,24 @@ import lombok.Getter;
 import java.util.Arrays;
 
 /**
- * BPM 用户任务拒绝处理类型枚举
- *
- * @author jason
+ * 用户任务驳回目标类型枚举
  */
 @Getter
 @AllArgsConstructor
-public enum BpmUserTaskRejectHandlerTypeEnum implements ArrayValuable<Integer> {
+public enum BpmUserTaskRejectTargetTypeEnum implements ArrayValuable<Integer> {
 
-    FINISH_PROCESS(1, "终止流程"),
-    RETURN_AND_REPLAY(2, "退回重走"),
-    CONTINUE_AFTER_MODIFY(3, "修改后继续");
+    FIXED_NODE(1, "固定节点"),
+    RUNTIME_SELECTABLE(2, "运行时选择"),
+    EXPRESSION_NODE(3, "表达式节点");
 
     private final Integer type;
     private final String name;
 
-    public static final Integer[] ARRAYS = Arrays.stream(values()).map(BpmUserTaskRejectHandlerTypeEnum::getType).toArray(Integer[]::new);
+    public static final Integer[] ARRAYS = Arrays.stream(values())
+            .map(BpmUserTaskRejectTargetTypeEnum::getType)
+            .toArray(Integer[]::new);
 
-    public static BpmUserTaskRejectHandlerTypeEnum typeOf(Integer type) {
+    public static BpmUserTaskRejectTargetTypeEnum typeOf(Integer type) {
         return ArrayUtil.firstMatch(item -> item.getType().equals(type), values());
     }
 
@@ -33,4 +33,5 @@ public enum BpmUserTaskRejectHandlerTypeEnum implements ArrayValuable<Integer> {
     public Integer[] array() {
         return ARRAYS;
     }
+
 }

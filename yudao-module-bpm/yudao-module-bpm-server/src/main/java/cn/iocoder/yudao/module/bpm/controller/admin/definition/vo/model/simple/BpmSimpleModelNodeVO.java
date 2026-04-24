@@ -181,12 +181,19 @@ public class BpmSimpleModelNodeVO {
     @Data
     public static class RejectHandler {
 
-        @Schema(description = "拒绝处理类型", example = "1")
+        @Schema(description = "默认驳回模式", example = "1")
         @InEnum(BpmUserTaskRejectHandlerTypeEnum.class)
         private Integer type;
 
-        @Schema(description = "任务拒绝后驳回的节点 Id", example = "Activity_1")
+        @Schema(description = "驳回目标类型", example = "1")
+        @InEnum(BpmUserTaskRejectTargetTypeEnum.class)
+        private Integer targetType;
+
+        @Schema(description = "任务拒绝后默认驳回的节点 Id", example = "Activity_1")
         private String returnNodeId;
+
+        @Schema(description = "允许的驳回原因分类", example = "[1, 2]")
+        private List<Integer> reasonTypes;
     }
 
     @Schema(description = "审批节点超时处理策略")

@@ -20,6 +20,8 @@ import cn.iocoder.yudao.module.bpm.controller.admin.task.vo.task.*;
 import cn.iocoder.yudao.module.bpm.convert.task.BpmTaskConvert;
 import cn.iocoder.yudao.module.bpm.dal.dataobject.definition.BpmFormDO;
 import cn.iocoder.yudao.module.bpm.dal.dataobject.definition.BpmProcessDefinitionInfoDO;
+import cn.iocoder.yudao.module.bpm.dal.dataobject.task.BpmProcessInstanceVersionDO;
+import cn.iocoder.yudao.module.bpm.dal.dataobject.task.BpmRejectHistoryDO;
 import cn.iocoder.yudao.module.bpm.enums.BpmProcessVariableConstants;
 import cn.iocoder.yudao.module.bpm.enums.definition.*;
 import cn.iocoder.yudao.module.bpm.enums.task.*;
@@ -98,6 +100,10 @@ public class BpmTaskServiceImpl implements BpmTaskService {
     private BpmProcessDefinitionService bpmProcessDefinitionService;
     @Resource
     private BpmProcessInstanceCopyService processInstanceCopyService;
+    @Resource
+    private BpmProcessInstanceVersionService processInstanceVersionService;
+    @Resource
+    private BpmRejectHistoryService rejectHistoryService;
     @Resource
     private BpmModelService modelService;
     @Resource
@@ -874,12 +880,16 @@ public class BpmTaskServiceImpl implements BpmTaskService {
         if (instance == null) {
             throw exception(PROCESS_INSTANCE_NOT_EXISTS);
         }
+        String rejectDetail = buildRejectDetail(reqVO);
+        if (reqVO.getVariables() != null && !reqVO.getVariables().isEmpty()) {
+            runtimeService.setVariables(task.getProcessInstanceId(), reqVO.getVariables());
+        }
 
         // 2.1 更新流程任务为不通过
-        updateTaskStatusAndReason(task.getId(), BpmTaskStatusEnum.REJECT.getStatus(), reqVO.getReason());
+        updateTaskStatusAndReason(task.getId(), BpmTaskStatusEnum.REJECT.getStatus(), rejectDetail);
         // 2.2 添加流程评论
         taskService.addComment(task.getId(), task.getProcessInstanceId(), BpmCommentTypeEnum.REJECT.getType(),
-                BpmCommentTypeEnum.REJECT.formatComment(reqVO.getReason()));
+                BpmCommentTypeEnum.REJECT.formatComment(buildRejectComment(reqVO, rejectDetail)));
         // 2.3 如果当前任务时被加签的，则加它的根任务也标记成未通过
         // 疑问：为什么要标记未通过呢？
         // 回答：例如说 A 任务被向前加签除 B 任务时，B 任务被审批不通过，此时 A 会被取消。而 yudao-ui-admin-vue3 不展示“已取消”的任务，导致展示不出审批不通过的细节。
@@ -894,22 +904,34 @@ public class BpmTaskServiceImpl implements BpmTaskService {
         // 3. 根据不同的 RejectHandler 处理策略
         BpmnModel bpmnModel = modelService.getBpmnModelByDefinitionId(task.getProcessDefinitionId());
         FlowElement userTaskElement = BpmnModelUtils.getFlowElementById(bpmnModel, task.getTaskDefinitionKey());
-        // 3.1 情况一：驳回到指定的任务节点
-        BpmUserTaskRejectHandlerTypeEnum userTaskRejectHandlerType = BpmnModelUtils.parseRejectHandlerType(userTaskElement);
-        if (userTaskRejectHandlerType == BpmUserTaskRejectHandlerTypeEnum.RETURN_USER_TASK) {
-            String returnTaskId = BpmnModelUtils.parseReturnTaskId(userTaskElement);
-            Assert.notNull(returnTaskId, "退回的节点不能为空");
-            returnTask(userId, new BpmTaskReturnReqVO().setId(task.getId())
-                    .setTargetTaskDefinitionKey(returnTaskId).setReason(reqVO.getReason()));
+        BpmTaskRejectModeEnum rejectMode = resolveRejectMode(reqVO, userTaskElement);
+        BpmProcessInstanceVersionDO currentVersion = processInstanceVersionService
+                .createInitialVersionIfAbsent(task.getProcessInstanceId());
+        // 3.1 情况一：驳回到指定的任务节点并重新流转
+        if (rejectMode == BpmTaskRejectModeEnum.RETURN_AND_REPLAY) {
+            String returnTaskId = resolveRejectTargetTaskDefinitionKey(reqVO, userTaskElement);
+            FlowElement targetElement = validateTargetTaskCanReturn(bpmnModel, task.getTaskDefinitionKey(), returnTaskId);
+            BpmRejectHistoryDO rejectHistory = createRejectHistory(task, reqVO, currentVersion.getVersionNo(),
+                    currentVersion.getVersionNo() + 1, returnTaskId, rejectMode, rejectDetail);
+            processInstanceVersionService.createNextVersion(task.getProcessInstanceId(), rejectHistory.getId());
+            returnTask(userId, bpmnModel, task, targetElement, new BpmTaskReturnReqVO().setId(task.getId())
+                    .setTargetTaskDefinitionKey(returnTaskId).setReason(rejectDetail));
+            notificationManager.sendTaskEventNotification(instance, task, BpmEventTypeEnum.TASK_REJECTED, 2, rejectDetail);
             return;
+        }
+        if (rejectMode == BpmTaskRejectModeEnum.CONTINUE_AFTER_MODIFY) {
+            throw exception(TASK_REJECT_MODE_NOT_SUPPORTED);
         }
 
         // 3.2 情况二： 标记流程为不通过并结束流程
-        processInstanceService.updateProcessInstanceReject(instance, reqVO.getReason()); // 标记不通过
-        moveTaskToEnd(task.getProcessInstanceId(), BpmCommentTypeEnum.REJECT.formatComment(reqVO.getReason())); // 结束流程
+        createRejectHistory(task, reqVO, currentVersion.getVersionNo(), null, null, rejectMode, rejectDetail);
+        processInstanceVersionService.markCurrentVersionStatus(task.getProcessInstanceId(),
+                BpmProcessInstanceVersionStatusEnum.FINISHED.getStatus());
+        processInstanceService.updateProcessInstanceReject(instance, rejectDetail); // 标记不通过
+        moveTaskToEnd(task.getProcessInstanceId(), BpmCommentTypeEnum.REJECT.formatComment(rejectDetail)); // 结束流程
 
         // 4. 发送任务审批拒绝事件通知
-        notificationManager.sendTaskEventNotification(instance, task, BpmEventTypeEnum.TASK_REJECTED, 2, reqVO.getReason());
+        notificationManager.sendTaskEventNotification(instance, task, BpmEventTypeEnum.TASK_REJECTED, 2, rejectDetail);
     }
 
     /**
@@ -932,6 +954,58 @@ public class BpmTaskServiceImpl implements BpmTaskService {
     private void updateTaskStatusAndReason(String id, Integer status, String reason) {
         updateTaskStatus(id, status);
         taskService.setVariableLocal(id, BpmnVariableConstants.TASK_VARIABLE_REASON, reason);
+    }
+
+    private String buildRejectDetail(BpmTaskRejectReqVO reqVO) {
+        return StrUtil.blankToDefault(reqVO.getRejectDetail(), reqVO.getReason());
+    }
+
+    private String buildRejectComment(BpmTaskRejectReqVO reqVO, String rejectDetail) {
+        BpmTaskRejectReasonTypeEnum rejectReasonType = BpmTaskRejectReasonTypeEnum.typeOf(reqVO.getRejectReasonType());
+        if (rejectReasonType == null) {
+            return rejectDetail;
+        }
+        return StrUtil.format("原因分类：{}；说明：{}", rejectReasonType.getName(), StrUtil.blankToDefault(rejectDetail, "无"));
+    }
+
+    private BpmTaskRejectModeEnum resolveRejectMode(BpmTaskRejectReqVO reqVO, FlowElement userTaskElement) {
+        BpmTaskRejectModeEnum rejectMode = BpmTaskRejectModeEnum.typeOf(reqVO.getRejectMode());
+        if (rejectMode != null) {
+            return rejectMode;
+        }
+        BpmUserTaskRejectHandlerTypeEnum rejectHandlerType = parseRejectHandlerType(userTaskElement);
+        if (rejectHandlerType == null) {
+            return BpmTaskRejectModeEnum.FINISH_PROCESS;
+        }
+        rejectMode = BpmTaskRejectModeEnum.typeOf(rejectHandlerType.getType());
+        return ObjectUtil.defaultIfNull(rejectMode, BpmTaskRejectModeEnum.FINISH_PROCESS);
+    }
+
+    private String resolveRejectTargetTaskDefinitionKey(BpmTaskRejectReqVO reqVO, FlowElement userTaskElement) {
+        if (StrUtil.isNotBlank(reqVO.getTargetTaskDefinitionKey())) {
+            return reqVO.getTargetTaskDefinitionKey();
+        }
+        String returnTaskId = parseReturnTaskId(userTaskElement);
+        if (StrUtil.isBlank(returnTaskId)) {
+            throw exception(TASK_REJECT_TARGET_REQUIRED);
+        }
+        return returnTaskId;
+    }
+
+    private BpmRejectHistoryDO createRejectHistory(Task task, BpmTaskRejectReqVO reqVO, Integer fromVersionNo,
+                                                   Integer toVersionNo, String targetTaskDefinitionKey,
+                                                   BpmTaskRejectModeEnum rejectMode, String rejectDetail) {
+        return rejectHistoryService.createRejectHistory(BpmRejectHistoryDO.builder()
+                .processInstanceId(task.getProcessInstanceId())
+                .taskId(task.getId())
+                .sourceTaskDefinitionKey(task.getTaskDefinitionKey())
+                .targetTaskDefinitionKey(targetTaskDefinitionKey)
+                .rejectMode(rejectMode.getType())
+                .rejectReasonType(reqVO.getRejectReasonType())
+                .rejectDetail(rejectDetail)
+                .fromVersionNo(fromVersionNo)
+                .toVersionNo(toVersionNo)
+                .build());
     }
 
     @Override

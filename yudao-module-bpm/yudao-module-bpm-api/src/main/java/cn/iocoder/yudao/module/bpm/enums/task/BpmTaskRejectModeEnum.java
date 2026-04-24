@@ -1,4 +1,4 @@
-package cn.iocoder.yudao.module.bpm.enums.definition;
+package cn.iocoder.yudao.module.bpm.enums.task;
 
 import cn.hutool.core.util.ArrayUtil;
 import cn.iocoder.yudao.framework.common.core.ArrayValuable;
@@ -8,13 +8,11 @@ import lombok.Getter;
 import java.util.Arrays;
 
 /**
- * BPM 用户任务拒绝处理类型枚举
- *
- * @author jason
+ * 任务驳回模式枚举
  */
 @Getter
 @AllArgsConstructor
-public enum BpmUserTaskRejectHandlerTypeEnum implements ArrayValuable<Integer> {
+public enum BpmTaskRejectModeEnum implements ArrayValuable<Integer> {
 
     FINISH_PROCESS(1, "终止流程"),
     RETURN_AND_REPLAY(2, "退回重走"),
@@ -23,9 +21,11 @@ public enum BpmUserTaskRejectHandlerTypeEnum implements ArrayValuable<Integer> {
     private final Integer type;
     private final String name;
 
-    public static final Integer[] ARRAYS = Arrays.stream(values()).map(BpmUserTaskRejectHandlerTypeEnum::getType).toArray(Integer[]::new);
+    public static final Integer[] ARRAYS = Arrays.stream(values())
+            .map(BpmTaskRejectModeEnum::getType)
+            .toArray(Integer[]::new);
 
-    public static BpmUserTaskRejectHandlerTypeEnum typeOf(Integer type) {
+    public static BpmTaskRejectModeEnum typeOf(Integer type) {
         return ArrayUtil.firstMatch(item -> item.getType().equals(type), values());
     }
 
@@ -33,4 +33,5 @@ public enum BpmUserTaskRejectHandlerTypeEnum implements ArrayValuable<Integer> {
     public Integer[] array() {
         return ARRAYS;
     }
+
 }
