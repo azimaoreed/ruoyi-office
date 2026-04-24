@@ -2063,28 +2063,65 @@ public class BpmTaskServiceImpl implements BpmTaskService {
             return;
         }
 
-        taskList.forEach(task -> FlowableUtils.execute(task.getTenantId(), () -> {
-            // 情况一：自动提醒
-            if (Objects.equals(handlerType, BpmUserTaskTimeoutHandlerTypeEnum.REMINDER.getType())) {
-                messageService.sendMessageWhenTaskTimeout(new BpmMessageSendWhenTaskTimeoutReqDTO()
-                        .setProcessInstanceId(processInstanceId).setProcessInstanceName(processInstance.getName())
-                        .setTaskId(task.getId()).setTaskName(task.getName()).setAssigneeUserId(Long.parseLong(task.getAssignee())));
-                return;
-            }
+        taskList.forEach(task -> FlowableUtils.execute(task.getTenantId(),
+                () -> processTaskTimeout(processInstance, task, handlerType)));
+    }
 
-            // 情况二：自动同意
-            if (Objects.equals(handlerType, BpmUserTaskTimeoutHandlerTypeEnum.APPROVE.getType())) {
-                approveTask(Long.parseLong(task.getAssignee()),
-                        new BpmTaskApproveReqVO().setId(task.getId()).setReason(BpmReasonEnum.TIMEOUT_APPROVE.getReason()));
-                return;
-            }
+    private void processTaskTimeout(ProcessInstance processInstance, Task task, Integer handlerType) {
+        BpmUserTaskTimeoutHandlerTypeEnum timeoutHandlerType = BpmUserTaskTimeoutHandlerTypeEnum.typeOf(handlerType);
+        if (timeoutHandlerType == null) {
+            log.warn("[processTaskTimeout][processInstanceId({}) taskId({}) 未知处理类型({})]",
+                    processInstance.getProcessInstanceId(), task.getId(), handlerType);
+            return;
+        }
+        log.info("[processTaskTimeout][processInstanceId({}) taskId({}) handlerType({}) 开始执行超时处理]",
+                processInstance.getProcessInstanceId(), task.getId(), timeoutHandlerType.name());
 
-            // 情况三：自动拒绝
-            if (Objects.equals(handlerType, BpmUserTaskTimeoutHandlerTypeEnum.REJECT.getType())) {
-                rejectTask(Long.parseLong(task.getAssignee()),
-                        new BpmTaskRejectReqVO().setId(task.getId()).setReason(BpmReasonEnum.REJECT_TASK.getReason()));
-            }
-        }));
+        switch (timeoutHandlerType) {
+            case REMINDER -> messageService.sendMessageWhenTaskTimeout(new BpmMessageSendWhenTaskTimeoutReqDTO()
+                    .setProcessInstanceId(processInstance.getProcessInstanceId()).setProcessInstanceName(processInstance.getName())
+                    .setTaskId(task.getId()).setTaskName(task.getName()).setAssigneeUserId(Long.parseLong(task.getAssignee())));
+            case APPROVE -> approveTask(Long.parseLong(task.getAssignee()),
+                    new BpmTaskApproveReqVO().setId(task.getId()).setReason(BpmReasonEnum.TIMEOUT_APPROVE.getReason()));
+            case REJECT -> rejectTask(Long.parseLong(task.getAssignee()),
+                    new BpmTaskRejectReqVO().setId(task.getId()).setReason(BpmReasonEnum.TIMEOUT_REJECT.getReason()));
+            case TRANSFER -> processTaskTimeoutTransfer(task);
+            case SKIP -> approveTask(Long.parseLong(task.getAssignee()),
+                    new BpmTaskApproveReqVO().setId(task.getId()).setReason(BpmReasonEnum.TIMEOUT_SKIP.getReason()));
+            case TERMINATE -> processTaskTimeoutTerminate(task);
+        }
+    }
+
+    private void processTaskTimeoutTransfer(Task task) {
+        Long assigneeUserId = Convert.toLong(task.getAssignee());
+        Long transferUserId = resolveTimeoutTransferUserId(task, assigneeUserId);
+        if (transferUserId == null) {
+            log.warn("[processTaskTimeoutTransfer][taskId({}) processDefinitionId({}) 找不到可转办的流程管理员]",
+                    task.getId(), task.getProcessDefinitionId());
+            return;
+        }
+        getSelf().transferTask(assigneeUserId, new BpmTaskTransferReqVO()
+                .setId(task.getId())
+                .setAssigneeUserId(transferUserId)
+                .setReason(BpmReasonEnum.TIMEOUT_TRANSFER.getReason()));
+    }
+
+    private Long resolveTimeoutTransferUserId(Task task, Long assigneeUserId) {
+        BpmProcessDefinitionInfoDO processDefinitionInfo = bpmProcessDefinitionService.getProcessDefinitionInfo(task.getProcessDefinitionId());
+        if (processDefinitionInfo == null || CollUtil.isEmpty(processDefinitionInfo.getManagerUserIds())) {
+            return null;
+        }
+        return processDefinitionInfo.getManagerUserIds().stream()
+                .filter(Objects::nonNull)
+                .filter(userId -> !Objects.equals(userId, assigneeUserId))
+                .findFirst()
+                .orElse(null);
+    }
+
+    private void processTaskTimeoutTerminate(Task task) {
+        taskService.addComment(task.getId(), task.getProcessInstanceId(), BpmCommentTypeEnum.CANCEL.getType(),
+                BpmCommentTypeEnum.CANCEL.formatComment(BpmReasonEnum.TIMEOUT_TERMINATE.getReason()));
+        moveTaskToEnd(task.getProcessInstanceId(), BpmReasonEnum.TIMEOUT_TERMINATE.getReason());
     }
 
     @Override
