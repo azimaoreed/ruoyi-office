@@ -4,6 +4,7 @@ import cn.iocoder.yudao.framework.common.core.KeyValue;
 import cn.iocoder.yudao.framework.common.validation.InEnum;
 import cn.iocoder.yudao.module.bpm.enums.definition.*;
 import cn.iocoder.yudao.module.bpm.framework.flowable.core.enums.BpmTaskCandidateStrategyEnum;
+import cn.iocoder.yudao.module.bpm.enums.task.BpmModifyChildProcessResumeStrategyEnum;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -138,6 +139,12 @@ public class BpmSimpleModelNodeVO {
      */
     private ChildProcessSetting childProcessSetting;
 
+    /**
+     * 修改申请子流程设置
+     */
+    @Valid
+    private ModifyProcessSetting modifyProcessSetting;
+
     @Schema(description = "任务监听器")
     @Valid
     @Data
@@ -193,6 +200,29 @@ public class BpmSimpleModelNodeVO {
         private String returnNodeId;
 
         @Schema(description = "允许的驳回原因分类", example = "[1, 2]")
+        private List<Integer> reasonTypes;
+    }
+
+    @Schema(description = "修改申请子流程设置")
+    @Data
+    @Valid
+    public static class ModifyProcessSetting {
+
+        @Schema(description = "是否启用", requiredMode = Schema.RequiredMode.REQUIRED, example = "true")
+        @NotNull(message = "是否启用不能为空")
+        private Boolean enable;
+
+        @Schema(description = "按钮名称", example = "申请修改设计")
+        private String buttonName;
+
+        @Schema(description = "修改申请子流程 Key", example = "modify_design_process")
+        private String childProcessDefinitionKey;
+
+        @Schema(description = "默认恢复策略", example = "1")
+        @InEnum(BpmModifyChildProcessResumeStrategyEnum.class)
+        private Integer resumeStrategy;
+
+        @Schema(description = "允许的原因分类", example = "[1, 2]")
         private List<Integer> reasonTypes;
     }
 
