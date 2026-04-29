@@ -3,8 +3,6 @@ name: Build backend image and deploy by Docker
 on:
   push:
     branches:
-      - master
-      - main
       - develop
   workflow_dispatch:
     inputs:
@@ -60,6 +58,7 @@ jobs:
 
       - name: Login to TCR
         run: |
+          docker logout "${{ secrets.TCR_REGISTRY }}" >/dev/null 2>&1 || true
           echo "${{ secrets.TCR_PASSWORD }}" \
             | docker login "${{ secrets.TCR_REGISTRY }}" \
               --username "${{ secrets.TCR_USERNAME }}" \
@@ -71,8 +70,9 @@ jobs:
           set -euo pipefail
           TAG="${GITHUB_SHA::12}"
           IMAGE="${{ secrets.TCR_REGISTRY }}/${{ secrets.TCR_NAMESPACE }}/${IMAGE_NAME}"
+          echo "Pushing backend image to ${IMAGE}:${TAG} and ${IMAGE}:latest"
           docker build -t "${IMAGE}:${TAG}" -t "${IMAGE}:latest" ./yudao-server
-
+          docker push "${IMAGE}:${TAG}"
           docker push "${IMAGE}:latest"
           echo "image=${IMAGE}:${TAG}" >> "$GITHUB_OUTPUT"
 
@@ -112,6 +112,7 @@ jobs:
             HOST_PORT="${{ secrets.BACKEND_HOST_PORT || '48080' }}"
             JAVA_OPTS="${{ secrets.JAVA_OPTS || '-Xms512m -Xmx2048m -Djava.security.egd=file:/dev/./urandom' }}"
 
+            docker logout "${{ secrets.TCR_REGISTRY }}" >/dev/null 2>&1 || true
             echo "${{ secrets.TCR_PASSWORD }}" \
               | docker login "${{ secrets.TCR_REGISTRY }}" \
                 --username "${{ secrets.TCR_USERNAME }}" \
