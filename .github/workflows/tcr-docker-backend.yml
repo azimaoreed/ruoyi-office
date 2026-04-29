@@ -58,7 +58,9 @@ jobs:
 
       - name: Login to TCR
         run: |
-          docker login "${{ secrets.TCR_REGISTRY }}" \
+          docker logout "${{ secrets.TCR_REGISTRY }}" >/dev/null 2>&1 || true
+          echo "${{ secrets.TCR_PASSWORD }}" \
+            | docker login "${{ secrets.TCR_REGISTRY }}" \
               --username "${{ secrets.TCR_USERNAME }}" \
               --password-stdin
 
@@ -110,6 +112,7 @@ jobs:
             HOST_PORT="${{ secrets.BACKEND_HOST_PORT || '48080' }}"
             JAVA_OPTS="${{ secrets.JAVA_OPTS || '-Xms512m -Xmx2048m -Djava.security.egd=file:/dev/./urandom' }}"
 
+            docker logout "${{ secrets.TCR_REGISTRY }}" >/dev/null 2>&1 || true
             echo "${{ secrets.TCR_PASSWORD }}" \
               | docker login "${{ secrets.TCR_REGISTRY }}" \
                 --username "${{ secrets.TCR_USERNAME }}" \
