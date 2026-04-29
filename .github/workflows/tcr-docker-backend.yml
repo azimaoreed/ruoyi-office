@@ -72,7 +72,7 @@ jobs:
           TAG="${GITHUB_SHA::12}"
           IMAGE="${{ secrets.TCR_REGISTRY }}/${{ secrets.TCR_NAMESPACE }}/${IMAGE_NAME}"
           docker build -t "${IMAGE}:${TAG}" -t "${IMAGE}:latest" ./yudao-server
-#          docker push "${IMAGE}:${TAG}"
+
           docker push "${IMAGE}:latest"
           echo "image=${IMAGE}:${TAG}" >> "$GITHUB_OUTPUT"
 
