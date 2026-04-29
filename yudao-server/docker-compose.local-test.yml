@@ -1,0 +1,100 @@
+name: ruoyi-office-test
+
+services:
+  mysql:
+    image: mysql:5.7.44
+    container_name: ruoyi-office-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-RuoYi@2024!}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-ruoyi-office}
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_general_ci
+      - --lower_case_table_names=1
+    ports:
+      - "${MYSQL_PORT:-13306}:3306"
+    volumes:
+      - mysql-test-data:/var/lib/mysql
+    networks:
+      - ruoyi-office-test-net
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "mysqladmin",
+          "ping",
+          "-h",
+          "localhost",
+          "-u",
+          "root",
+          "-p${MYSQL_ROOT_PASSWORD:-RuoYi@2024!}",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+  redis:
+    image: redis:7.2
+    container_name: ruoyi-office-redis
+    restart: unless-stopped
+    command:
+      - redis-server
+      - --appendonly
+      - "yes"
+      - --requirepass
+      - ${REDIS_PASSWORD:-123456}
+    ports:
+      - "${REDIS_PORT:-16379}:6379"
+    volumes:
+      - redis-test-data:/data
+    networks:
+      - ruoyi-office-test-net
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD:-123456}", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
+  yudao-server:
+    image: yudao-server:latest
+    container_name: ruoyi-office-server
+    restart: unless-stopped
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      JAVA_OPTS: ${JAVA_OPTS:--Xms512m -Xmx1024m -Djava.security.egd=file:/dev/./urandom}
+      MYSQL_URL: jdbc:mysql://ruoyi-office-mysql-test:3306/${MYSQL_DATABASE:-ruoyi-office}?useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&nullCatalogMeansCurrent=true&rewriteBatchedStatements=true
+      MYSQL_USERNAME: root
+      MYSQL_PASSWORD: ${MYSQL_ROOT_PASSWORD:-RuoYi@2024!}
+      REDIS_HOST: ruoyi-office-redis-test
+      REDIS_PORT: 6379
+      REDIS_PASSWORD: ${REDIS_PASSWORD:-123456}
+      REDIS_DATABASE: 0
+      TZ: Asia/Shanghai
+      ARGS: ""
+    ports:
+      - "${SERVER_PORT:-48080}:48080"
+    volumes:
+      - ./target/yudao-server.jar:/yudao-server/app.jar:ro
+    networks:
+      - ruoyi-office-test-net
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+volumes:
+  mysql-test-data:
+    external: true
+    name: 9a0ae54dad5aa80d46e84776779cd35dbdbe6b4a5a0ebd9bd644d35218029955
+  redis-test-data:
+    external: true
+    name: a16cf249714b968ade78e9866777e1e5d860714f9149543cd113266e4781e526
+
+networks:
+  ruoyi-office-test-net:
+    external: true
+    name: ruoyi-office
