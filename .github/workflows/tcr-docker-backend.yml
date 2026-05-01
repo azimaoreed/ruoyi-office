@@ -65,15 +65,20 @@ jobs:
 
       - name: Build and push Docker image
         id: meta
+        env:
+          TCR_REGISTRY: ${{ secrets.TCR_REGISTRY }}
+          TCR_NAMESPACE: ${{ secrets.TCR_NAMESPACE }}
         run: |
           set -euo pipefail
           TAG="${GITHUB_SHA::12}"
-          IMAGE="${{ secrets.TCR_REGISTRY }}/${{ secrets.TCR_NAMESPACE }}/${IMAGE_NAME}"
-          echo "Pushing backend image to ${IMAGE}:${TAG} and ${IMAGE}:latest"
+          IMAGE="${TCR_REGISTRY}/${TCR_NAMESPACE}/${IMAGE_NAME}"
+
           docker build -t "${IMAGE}:${TAG}" -t "${IMAGE}:latest" ./yudao-server
           docker push "${IMAGE}:${TAG}"
           docker push "${IMAGE}:latest"
+
           echo "image=${IMAGE}:${TAG}" >> "$GITHUB_OUTPUT"
+          echo "Built image: ${IMAGE}:${TAG}"
 
   deploy:
     name: Deploy backend container
@@ -106,6 +111,11 @@ jobs:
             set -euo pipefail
 
             IMAGE="${{ needs.build-push.outputs.image }}"
+  
+            if [ -z "$IMAGE" ]; then
+              echo "ERROR: image output is empty"
+              exit 1
+            fi
             CONTAINER_NAME="${{ env.CONTAINER_NAME }}"
             DOCKER_NETWORK="${{ env.DOCKER_NETWORK }}"
             HOST_PORT="${{ secrets.BACKEND_HOST_PORT || '48080' }}"
@@ -120,7 +130,6 @@ jobs:
               || docker network create "${DOCKER_NETWORK}"
 
             mkdir -p /data/ruoyi-office/yudao-server/logs
-            echo "${IMAGE}"
             docker pull "${IMAGE}"
             docker rm -f "${CONTAINER_NAME}" >/dev/null 2>&1 || true
             docker run -d \
