@@ -120,6 +120,7 @@ jobs:
               || docker network create "${DOCKER_NETWORK}"
 
             mkdir -p /data/ruoyi-office/yudao-server/logs
+            echo "${IMAGE}"
             docker pull "${IMAGE}"
             docker rm -f "${CONTAINER_NAME}" >/dev/null 2>&1 || true
             docker run -d \
