@@ -110,8 +110,8 @@ jobs:
             set -euo pipefail
 
             TAG="${{ needs.build-push.outputs.tag }}"
-  
-            if [ -z "TAG" ]; then
+            
+            if [ -z "$TAG" ]; then
               echo "ERROR: image tag output is empty"
               exit 1
             fi
