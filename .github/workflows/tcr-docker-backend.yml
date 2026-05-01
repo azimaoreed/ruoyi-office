@@ -140,4 +140,5 @@ jobs:
               -v /data/ruoyi-office/yudao-server/logs:/yudao-server/logs \
               "${IMAGE}"
 
+
             docker ps --filter "name=${CONTAINER_NAME}"
