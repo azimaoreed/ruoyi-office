@@ -77,8 +77,7 @@ jobs:
           docker push "${IMAGE}:${TAG}"
           docker push "${IMAGE}:latest"
 
-          echo "image=${IMAGE}:${TAG}" >> "$GITHUB_OUTPUT"
-          echo "Built image: ${IMAGE}:${TAG}"
+          echo "tag=${TAG}" >> "$GITHUB_OUTPUT"
 
   deploy:
     name: Deploy backend container
@@ -110,12 +109,14 @@ jobs:
           script: |
             set -euo pipefail
 
-            IMAGE="${{ needs.build-push.outputs.image }}"
+            TAG="${{ needs.build-push.outputs.tag }}"
   
-            if [ -z "$IMAGE" ]; then
-              echo "ERROR: image output is empty"
+            if [ -z "TAG" ]; then
+              echo "ERROR: image tag output is empty"
               exit 1
             fi
+            IMAGE="${{ secrets.TCR_REGISTRY }}/${{ secrets.TCR_NAMESPACE }}/${{ env.IMAGE_NAME }}:${TAG}"
+            
             CONTAINER_NAME="${{ env.CONTAINER_NAME }}"
             DOCKER_NETWORK="${{ env.DOCKER_NETWORK }}"
             HOST_PORT="${{ secrets.BACKEND_HOST_PORT || '48080' }}"
