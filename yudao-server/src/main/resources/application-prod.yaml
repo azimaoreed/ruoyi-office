@@ -1,9 +1,3 @@
-# ================================
-# 宇擎后端 - 生产环境配置（单体模式）
-# ================================
-# 基于 application-local.yaml 生成，适用于单体部署
-# 注意：敏感信息请通过环境变量或外部配置覆盖
-
 server:
   port: 48080
 
@@ -58,9 +52,12 @@ spring:
           password: ${MYSQL_PASSWORD:Admin$123!}
         slave: # 模拟从库，可根据自己需要修改
           lazy: true # 开启懒加载，保证启动速度
-          url: ${MYSQL_SLAVE_URL:jdbc:mysql://192.168.30.130:3306/ruoyi-office?useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&rewriteBatchedStatements=true&nullCatalogMeansCurrent=true}
-          username: ${MYSQL_SLAVE_USERNAME:root}
-          password: ${MYSQL_SLAVE_PASSWORD:Admin$123!}
+#          url: ${MYSQL_SLAVE_URL:jdbc:mysql://192.168.30.130:3306/ruoyi-office?useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&rewriteBatchedStatements=true&nullCatalogMeansCurrent=true}
+#          username: ${MYSQL_SLAVE_USERNAME:root}
+#          password: ${MYSQL_SLAVE_PASSWORD:Admin$123!}
+          url: ${MYSQL_URL:jdbc:mysql://192.168.30.130:3306/ruoyi-office?useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&nullCatalogMeansCurrent=true&rewriteBatchedStatements=true}
+          username: ${MYSQL_USERNAME:root}
+          password: ${MYSQL_PASSWORD:Admin$123!}
 
   # Redis 配置 - 生产环境
   data:
