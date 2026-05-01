@@ -32,7 +32,7 @@ jobs:
     name: Build and push backend image
     runs-on: ubuntu-latest
     outputs:
-      image: ${{ steps.meta.outputs.image }}
+      tag: ${{ steps.meta.outputs.tag }}
 
     steps:
       - name: Checkout
