@@ -54,7 +54,7 @@ jobs:
           test -n "${{ secrets.TCR_PASSWORD }}"
 
       - name: Build yudao-server jar
-        run: mvn -B clean package -DskipTests -pl yudao-server -am
+        run: mvn -Pboot -pl yudao-server -am clean package -DskipTests
 
       - name: Login to TCR
         run: |
