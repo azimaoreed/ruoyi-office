@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Set;
+
 @Schema(description = "管理后台 - 用户精简信息 Response VO")
 @Data
 @NoArgsConstructor
@@ -22,6 +24,9 @@ public class UserSimpleRespVO {
 
     @Schema(description = "部门名称", example = "IT 部")
     private String deptName;
+
+    @Schema(description = "岗位编号数组", example = "1,2")
+    private Set<Long> postIds;
 
     @Schema(description = "手机号码", example = "15601691300")
     private String mobile;
