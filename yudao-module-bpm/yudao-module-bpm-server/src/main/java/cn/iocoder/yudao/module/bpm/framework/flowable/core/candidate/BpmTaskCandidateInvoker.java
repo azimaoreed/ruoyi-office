@@ -160,6 +160,22 @@ public class BpmTaskCandidateInvoker {
         return userIds;
     }
 
+    /**
+     * 按指定候选人策略计算用户。
+     *
+     * <p>用于流程级规则等不直接挂载在 BPMN 节点上的场景。</p>
+     *
+     * @param strategy 候选人策略
+     * @param param 候选人参数
+     * @return 用户编号集合
+     */
+    @DataPermission(enable = false)
+    public Set<Long> calculateUsers(Integer strategy, String param) {
+        Set<Long> userIds = getCandidateStrategy(strategy).calculateUsers(param);
+        removeDisableUsers(userIds);
+        return userIds;
+    }
+
     @VisibleForTesting
     void removeDisableUsers(Set<Long> assigneeUserIds) {
         if (CollUtil.isEmpty(assigneeUserIds)) {

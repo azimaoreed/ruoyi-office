@@ -145,6 +145,14 @@ public class BpmSimpleModelNodeVO {
     @Valid
     private ModifyProcessSetting modifyProcessSetting;
 
+    /**
+     * 流程级通用修改申请设置。
+     *
+     * <p>仅根节点使用。保存在 simpleModel 快照中，兼容旧模型不配置该字段。</p>
+     */
+    @Valid
+    private ModifyRequestSetting modifyRequestSetting;
+
     @Schema(description = "任务监听器")
     @Valid
     @Data
@@ -227,6 +235,62 @@ public class BpmSimpleModelNodeVO {
 
         @Schema(description = "允许的原因分类", example = "[1, 2]")
         private List<Integer> reasonTypes;
+
+        @Schema(description = "子流程变量回写主流程变量映射")
+        @Valid
+        private List<ModifyVariableMapping> variableMappings;
+    }
+
+    @Schema(description = "流程级通用修改申请设置")
+    @Data
+    @Valid
+    public static class ModifyRequestSetting {
+
+        @Schema(description = "是否启用", example = "true")
+        private Boolean enable;
+
+        @Schema(description = "按钮名称", example = "提交修改申请")
+        private String buttonName;
+
+        @Schema(description = "允许申请人策略", example = "30")
+        @InEnum(BpmTaskCandidateStrategyEnum.class)
+        private Integer applicantStrategy;
+
+        @Schema(description = "允许申请人参数")
+        private String applicantParam;
+
+        @Schema(description = "节点范围类型：1 全部节点，2 指定节点，3 排除节点", example = "1")
+        private Integer nodeScopeType;
+
+        @Schema(description = "节点范围")
+        private List<String> nodeIds;
+
+        @Schema(description = "修改申请子流程 Key", example = "modify_process")
+        private String childProcessDefinitionKey;
+
+        @Schema(description = "默认恢复策略", example = "1")
+        @InEnum(BpmModifyChildProcessResumeStrategyEnum.class)
+        private Integer resumeStrategy;
+
+        @Schema(description = "允许的原因分类", example = "[1, 2]")
+        private List<Integer> reasonTypes;
+
+        @Schema(description = "子流程变量回写主流程变量映射")
+        @Valid
+        private List<ModifyVariableMapping> variableMappings;
+
+    }
+
+    @Schema(description = "修改申请子流程变量回写映射")
+    @Data
+    public static class ModifyVariableMapping {
+
+        @Schema(description = "子流程变量名", example = "designFile")
+        private String childVariable;
+
+        @Schema(description = "主流程变量名", example = "designFile")
+        private String parentVariable;
+
     }
 
     @Schema(description = "审批节点超时处理策略")

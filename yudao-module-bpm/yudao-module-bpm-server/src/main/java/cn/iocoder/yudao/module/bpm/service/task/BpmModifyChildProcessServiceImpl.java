@@ -8,16 +8,22 @@ import cn.hutool.core.util.StrUtil;
 import cn.iocoder.yudao.framework.common.util.json.JsonUtils;
 import cn.iocoder.yudao.framework.common.util.number.NumberUtils;
 import cn.iocoder.yudao.module.bpm.api.task.dto.BpmProcessInstanceCreateReqDTO;
+import cn.iocoder.yudao.module.bpm.controller.admin.definition.vo.model.simple.BpmSimpleModelNodeVO;
 import cn.iocoder.yudao.module.bpm.controller.admin.task.vo.task.BpmTaskStartModifyChildReqVO;
 import cn.iocoder.yudao.module.bpm.controller.admin.task.vo.task.BpmTaskReturnReqVO;
+import cn.iocoder.yudao.module.bpm.dal.dataobject.definition.BpmProcessDefinitionInfoDO;
 import cn.iocoder.yudao.module.bpm.dal.dataobject.task.BpmFrozenTaskDO;
+import cn.iocoder.yudao.module.bpm.dal.dataobject.task.BpmModifyRequestDO;
 import cn.iocoder.yudao.module.bpm.dal.dataobject.task.BpmParentChildProcessLinkDO;
+import cn.iocoder.yudao.module.bpm.dal.mysql.task.BpmModifyRequestMapper;
 import cn.iocoder.yudao.module.bpm.enums.BpmProcessVariableConstants;
 import cn.iocoder.yudao.module.bpm.enums.task.BpmFrozenTaskStatusEnum;
 import cn.iocoder.yudao.module.bpm.enums.task.BpmModifyChildProcessResumeStrategyEnum;
+import cn.iocoder.yudao.module.bpm.enums.task.BpmModifyRequestStatusEnum;
 import cn.iocoder.yudao.module.bpm.enums.task.BpmParentChildProcessLinkStatusEnum;
 import cn.iocoder.yudao.module.bpm.enums.task.BpmProcessInstanceStatusEnum;
 import cn.iocoder.yudao.module.bpm.service.definition.BpmProcessDefinitionService;
+import cn.iocoder.yudao.module.bpm.service.task.dto.BpmModifyChildProcessStartResultDTO;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.flowable.engine.repository.ProcessDefinition;
@@ -29,6 +35,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static cn.iocoder.yudao.framework.common.exception.util.ServiceExceptionUtil.exception;
@@ -58,11 +65,20 @@ public class BpmModifyChildProcessServiceImpl implements BpmModifyChildProcessSe
     private BpmParentChildProcessLinkService parentChildProcessLinkService;
     @Resource
     private BpmFrozenTaskService frozenTaskService;
+    @Resource
+    private BpmModifyRequestMapper modifyRequestMapper;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void startModifyChildProcess(Long userId, BpmTaskStartModifyChildReqVO reqVO) {
-        Task task = taskService.validateTask(userId, reqVO.getId());
+    public BpmModifyChildProcessStartResultDTO startModifyChildProcess(Long userId, BpmTaskStartModifyChildReqVO reqVO) {
+        return startModifyChildProcess(userId, userId, reqVO);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public BpmModifyChildProcessStartResultDTO startModifyChildProcess(Long operatorUserId, Long startUserId,
+                                                                      BpmTaskStartModifyChildReqVO reqVO) {
+        Task task = taskService.validateTask(operatorUserId, reqVO.getId());
         validateTaskCanStartModifyChild(task);
         ProcessInstance parentProcessInstance = validateParentProcessInstance(task);
         validateChildProcessDefinition(reqVO.getChildProcessDefinitionKey());
@@ -86,12 +102,13 @@ public class BpmModifyChildProcessServiceImpl implements BpmModifyChildProcessSe
                 .status(BpmFrozenTaskStatusEnum.FROZEN.getStatus())
                 .build());
 
-        String childProcessInstanceId = processInstanceService.createProcessInstance(userId,
+        String childProcessInstanceId = processInstanceService.createProcessInstance(startUserId,
                 buildChildProcessCreateReq(task, parentProcessInstance, reqVO, link.getId()));
         parentChildProcessLinkService.updateChildProcessInstanceId(link.getId(), childProcessInstanceId);
 
         log.info("[startModifyChildProcess][parentProcessInstanceId({}) parentTaskId({}) childProcessInstanceId({})]",
                 task.getProcessInstanceId(), task.getId(), childProcessInstanceId);
+        return new BpmModifyChildProcessStartResultDTO(link.getId(), childProcessInstanceId);
     }
 
     @Override
@@ -112,6 +129,9 @@ public class BpmModifyChildProcessServiceImpl implements BpmModifyChildProcessSe
                 && StrUtil.isNotBlank(targetTaskDefinitionKey)
                 && !StrUtil.equals(targetTaskDefinitionKey, parentTask.getTaskDefinitionKey());
 
+        if (!rejected) {
+            syncChildVariablesToParent(childProcessInstance, parentProcessInstance, link);
+        }
         frozenTaskService.updateFrozenTaskStatusByLinkId(link.getId(), BpmFrozenTaskStatusEnum.RESUMED.getStatus());
         if (needReturn) {
             taskService.returnTask(NumberUtils.parseLong(parentTask.getAssignee()), new BpmTaskReturnReqVO()
@@ -123,9 +143,97 @@ public class BpmModifyChildProcessServiceImpl implements BpmModifyChildProcessSe
         String resultType = rejected ? MODIFY_REJECTED_CONTINUE_MAIN : (needReturn ? MODIFY_APPROVED_RETURN : MODIFY_APPROVED_CONTINUE);
         parentChildProcessLinkService.updateLinkResult(link.getId(), BpmParentChildProcessLinkStatusEnum.RESUMED.getStatus(),
                 buildResultJson(childProcessInstance, parentProcessInstance, status, reason, resultType, targetTaskDefinitionKey));
+        updateModifyRequestCompleted(childProcessInstance.getId());
         log.info("[handleChildProcessCompleted][childProcessInstanceId({}) parentProcessInstanceId({}) resultType({}) targetTaskDefinitionKey({})]",
                 childProcessInstance.getId(), link.getParentProcessInstanceId(), resultType, targetTaskDefinitionKey);
         return true;
+    }
+
+    private void updateModifyRequestCompleted(String childProcessInstanceId) {
+        BpmModifyRequestDO modifyRequest = modifyRequestMapper.selectByChildProcessInstanceId(childProcessInstanceId);
+        if (modifyRequest == null) {
+            return;
+        }
+        BpmModifyRequestDO updateObj = new BpmModifyRequestDO();
+        updateObj.setId(modifyRequest.getId());
+        updateObj.setStatus(BpmModifyRequestStatusEnum.COMPLETED.getStatus());
+        modifyRequestMapper.updateById(updateObj);
+    }
+
+    private void syncChildVariablesToParent(ProcessInstance childProcessInstance, ProcessInstance parentProcessInstance,
+                                            BpmParentChildProcessLinkDO link) {
+        if (parentProcessInstance == null || CollUtil.isEmpty(childProcessInstance.getProcessVariables())) {
+            return;
+        }
+        List<BpmSimpleModelNodeVO.ModifyVariableMapping> variableMappings =
+                resolveVariableMappings(parentProcessInstance, link);
+        if (CollUtil.isEmpty(variableMappings)) {
+            return;
+        }
+
+        Map<String, Object> childVariables = childProcessInstance.getProcessVariables();
+        Map<String, Object> parentVariables = new HashMap<>();
+        for (BpmSimpleModelNodeVO.ModifyVariableMapping mapping : variableMappings) {
+            if (mapping == null || StrUtil.isBlank(mapping.getChildVariable())
+                    || StrUtil.isBlank(mapping.getParentVariable())
+                    || !childVariables.containsKey(mapping.getChildVariable())) {
+                continue;
+            }
+            parentVariables.put(mapping.getParentVariable(), childVariables.get(mapping.getChildVariable()));
+        }
+        if (CollUtil.isEmpty(parentVariables)) {
+            return;
+        }
+        processInstanceService.updateProcessInstanceVariables(parentProcessInstance.getId(), parentVariables);
+        log.info("[syncChildVariablesToParent][childProcessInstanceId({}) parentProcessInstanceId({}) variables({})]",
+                childProcessInstance.getId(), parentProcessInstance.getId(), parentVariables.keySet());
+    }
+
+    private List<BpmSimpleModelNodeVO.ModifyVariableMapping> resolveVariableMappings(ProcessInstance parentProcessInstance,
+                                                                                     BpmParentChildProcessLinkDO link) {
+        BpmSimpleModelNodeVO simpleModel = parseSimpleModel(parentProcessInstance);
+        if (simpleModel == null) {
+            return null;
+        }
+        BpmSimpleModelNodeVO.ModifyRequestSetting processSetting = simpleModel.getModifyRequestSetting();
+        if (Boolean.TRUE.equals(processSetting == null ? null : processSetting.getEnable())) {
+            return processSetting.getVariableMappings();
+        }
+
+        BpmSimpleModelNodeVO currentNode = findNode(simpleModel, link.getParentTaskDefinitionKey());
+        BpmSimpleModelNodeVO.ModifyProcessSetting nodeSetting =
+                currentNode == null ? null : currentNode.getModifyProcessSetting();
+        if (Boolean.TRUE.equals(nodeSetting == null ? null : nodeSetting.getEnable())) {
+            return nodeSetting.getVariableMappings();
+        }
+        return null;
+    }
+
+    private BpmSimpleModelNodeVO parseSimpleModel(ProcessInstance parentProcessInstance) {
+        BpmProcessDefinitionInfoDO processDefinitionInfo = processDefinitionService
+                .getProcessDefinitionInfo(parentProcessInstance.getProcessDefinitionId());
+        if (processDefinitionInfo == null || StrUtil.isBlank(processDefinitionInfo.getSimpleModel())) {
+            return null;
+        }
+        return JsonUtils.parseObject(processDefinitionInfo.getSimpleModel(), BpmSimpleModelNodeVO.class);
+    }
+
+    private BpmSimpleModelNodeVO findNode(BpmSimpleModelNodeVO node, String nodeId) {
+        if (node == null || StrUtil.isBlank(nodeId)) {
+            return null;
+        }
+        if (StrUtil.equals(node.getId(), nodeId)) {
+            return node;
+        }
+        if (CollUtil.isNotEmpty(node.getConditionNodes())) {
+            for (BpmSimpleModelNodeVO child : node.getConditionNodes()) {
+                BpmSimpleModelNodeVO match = findNode(child, nodeId);
+                if (match != null) {
+                    return match;
+                }
+            }
+        }
+        return findNode(node.getChildNode(), nodeId);
     }
 
     private void validateTaskCanStartModifyChild(Task task) {

@@ -72,6 +72,13 @@ public interface ErrorCodeConstants {
     ErrorCode TASK_COPY_TARGET_INVALID = new ErrorCode(1_009_005_026, "抄送失败，抄送对象不合法");
     ErrorCode TASK_REJECT_REPLAY_LIMIT_EXCEEDED = new ErrorCode(1_009_005_027, "驳回重走失败，已达到最大次数({})");
     ErrorCode TASK_REJECT_REPLAY_ADMIN_REQUIRED = new ErrorCode(1_009_005_028, "驳回重走失败，超限后未找到可转交的流程管理员");
+    ErrorCode TASK_MODIFY_REQUEST_NOT_EXISTS = new ErrorCode(1_009_005_029, "修改申请不存在");
+    ErrorCode TASK_MODIFY_REQUEST_NOT_ENABLED = new ErrorCode(1_009_005_030, "当前流程未启用修改申请");
+    ErrorCode TASK_MODIFY_REQUEST_APPLICANT_DENIED = new ErrorCode(1_009_005_031, "你没有权限提交当前流程的修改申请");
+    ErrorCode TASK_MODIFY_REQUEST_NODE_DENIED = new ErrorCode(1_009_005_032, "当前节点不允许提交修改申请");
+    ErrorCode TASK_MODIFY_REQUEST_ACTIVE_EXISTS = new ErrorCode(1_009_005_033, "当前流程已有进行中的修改申请");
+    ErrorCode TASK_MODIFY_REQUEST_STATUS_ERROR = new ErrorCode(1_009_005_034, "当前修改申请状态不允许操作");
+    ErrorCode TASK_MODIFY_REQUEST_ACTIVE_TASK_REQUIRED = new ErrorCode(1_009_005_035, "当前流程存在多个活动任务，请指定要申请修改的任务");
 
     // ========== 动态表单模块 1-009-010-000 ==========
     ErrorCode FORM_NOT_EXISTS = new ErrorCode(1_009_010_000, "动态表单不存在");

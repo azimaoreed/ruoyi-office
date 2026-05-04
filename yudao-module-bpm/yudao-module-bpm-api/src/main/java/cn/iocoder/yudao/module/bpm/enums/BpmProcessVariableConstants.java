@@ -96,6 +96,21 @@ public interface BpmProcessVariableConstants {
     String MODIFY_RESUME_STRATEGY = "modifyResumeStrategy";
 
     /**
+     * 运行时修改子流程变量：修改申请记录 ID
+     */
+    String MODIFY_REQUEST_ID = "modifyRequestId";
+
+    /**
+     * 运行时修改子流程变量：修改申请提交人用户 ID
+     */
+    String MODIFY_APPLICANT_USER_ID = "modifyApplicantUserId";
+
+    /**
+     * 运行时修改子流程变量：修改申请接受人用户 ID
+     */
+    String MODIFY_ACCEPT_USER_ID = "modifyAcceptUserId";
+
+    /**
      * 驳回重走次数上限，默认由服务端兜底
      */
     String REJECT_REPLAY_MAX_COUNT = "rejectReplayMaxCount";

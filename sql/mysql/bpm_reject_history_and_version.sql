@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS `bpm_process_instance_version` (
   `updater` varchar(64) DEFAULT '' COMMENT '更新者',
   `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
   PRIMARY KEY (`id`),
   UNIQUE KEY `uk_bpm_process_instance_version` (`process_instance_id`, `version_no`, `deleted`),
   KEY `idx_bpm_process_instance_version_instance` (`process_instance_id`, `version_status`, `deleted`)
@@ -30,6 +31,7 @@ CREATE TABLE IF NOT EXISTS `bpm_reject_history` (
   `updater` varchar(64) DEFAULT '' COMMENT '更新者',
   `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
   PRIMARY KEY (`id`),
   KEY `idx_bpm_reject_history_instance` (`process_instance_id`, `deleted`),
   KEY `idx_bpm_reject_history_task` (`task_id`, `deleted`)
