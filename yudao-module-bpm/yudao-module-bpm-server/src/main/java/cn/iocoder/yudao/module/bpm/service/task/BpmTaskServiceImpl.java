@@ -64,7 +64,6 @@ import org.flowable.task.api.history.HistoricTaskInstance;
 import org.flowable.task.api.history.HistoricTaskInstanceQuery;
 import org.flowable.task.service.impl.persistence.entity.TaskEntity;
 import org.flowable.task.service.impl.persistence.entity.TaskEntityImpl;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionSynchronization;
@@ -127,10 +126,6 @@ public class BpmTaskServiceImpl implements BpmTaskService {
     private RoleApi roleApi;
     @Resource
     private PermissionApi permissionApi;
-    @Resource
-    @Lazy
-    private BpmModifyChildProcessService modifyChildProcessService;
-
     // ========== Query 查询相关方法 ==========
 
     @Override
@@ -947,20 +942,6 @@ public class BpmTaskServiceImpl implements BpmTaskService {
             notificationManager.sendTaskEventNotification(instance, task, BpmEventTypeEnum.TASK_REJECTED, 2, rejectDetail);
             return;
         }
-        if (rejectMode == BpmTaskRejectModeEnum.CONTINUE_AFTER_MODIFY) {
-            BpmTaskStartModifyChildReqVO startModifyReqVO = new BpmTaskStartModifyChildReqVO();
-            startModifyReqVO.setId(task.getId());
-            startModifyReqVO.setChildProcessDefinitionKey(reqVO.getChildProcessDefinitionKey());
-            startModifyReqVO.setReasonType(reqVO.getRejectReasonType());
-            startModifyReqVO.setReasonDetail(rejectDetail);
-            startModifyReqVO.setModifyPayload(reqVO.getModifyPayload());
-            startModifyReqVO.setResumeStrategy(ObjectUtil.defaultIfNull(reqVO.getResumeStrategy(),
-                    BpmModifyChildProcessResumeStrategyEnum.CONTINUE_LAST_ACTIVE_NODE.getType()));
-            modifyChildProcessService.startModifyChildProcess(userId, startModifyReqVO);
-            notificationManager.sendTaskEventNotification(instance, task, BpmEventTypeEnum.TASK_REJECTED, 2, rejectDetail);
-            return;
-        }
-
         // 3.2 情况二： 标记流程为不通过并结束流程
         createRejectHistory(task, reqVO, currentVersion.getVersionNo(), null, null, rejectMode, rejectDetail);
         processInstanceVersionService.markCurrentVersionStatus(task.getProcessInstanceId(),

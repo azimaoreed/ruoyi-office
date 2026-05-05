@@ -215,11 +215,6 @@ public class BpmModifyRequestServiceImpl implements BpmModifyRequestService {
             return ResolvedModifyRequestSetting.from(processSetting, fallbackChildProcessDefinitionKey, fallbackResumeStrategy);
         }
 
-        BpmSimpleModelNodeVO currentNode = findNode(simpleModel, taskDefinitionKey);
-        BpmSimpleModelNodeVO.ModifyProcessSetting nodeSetting = currentNode == null ? null : currentNode.getModifyProcessSetting();
-        if (Boolean.TRUE.equals(nodeSetting == null ? null : nodeSetting.getEnable())) {
-            return ResolvedModifyRequestSetting.from(nodeSetting, fallbackChildProcessDefinitionKey, fallbackResumeStrategy);
-        }
         if (StrUtil.isNotBlank(fallbackChildProcessDefinitionKey)) {
             ResolvedModifyRequestSetting setting = new ResolvedModifyRequestSetting();
             setting.setEnable(true);
@@ -237,24 +232,6 @@ public class BpmModifyRequestServiceImpl implements BpmModifyRequestService {
             return null;
         }
         return JsonUtils.parseObject(processDefinitionInfo.getSimpleModel(), BpmSimpleModelNodeVO.class);
-    }
-
-    private BpmSimpleModelNodeVO findNode(BpmSimpleModelNodeVO node, String nodeId) {
-        if (node == null || StrUtil.isBlank(nodeId)) {
-            return null;
-        }
-        if (StrUtil.equals(node.getId(), nodeId)) {
-            return node;
-        }
-        if (CollUtil.isNotEmpty(node.getConditionNodes())) {
-            for (BpmSimpleModelNodeVO child : node.getConditionNodes()) {
-                BpmSimpleModelNodeVO match = findNode(child, nodeId);
-                if (match != null) {
-                    return match;
-                }
-            }
-        }
-        return findNode(node.getChildNode(), nodeId);
     }
 
     private void validateApplicant(ResolvedModifyRequestSetting setting, Long userId) {
@@ -327,22 +304,6 @@ public class BpmModifyRequestServiceImpl implements BpmModifyRequestService {
             result.setApplicantParam(setting.getApplicantParam());
             result.setNodeScopeType(ObjectUtil.defaultIfNull(setting.getNodeScopeType(), NODE_SCOPE_ALL));
             result.setNodeIds(setting.getNodeIds());
-            result.setChildProcessDefinitionKey(StrUtil.blankToDefault(setting.getChildProcessDefinitionKey(),
-                    fallbackChildProcessDefinitionKey));
-            result.setResumeStrategy(ObjectUtil.defaultIfNull(setting.getResumeStrategy(),
-                    ObjectUtil.defaultIfNull(fallbackResumeStrategy,
-                            BpmModifyChildProcessResumeStrategyEnum.CONTINUE_LAST_ACTIVE_NODE.getType())));
-            result.setReasonTypes(setting.getReasonTypes());
-            result.validate();
-            return result;
-        }
-
-        static ResolvedModifyRequestSetting from(BpmSimpleModelNodeVO.ModifyProcessSetting setting,
-                                                 String fallbackChildProcessDefinitionKey,
-                                                 Integer fallbackResumeStrategy) {
-            ResolvedModifyRequestSetting result = new ResolvedModifyRequestSetting();
-            result.setEnable(setting.getEnable());
-            result.setNodeScopeType(NODE_SCOPE_ALL);
             result.setChildProcessDefinitionKey(StrUtil.blankToDefault(setting.getChildProcessDefinitionKey(),
                     fallbackChildProcessDefinitionKey));
             result.setResumeStrategy(ObjectUtil.defaultIfNull(setting.getResumeStrategy(),

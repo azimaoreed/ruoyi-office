@@ -70,12 +70,6 @@ public class BpmModifyChildProcessServiceImpl implements BpmModifyChildProcessSe
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public BpmModifyChildProcessStartResultDTO startModifyChildProcess(Long userId, BpmTaskStartModifyChildReqVO reqVO) {
-        return startModifyChildProcess(userId, userId, reqVO);
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
     public BpmModifyChildProcessStartResultDTO startModifyChildProcess(Long operatorUserId, Long startUserId,
                                                                       BpmTaskStartModifyChildReqVO reqVO) {
         Task task = taskService.validateTask(operatorUserId, reqVO.getId());
@@ -200,12 +194,6 @@ public class BpmModifyChildProcessServiceImpl implements BpmModifyChildProcessSe
             return processSetting.getVariableMappings();
         }
 
-        BpmSimpleModelNodeVO currentNode = findNode(simpleModel, link.getParentTaskDefinitionKey());
-        BpmSimpleModelNodeVO.ModifyProcessSetting nodeSetting =
-                currentNode == null ? null : currentNode.getModifyProcessSetting();
-        if (Boolean.TRUE.equals(nodeSetting == null ? null : nodeSetting.getEnable())) {
-            return nodeSetting.getVariableMappings();
-        }
         return null;
     }
 
@@ -216,24 +204,6 @@ public class BpmModifyChildProcessServiceImpl implements BpmModifyChildProcessSe
             return null;
         }
         return JsonUtils.parseObject(processDefinitionInfo.getSimpleModel(), BpmSimpleModelNodeVO.class);
-    }
-
-    private BpmSimpleModelNodeVO findNode(BpmSimpleModelNodeVO node, String nodeId) {
-        if (node == null || StrUtil.isBlank(nodeId)) {
-            return null;
-        }
-        if (StrUtil.equals(node.getId(), nodeId)) {
-            return node;
-        }
-        if (CollUtil.isNotEmpty(node.getConditionNodes())) {
-            for (BpmSimpleModelNodeVO child : node.getConditionNodes()) {
-                BpmSimpleModelNodeVO match = findNode(child, nodeId);
-                if (match != null) {
-                    return match;
-                }
-            }
-        }
-        return findNode(node.getChildNode(), nodeId);
     }
 
     private void validateTaskCanStartModifyChild(Task task) {

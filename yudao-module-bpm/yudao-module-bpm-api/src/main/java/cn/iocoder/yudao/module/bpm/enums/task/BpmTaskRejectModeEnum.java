@@ -15,8 +15,7 @@ import java.util.Arrays;
 public enum BpmTaskRejectModeEnum implements ArrayValuable<Integer> {
 
     FINISH_PROCESS(1, "终止流程"),
-    RETURN_AND_REPLAY(2, "退回重走"),
-    CONTINUE_AFTER_MODIFY(3, "修改后继续");
+    RETURN_AND_REPLAY(2, "退回重走");
 
     private final Integer type;
     private final String name;

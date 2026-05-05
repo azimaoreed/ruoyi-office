@@ -140,12 +140,6 @@ public class BpmSimpleModelNodeVO {
     private ChildProcessSetting childProcessSetting;
 
     /**
-     * 修改申请子流程设置
-     */
-    @Valid
-    private ModifyProcessSetting modifyProcessSetting;
-
-    /**
      * 流程级通用修改申请设置。
      *
      * <p>仅根节点使用。保存在 simpleModel 快照中，兼容旧模型不配置该字段。</p>
@@ -212,33 +206,6 @@ public class BpmSimpleModelNodeVO {
 
         @Schema(description = "允许的驳回原因分类", example = "[1, 2]")
         private List<Integer> reasonTypes;
-    }
-
-    @Schema(description = "修改申请子流程设置")
-    @Data
-    @Valid
-    public static class ModifyProcessSetting {
-
-        @Schema(description = "是否启用", requiredMode = Schema.RequiredMode.REQUIRED, example = "true")
-        @NotNull(message = "是否启用不能为空")
-        private Boolean enable;
-
-        @Schema(description = "按钮名称", example = "申请修改设计")
-        private String buttonName;
-
-        @Schema(description = "修改申请子流程 Key", example = "modify_design_process")
-        private String childProcessDefinitionKey;
-
-        @Schema(description = "默认恢复策略", example = "1")
-        @InEnum(BpmModifyChildProcessResumeStrategyEnum.class)
-        private Integer resumeStrategy;
-
-        @Schema(description = "允许的原因分类", example = "[1, 2]")
-        private List<Integer> reasonTypes;
-
-        @Schema(description = "子流程变量回写主流程变量映射")
-        @Valid
-        private List<ModifyVariableMapping> variableMappings;
     }
 
     @Schema(description = "流程级通用修改申请设置")
