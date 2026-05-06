@@ -1,15 +1,20 @@
 package cn.iocoder.yudao.module.hrm.api.employee;
 
 import cn.iocoder.yudao.framework.common.pojo.CommonResult;
+import cn.iocoder.yudao.module.hrm.api.employee.dto.EmployeeSimpleRespDTO;
 import cn.iocoder.yudao.module.hrm.api.employee.dto.EmployeeUpdateReqDTO;
 import cn.iocoder.yudao.module.hrm.enums.ApiConstants;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.Collection;
+import java.util.List;
 
 import static cn.iocoder.yudao.module.hrm.api.employee.EmployeeApi.PREFIX;
 
@@ -29,5 +34,8 @@ public interface EmployeeApi {
     @Parameter(name = "userId", description = "用户编号", example = "1", required = true)
     CommonResult<Boolean> updateUserGeneratedStatus(@RequestParam("userId") Long userId, @RequestParam("userGenerated") Boolean userGenerated);
 
-}
+    @GetMapping(PREFIX + "/simple-list-by-user-ids")
+    @Operation(summary = "根据用户ID获取员工精简信息")
+    CommonResult<List<EmployeeSimpleRespDTO>> getSimpleListByUserIds(@RequestParam("userIds") Collection<Long> userIds);
 
+}

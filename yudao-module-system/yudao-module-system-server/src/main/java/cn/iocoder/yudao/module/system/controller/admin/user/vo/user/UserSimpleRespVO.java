@@ -28,6 +28,12 @@ public class UserSimpleRespVO {
     @Schema(description = "岗位编号数组", example = "1,2")
     private Set<Long> postIds;
 
+    @Schema(description = "职位", example = "产品经理")
+    private String jobPost;
+
+    @Schema(description = "职务", example = "部门经理")
+    private String jobPosition;
+
     @Schema(description = "手机号码", example = "15601691300")
     private String mobile;
 

@@ -7,6 +7,8 @@ import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.iocoder.yudao.framework.common.pojo.PageParam;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.excel.core.util.ExcelUtils;
+import cn.iocoder.yudao.module.hrm.api.employee.EmployeeApi;
+import cn.iocoder.yudao.module.hrm.api.employee.dto.EmployeeSimpleRespDTO;
 import cn.iocoder.yudao.module.system.controller.admin.user.vo.user.*;
 import cn.iocoder.yudao.module.system.convert.user.UserConvert;
 import cn.iocoder.yudao.module.system.dal.dataobject.dept.DeptDO;
@@ -33,6 +35,7 @@ import java.util.Map;
 
 import static cn.iocoder.yudao.framework.apilog.core.enums.OperateTypeEnum.EXPORT;
 import static cn.iocoder.yudao.framework.common.pojo.CommonResult.success;
+import static cn.iocoder.yudao.framework.common.util.collection.CollectionUtils.convertMap;
 import static cn.iocoder.yudao.framework.common.util.collection.CollectionUtils.convertList;
 
 @Tag(name = "管理后台 - 用户")
@@ -45,6 +48,8 @@ public class UserController {
     private AdminUserService userService;
     @Resource
     private DeptService deptService;
+    @Resource
+    private EmployeeApi employeeApi;
 
     @PostMapping("/create")
     @Operation(summary = "新增用户")
@@ -119,7 +124,19 @@ public class UserController {
         // 拼接数据
         Map<Long, DeptDO> deptMap = deptService.getDeptMap(
                 convertList(list, AdminUserDO::getDeptId));
-        return success(UserConvert.INSTANCE.convertSimpleList(list, deptMap));
+        List<UserSimpleRespVO> result = UserConvert.INSTANCE.convertSimpleList(list, deptMap);
+        Map<Long, EmployeeSimpleRespDTO> employeeMap = convertMap(
+                employeeApi.getSimpleListByUserIds(convertList(list, AdminUserDO::getId)).getCheckedData(),
+                EmployeeSimpleRespDTO::getUserId);
+        result.forEach(user -> {
+            EmployeeSimpleRespDTO employee = employeeMap.get(user.getId());
+            if (employee == null) {
+                return;
+            }
+            user.setJobPost(employee.getJobPost());
+            user.setJobPosition(employee.getJobPosition());
+        });
+        return success(result);
     }
 
     @GetMapping("/get")

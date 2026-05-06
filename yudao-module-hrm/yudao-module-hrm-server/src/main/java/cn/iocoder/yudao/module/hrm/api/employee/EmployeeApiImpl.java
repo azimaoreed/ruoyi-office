@@ -1,12 +1,19 @@
 package cn.iocoder.yudao.module.hrm.api.employee;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.iocoder.yudao.framework.common.pojo.CommonResult;
+import cn.iocoder.yudao.framework.common.util.object.BeanUtils;
+import cn.iocoder.yudao.module.hrm.api.employee.dto.EmployeeSimpleRespDTO;
 import cn.iocoder.yudao.module.hrm.api.employee.dto.EmployeeUpdateReqDTO;
 import cn.iocoder.yudao.module.hrm.dal.dataobject.employee.EmployeeDO;
 import cn.iocoder.yudao.module.hrm.dal.mysql.employee.EmployeeMapper;
 import jakarta.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 import static cn.iocoder.yudao.framework.common.pojo.CommonResult.success;
 
@@ -58,5 +65,13 @@ public class EmployeeApiImpl implements EmployeeApi {
         return success(true);
     }
 
-}
+    @Override
+    public CommonResult<List<EmployeeSimpleRespDTO>> getSimpleListByUserIds(Collection<Long> userIds) {
+        if (CollUtil.isEmpty(userIds)) {
+            return success(Collections.emptyList());
+        }
+        List<EmployeeDO> employees = employeeMapper.selectListByUserIds(userIds);
+        return success(BeanUtils.toBean(employees, EmployeeSimpleRespDTO.class));
+    }
 
+}

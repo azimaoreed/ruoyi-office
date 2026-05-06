@@ -9,6 +9,9 @@ import cn.iocoder.yudao.module.hrm.dal.dataobject.employee.EmployeeDO;
 import cn.iocoder.yudao.module.hrm.enums.EmployeeStatusEnum;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.Collection;
+import java.util.List;
+
 /**
  * 员工档案 Mapper
  *
@@ -112,5 +115,9 @@ public interface EmployeeMapper extends BaseMapperX<EmployeeDO> {
                 .eq(EmployeeDO::getUserId, userId));
     }
 
-}
+    default List<EmployeeDO> selectListByUserIds(Collection<Long> userIds) {
+        return selectList(new LambdaQueryWrapperX<EmployeeDO>()
+                .in(EmployeeDO::getUserId, userIds));
+    }
 
+}
